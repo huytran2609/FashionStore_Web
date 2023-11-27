@@ -127,6 +127,47 @@ const logout = asyncHandler(async (req, res) => {
     });
 });
 
+const updateUserAddress = asyncHandler(async (req, res) => {
+    const { _id } = req.user;
+    if (!req.body.address) throw new Error('Missing input!');
+    const response = await User.findByIdAndUpdate(_id, { $push: { address: req.body.address } }, { new: true }).select(
+        '-password -refreshToken',
+    );
+    return res.status(200).json({
+        success: response ? true : false,
+        updatedUser: response ? response : 'Update failed',
+    });
+});
+
+const updateCart = asyncHandler(async (req, res) => {
+    const { _id } = req.user;
+    const { pid, quantity = 1, color } = req.body;
+    if (!pid || !color) throw new Error('Missing input!');
+    const user = await User.findById(_id).select('cart');
+    const alreadyProduct = user?.cart?.find((item) => item?.product.toString() === pid && item?.color === color);
+    if (alreadyProduct) {
+        const response = await User.updateOne(
+            { cart: { $elemMatch: alreadyProduct } },
+            { $set: { 'cart.$.quantity': alreadyProduct.quantity + +quantity } },
+            { new: true },
+        );
+        return res.status(200).json({
+            success: response ? true : false,
+            updatedUser: response ? response : 'Update failed',
+        });
+    } else {
+        const response = await User.findByIdAndUpdate(
+            _id,
+            { $push: { cart: { product: pid, quantity, color } } },
+            { new: true },
+        );
+        return res.status(200).json({
+            success: response ? true : false,
+            updatedUser: response ? response : 'Update failed',
+        });
+    }
+});
+
 module.exports = {
     register,
     login,
@@ -137,4 +178,6 @@ module.exports = {
     deleteUser,
     updateUser,
     updateUserByAdmin,
+    updateUserAddress,
+    updateCart,
 };
