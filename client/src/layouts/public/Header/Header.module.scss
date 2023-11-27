@@ -1,0 +1,19 @@
+.header {
+    padding: 20px 40px;
+}
+
+.category {
+    .categoryList {
+        font-style: none;
+        display: flex;
+        li {
+            padding: 20px 30px;
+            color: black;
+            &:hover {
+                color: #f8508d;
+                cursor: pointer;
+            }
+        }
+    }
+
+}
