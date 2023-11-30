@@ -5,10 +5,12 @@ import Product from '~/pages/admin/products';
 import User from '~/pages/admin/users';
 import Home from '~/pages/public/home';
 import Login from '~/pages/public/login';
+import Register from '~/pages/public/register';
 
 const publicRoutes = [
     { path: config.home, page: Home },
     { path: config.login, page: Login, layout: null },
+    { path: config.register, page: Register, layout: null },
 ];
 
 const privateRoutes = [

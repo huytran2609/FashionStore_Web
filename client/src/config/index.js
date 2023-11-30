@@ -2,6 +2,7 @@ const config = {
     //public
     home: '/',
     login: '/login',
+    register: '/register',
 
     //private
     admin: '/dashboard',
