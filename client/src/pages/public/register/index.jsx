@@ -116,6 +116,7 @@ export default function Register() {
                         <input
                             type="email"
                             id="email"
+                            autoComplete="off"
                             onChange={(e) => { setEmail(e.target.value) }}
                             aria-invalid={validEmail ? "false" : "true"}
                             aria-describedby="emailnote"
@@ -145,6 +146,7 @@ export default function Register() {
                         <input
                             type="password"
                             id="password"
+                            autoComplete="off"
                             onChange={(e) => { setPwd(e.target.value) }}
                             aria-invalid={validPwd ? "false" : "true"}
                             aria-describedby="pwdnote"
@@ -176,6 +178,7 @@ export default function Register() {
                         <input
                             type="password"
                             id="confirmPassword"
+                            autoComplete="off"
                             onChange={(e) => setMatchPwd(e.target.value)}
                             value={matchPwd}
                             aria-invalid={validMatch ? "false" : "true"}
