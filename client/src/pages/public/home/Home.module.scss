@@ -1,3 +1,11 @@
+@mixin limitText3 {
+    display: -webkit-inline-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 @mixin limitText4 {
     display: -webkit-inline-box;
     -webkit-line-clamp: 4;
@@ -6,9 +14,9 @@
     text-overflow: ellipsis;
 }
 
-@mixin limitText3 {
+@mixin limitText5 {
     display: -webkit-inline-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -56,7 +64,14 @@
     top: 0;
     
     .contactWelcome {
-        margin: 20px 0 0 43%;
+        margin: 15px 0 0 43%;
+        .btnWelcome {
+            background-color: #ec8bc2;
+            color: #fff;
+            &:hover {
+                opacity: 90%;
+            }
+        }
     }
 
     .leftImg {
@@ -305,7 +320,7 @@
 
 .popularProduct {
     width: 100%;
-    padding: 50px;
+    padding: 20px 50px;
     .popularTitle {
         width: 100%;
         text-align: center;
@@ -369,13 +384,132 @@
 }
 
 .latestProduct {
-    padding: 0 50px;
+    padding: 10px 50px 20px 50px;
     .latestTitle {
         text-align: center;
         font-weight: bold;
         font-size: 35px;
-        padding-bottom: 10px;
+        padding-bottom: 20px;
         color: #d977a9;
         text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
+    }
+    .frameBtnAll {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 35px;
+        .btnAll {
+            color: #fff;
+            background-color: #be226b;
+            border-radius: 30px;
+            &:hover {
+                background-color: #ee1f6b;
+                opacity: 95%;
+            }
+        }
+    }
+}
+
+.encourageBuy {
+    margin: 15px 50px;
+    display: flex;
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+    background-color: #B0D3FF;
+    box-shadow: 1px 4px 36px 5px rgba(0, 0, 0, 0.25);
+    .leftEncourage{
+        display: flex;
+        justify-content: center;
+        img {
+            height: 90%;
+            scale: 125%;
+        }
+    }
+    
+    .rightEncourage {
+        padding: 50px 60px 75px 0;
+        h1 {
+            color: #fff;
+            font-size: 50px;
+            font-weight: bold;
+            text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
+            line-height: 1.2;
+        }
+    
+        p {
+            margin: 20px 0;
+            color: #fff;
+            @include limitText5;
+            text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
+        }
+    
+        .frameBtnEncourage {
+            display: flex;
+            justify-content: left;
+            .buyNow {
+                margin-left: 0;
+                color: #fff;
+                background-color: #EF471E;;
+                &:hover {
+                    opacity: 80%;
+                }
+            }
+        }
+    }
+
+}
+
+.whyShop {
+    margin: 40px 50px;
+    .whyTitle {
+        display: flex;
+        justify-content: center;
+        h1 {
+            text-align: center;
+            font-weight: bold;
+            font-size: 35px;
+            padding-bottom: 35px;
+            color: #000;
+            text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
+        }
+    }
+    .methodDelivery {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 35px;
+        .method {
+            padding: 20px;
+            border-radius: 30px;
+            box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
+            margin: 0 10px;
+            -webkit-border-radius: 30px;
+            -moz-border-radius: 30px;
+            -ms-border-radius: 30px;
+            -o-border-radius: 30px;
+            .iconDelivery {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 85px;
+                img {
+                    height: 100%;
+                }
+            }
+            h3 {
+                padding-top: 5px;
+                padding-bottom: 5px;
+                color: #ef5d30;
+                text-align: center;
+                font-size: 25px;
+                font-weight: bold;
+                text-shadow: 1px 2px 2px rgba(97, 97, 97, 0.25);
+            }
+            p {
+                @include limitText3;
+            }
+        }
     }
 }

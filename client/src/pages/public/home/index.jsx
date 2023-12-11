@@ -3,6 +3,8 @@ import bgWelcome from '../assets/BackgroundWelcome/Group2.jpg'
 import proWelcome from '../assets/BackgroundWelcome/giay.png'
 import Button from '~/components/Button/Button'
 import imgVec from '../assets/BackgroundWelcome/leftVecto.svg'
+import targetVecto from '../assets/ImgSaving/leftSave.png'
+import fastIcon from '../assets/ImgDelivery/fastdelivery.png'
 import fire from '../assets/BackgroundWelcome/fire.gif'
 import imgBest from '../assets/ImgBestSeller/Shoe.jpeg'
 import setSport from '../assets/ImgBestSeller/SetSport.png'
@@ -42,7 +44,7 @@ function Home() {
                 <div className={styles.titleWelcome}>Welcome to 4BEST SHOP</div>
                 <div className={styles.contentWelcome}>Welcome to 4Best SHOP, where your shopping experience is elevated to a whole new level! Dive into a world of unparalleled variety and quality, curated just for you. Discover the latest trends, must-have essentials, and exclusive deals that redefine your shopping journey. Join us in exploring a realm of style, convenience, and exceptional value. Happy shopping at 4Best SHOP – where excellence meets your every need!</div>
                 <div className={styles.contactWelcome}>
-                    <Button link='Contact' content='Contact Us' />
+                    <Button classParent={styles.btnWelcome} link='Contact' content='Contact Us' />
                 </div>
                 <div className={styles.leftImg}>
                     <img src={imgVec} alt="Left Image" />
@@ -127,7 +129,7 @@ function Home() {
                 </div>
             </div>
 
-            <div className={styles.latestProduct}>
+            <div className={styles.latestProduct} data-aos='fade-up'>
                 <h1 className={styles.latestTitle}>LATEST PRODUCT</h1>
                 <div className='grid grid-cols-5 gap-4'>
                     {/* {productData.slice(0, 10).map(({ thumb, title, price }) => ( */}
@@ -140,7 +142,7 @@ function Home() {
                             newPrice={price}
                         />
                     ))} */}
-                    {productData.map(({ thumb, title, price }) => (
+                    {productData.slice(0, 10).map(({ thumb, title, price }) => (
                         <MemoizedProduct
                             key={Math.random()}
                             img={thumb}
@@ -149,6 +151,53 @@ function Home() {
                             newPrice={price}
                         />
                     ))}
+                </div>
+                <div className={styles.frameBtnAll}>
+                    <Button classParent={styles.btnAll} link='AllProduct' content='View All Product' />
+                </div>
+            </div>
+
+            <div className={styles.encourageBuy} data-aos='fade-up'>
+                <div className={styles.leftEncourage}>
+                    <img src={targetVecto} alt="Target" />
+                </div>
+
+                <div className={styles.rightEncourage} data-aos='zoom-in'>
+                    <h1>BEST SAVINGS ON NEW ARRIVALS</h1>
+                    <p>Unlock unparalleled savings on the latest trends with our Best Savings on New Arrivals! Experience the joy of style and affordability as you explore a curated collection of fresh, must have items. Elevate your wardrobe without breaking the bank discover unbeatable discounts on chic new arrivals that blend fashion forward designs with incredible savings!</p>
+                    <div className={styles.frameBtnEncourage}>
+                        <Button classParent={styles.buyNow} content='Buy Now' />
+                        <Button classParent={styles.enSeeMore} content='See More' />
+                    </div>
+                </div>
+            </div>
+
+            <div className={styles.whyShop} data-aos='fade-up'>
+                <div className={styles.whyTitle}>
+                    <h1>WHY SHOP WITH US</h1>
+                </div>
+                <div className={styles.methodDelivery}>
+                    <div className={styles.method} data-aos='zoom-in'>
+                        <div className={styles.iconDelivery}>
+                            <img src={fastIcon} alt="Delivery Icon" />
+                        </div>
+                        <h3>FAST DELIVERY</h3>
+                        <p>"Experience the convenience of our lightning-fast delivery service! From checkout to your doorstep, our efficient process ensures your orders arrive promptly, providing swift satisfaction for your every purchase.</p>
+                    </div>
+                    <div className={styles.method} data-aos='zoom-in'>
+                        <div className={styles.iconDelivery}>
+                            <img src={fastIcon} alt="Delivery Icon" />
+                        </div>
+                        <h3>FAST DELIVERY</h3>
+                        <p>"Experience the convenience of our lightning-fast delivery service! From checkout to your doorstep, our efficient process ensures your orders arrive promptly, providing swift satisfaction for your every purchase.</p>
+                    </div>
+                    <div className={styles.method} data-aos='zoom-in'>
+                        <div className={styles.iconDelivery}>
+                            <img src={fastIcon} alt="Delivery Icon" />
+                        </div>
+                        <h3>FAST DELIVERY</h3>
+                        <p>"Experience the convenience of our lightning-fast delivery service! From checkout to your doorstep, our efficient process ensures your orders arrive promptly, providing swift satisfaction for your every purchase.</p>
+                    </div>
                 </div>
             </div>
 

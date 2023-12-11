@@ -3,10 +3,11 @@ import img from '../../../pages/public/assets/ImgBestSeller/Shoe.jpeg'
 import Star from '~/components/Star/Star'
 import Button from '~/components/Button/Button'
 import { Link } from 'react-router-dom'
+
 export default function Product({ img, title, newPrice, prevPrice }) {
     return (
         <>
-            <div className={styles.Product} >
+            <div className={styles.Product} data-aos='fade-up' >
                 <Link className={styles.imgProduct} data-aos="zoom-in">
                     <img src={img} alt="Image Product" loading='lazy' />
                 </Link>
