@@ -119,7 +119,7 @@ function Home() {
                 <h1 className={styles.popularTitle} data-aos="fade-up">POPULAR PRODUCT</h1>
                 <p className={styles.popularDes} data-aos="fade-up">These exquisite ensemble is the epitome of modern sophistication, seamlessly blending style and comfort for the discerning fashionista. Crafted from premium, breathable fabrics, the ensemble features a tailored fit that accentuates your curves while providing all-day comfort. The chic design incorporates trendy patterns and a versatile color palette, ensuring you make a statement at any event, from casual outings to upscale soirées. With meticulous attention to detail and a commitment to quality</p>
                 <div className={styles.popularFrame} data-aos="fade-up">
-                    <div className={styles.leftPopFrame}>
+                    <div className={styles.leftPopFrame} data-aos='fade-right'>
                         <img src={setSport} alt="Set Sport IMG" />
                     </div>
                     <div className={styles.rightPopFrame}>
@@ -128,7 +128,7 @@ function Home() {
                         <Button classParent={styles.rightButton} content='BUY NOW' /> */}
                     </div>
                     <div className={styles.centerPopFrame}>
-                        <img src={setSport2} alt="Set Sport IMG" />
+                        <img src={setSport2} alt="Set Sport IMG" data-aos='fade-left' />
                     </div>
                 </div>
             </div>
