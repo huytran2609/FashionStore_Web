@@ -352,7 +352,18 @@
         .leftPopFrame{
             flex: 1;
             display: flex;
+            align-items: flex-end;
             justify-content: center;
+            img {
+                height: 85%;
+            }
+        }
+
+        .centerPopFrame {
+            flex: 1;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
             img {
                 height: 85%;
             }
@@ -362,8 +373,10 @@
             flex: 1;
             padding: 50px;
             .rightTitle {
+                position: absolute;
+                // left: -1%;
                 color: #47c0ff;
-                font-size: 50px;
+                font-size: 70px;
                 font-weight: bold;
                 text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
             }

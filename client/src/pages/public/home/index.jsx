@@ -7,7 +7,8 @@ import targetVecto from '../assets/ImgSaving/leftSave.png'
 import fastIcon from '../assets/ImgDelivery/fastdelivery.png'
 import fire from '../assets/BackgroundWelcome/fire.gif'
 import imgBest from '../assets/ImgBestSeller/Shoe.jpeg'
-import setSport from '../assets/ImgBestSeller/SetSport.png'
+import setSport from '../assets/Model/model_nobg.png'
+import setSport2 from '../assets/Model/model2_nobg.png'
 import 'aos/dist/aos.css';
 import Star from '~/components/Star/Star'
 import Product from '~/layouts/public/Products/Product'
@@ -123,8 +124,11 @@ function Home() {
                     </div>
                     <div className={styles.rightPopFrame}>
                         <h1 className={styles.rightTitle}>NEW STYLE SPORT</h1>
-                        <h3 className={styles.rightPrice}>$1000</h3>
-                        <Button classParent={styles.rightButton} content='BUY NOW' />
+                        {/* <h3 className={styles.rightPrice}>$1000</h3>
+                        <Button classParent={styles.rightButton} content='BUY NOW' /> */}
+                    </div>
+                    <div className={styles.centerPopFrame}>
+                        <img src={setSport2} alt="Set Sport IMG" />
                     </div>
                 </div>
             </div>
