@@ -9,6 +9,10 @@ var categorySchema = new mongoose.Schema(
             unique: true,
             index: true,
         },
+        childrenCategory: {
+            type: Array,
+            default: [],
+        },
     },
     {
         timestamps: true,

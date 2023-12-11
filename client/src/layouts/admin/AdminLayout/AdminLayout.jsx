@@ -1,79 +1,20 @@
 import PropTypes from 'prop-types';
+import SidebarAdmin from '../Components/Sidebar';
+import HeaderAdmin from '../Components/Header';
 
-import { useState } from 'react';
-import {
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
-    UploadOutlined,
-    UserOutlined,
-    VideoCameraOutlined,
-} from '@ant-design/icons';
-import { Layout, Menu, Button, theme } from 'antd';
-const { Header, Sider, Content } = Layout;
-const AdminLayout = () => {
-    const [collapsed, setCollapsed] = useState(false);
-    const {
-        token: { colorBgContainer },
-    } = theme.useToken();
+function AdminLayout({ children }) {
     return (
-        <Layout style={{height: "100%"}}>
-            <Sider trigger={null} collapsible collapsed={collapsed}>
-                <div className="demo-logo-vertical" />
-                <Menu
-                    theme="dark"
-                    mode="inline"
-                    defaultSelectedKeys={['1']}
-                    items={[
-                        {
-                            key: '1',
-                            icon: <UserOutlined />,
-                            label: 'nav 1',
-                        },
-                        {
-                            key: '2',
-                            icon: <VideoCameraOutlined />,
-                            label: 'nav 2',
-                        },
-                        {
-                            key: '3',
-                            icon: <UploadOutlined />,
-                            label: 'nav 3',
-                        },
-                    ]}
-                />
-            </Sider>
-            <Layout>
-                <Header
-                    style={{
-                        padding: 0,
-                        background: colorBgContainer,
-                    }}
-                >
-                    <Button
-                        type="text"
-                        icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                        onClick={() => setCollapsed(!collapsed)}
-                        style={{
-                            fontSize: '16px',
-                            width: 64,
-                            height: 64,
-                        }}
-                    />
-                </Header>
-                <Content
-                    style={{
-                        margin: '24px 16px',
-                        padding: 24,
-                        minHeight: 280,
-                        background: colorBgContainer,
-                    }}
-                >
-                    Content
-                </Content>
-            </Layout>
-        </Layout>
+        <div className="bg-neutral-100 h-screen w-screen overflow-hidden flex flex-row">
+            <SidebarAdmin />
+            <div className="flex flex-col flex-1">
+                <HeaderAdmin />
+                <div className="flex-1 p-4 min-h-0 overflow-auto bg_admin">
+                    {children}
+                </div>
+            </div>
+        </div>
     );
-};
+}
 
 AdminLayout.propTypes = {
     children: PropTypes.node.isRequired,

@@ -1,6 +1,6 @@
 import styles from './Header.module.scss';
 import { Row, Col } from 'antd';
-import Logo from '../../../assets/Logo/Logo_grey.svg';
+import Logo from '~/assets/Logo/Logo_grey.svg';
 import { FaSearch } from "react-icons/fa";
 import Button from '~/components/Button/Button';
 

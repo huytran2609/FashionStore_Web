@@ -8,11 +8,7 @@ function Home() {
                     <div className="">
                         <div className={styles.titleWelcome}>Welcome to 4BEST SHOP</div>
                         <div className={styles.contentWelcome}>Sequi perspiciatis nulla reiciendis, rem, tenetur impedit, eveniet non necessitatibus error distinctio mollitia suscipit. Nostrum fugit doloribus consequatur distinctio esse, possimus maiores aliquid repellat beatae cum, perspiciatis enim, accusantium perferendis.</div>
-                        <img
-                            className={styles.img1}
-                            alt=""
-                            src='/assets/BackgroundWelcome/rectangle-11.svg'
-                        />
+                        
                     </div>
                     <div className="col-span-2"></div>
                 </div>

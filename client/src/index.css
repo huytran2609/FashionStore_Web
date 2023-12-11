@@ -7,7 +7,16 @@
 }
 
 html,
-body {
+body, #root, .App {
   height: 100%;
   font-family: 'Poppins', sans-serif;
+}
+
+@layer components {
+  .bg_admin {
+    background: linear-gradient(112.9deg, #fffae7 0%, rgba(173, 114, 255, 0.716) 100%);
+  }
+  .item_color {
+    background: rgb(59 130 246 / 0.5);
+  }
 }

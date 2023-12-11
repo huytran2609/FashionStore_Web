@@ -6,7 +6,6 @@ var productSchema = new mongoose.Schema(
         title: {
             type: String,
             required: true,
-            unique: true,
             index: true,
         },
         brand: {
@@ -20,16 +19,13 @@ var productSchema = new mongoose.Schema(
         },
         description: {
             type: String,
-            required: true,
-            unique: true,
         },
         price: {
             type: Number,
             required: true,
         },
         category: {
-            type: mongoose.Types.ObjectId,
-            ref: 'Category',
+            type: String,
             required: true,
         },
         quantity: {
@@ -40,11 +36,17 @@ var productSchema = new mongoose.Schema(
             type: Number,
             default: 0,
         },
+        thumbnail: {
+            type: String,
+        },
         images: {
             type: Array,
         },
         color: {
-            type: String,
+            type: Array,
+        },
+        size: {
+            type: Array,
         },
         ratings: [
             {

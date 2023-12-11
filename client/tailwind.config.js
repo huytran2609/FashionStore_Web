@@ -6,7 +6,9 @@ export default {
         extend: {
             width: {},
             backgroundColor: {},
-            colors: {},
+            colors: {
+                linearBG: "hsla(11, 82%, 87%, 1)",
+            },
         },
     },
     plugins: [],
