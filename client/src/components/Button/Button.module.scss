@@ -1,6 +1,7 @@
 
 .btn {
-    width: 100px;
+    width: max-content;
+    padding: 20px;
     height: 40px;
     border-radius: 20px;
     background: #FFF;
@@ -10,9 +11,12 @@
     -ms-border-radius: 20px;
     -o-border-radius: 20px;
     margin: 0 10px;
-    &>a:hover{
-        color: #fff;
+    &:hover {
         background-color: #ee1f6b;
+        cursor: pointer;
+    }
+    &:hover>a{
+        color: #fff;
         border-radius: 20px;
         -webkit-border-radius: 20px;
         -moz-border-radius: 20px;
@@ -23,6 +27,7 @@
         -moz-transition: color 0s;
         -ms-transition: color 0s;
         -o-transition: color 0s;
+         
 }
 }
 
