@@ -1,0 +1,93 @@
+@mixin limitText2 {
+    display: -webkit-inline-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.Product {
+    width: 100%;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    // box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
+    &:hover {
+        cursor: pointer;
+    }
+    .imgProduct
+    {
+        height: 245px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        img {
+            width: 100%;
+            object-fit: cover;
+            border-top-right-radius: 20px;
+            border-top-left-radius: 20px;
+        }
+    }
+
+    .imgProduct:hover {
+        cursor: pointer;
+        border-top-right-radius: 20px;
+        border-top-left-radius: 20px;
+    }
+
+    .imgProduct:hover img {
+        transform: scale(1.1);
+        transition: transform 0.3s ease;
+    }
+    
+    .productBelow {
+        padding: 5px 15px;
+        font-size: 14px;
+        color: #000;
+        .productName {
+            height: 39px;
+            @include limitText2;
+        }
+
+        .productInfo {
+            display: flex;
+            justify-content: space-between;
+            .productNewPrice {
+                font-weight: bold;
+                color: #E280AD;
+                text-shadow: 1px 1px 1px rgb(103 0 76 / 13%);
+
+            }
+
+            .productPrevPrice {
+                color: #999;
+                text-decoration: line-through;
+                margin-right: 5px;
+                font-size: 12;
+                @include limitText2;
+            }
+
+            .productRate {
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        .btnProduct {
+            margin: 10px 0;
+            width: 100%;
+            background-color: #be226b;
+            color: #fff;
+            font-size: 13px;
+        }
+
+        .btnProduct:hover {
+            background-color: #ee1f6b;
+            opacity: 95%;
+        }
+    }
+}
+
