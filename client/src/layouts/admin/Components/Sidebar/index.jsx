@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { DASHBOARD_SIDEBAR_BOTTOM_LINKS, DASHBOARD_SIDEBAR_LINKS } from './constants';
 import classNames from 'classnames';
 import { HiOutlineLogout } from 'react-icons/hi';
+import config from '~/config';
 
 const linkClass =
     'flex item-center gap-2 px-3 py-2 hover:item_color hover:no-underline active:bg-blue-600 active:text-white rounded-md text-base';
@@ -11,9 +12,9 @@ function SidebarAdmin() {
     const { pathname } = useLocation();
     return (
         <div className="bg-gray-900 w-60 p-3 flex flex-col">
-            <div>
-                <img alt="" src={Logo} />
-            </div>
+            <Link to={config.home}>
+                <img alt="4BEST" src={Logo} />
+            </Link>
             <div className="flex flex-1 flex-col gap-2 py-8">
                 {DASHBOARD_SIDEBAR_LINKS.map((link) => (
                     <Link
