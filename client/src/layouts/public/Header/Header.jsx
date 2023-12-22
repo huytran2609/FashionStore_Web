@@ -5,19 +5,18 @@ import { FaSearch, FaShoppingCart } from 'react-icons/fa';
 import Button from '~/components/Button/Button';
 import config from '~/config';
 import categoryApi from '~/apis/categoryAPI/categoryApi';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Header() {
     const [categories, setCategories] = useState([]);
 
-    // useEffect(() => {
-    //     const fetchApiCategories = async () => {
-    //         const response = await categoryApi.getAll();
-    //         setCategories(response.categories);
-    //         console.log(response);
-    //     };
-    //     fetchApiCategories();
-    // }, []);
+    useEffect(() => {
+        const fetchApiCategories = async () => {
+            const response = await categoryApi.getAll();
+            setCategories(response.dataCategories);
+        };
+        fetchApiCategories();
+    }, []);
 
     return (
         <>
@@ -28,11 +27,9 @@ export default function Header() {
                 <div className={styles.lineHeader}></div>
                 <Col span={11} className={styles.category}>
                     <ul className={styles.categoryList}>
-                        <li>Sneakers</li>
-                        <li>Flats</li>
-                        <li>Nike</li>
-                        <li>Man</li>
-                        <li>Woman</li>
+                        {categories.map((data) =>
+                            <li key={data._id}>{data.title}</li>
+                        )}
                     </ul>
                 </Col>
                 <Col className={styles.cpnHeader3} span={10}>
