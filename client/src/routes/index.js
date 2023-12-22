@@ -6,11 +6,17 @@ import User from '~/pages/admin/users';
 import Home from '~/pages/public/home';
 import Login from '~/pages/public/login';
 import Register from '~/pages/public/register';
+import Category from '~/pages/public/category';
+import ProductDetail from '~/pages/public/productdetail';
 
 const publicRoutes = [
     { path: config.home, page: Home },
     { path: config.login, page: Login, layout: null },
     { path: config.register, page: Register, layout: null },
+    { path: config.category, page: Category },
+    { path: config.productdetail, page: ProductDetail },
+    // { path: config.cart, page: Cart },
+    // { path: config.profile, page: Profile },
 ];
 
 const privateRoutes = [

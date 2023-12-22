@@ -1,0 +1,36 @@
+.imgDetail {
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+    box-shadow: 0.49px 1.958px 4.958px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    img{
+        height: 100%;
+    }
+}
+
+.listImgDetail {
+    display: flex;
+    height: 100px;
+    overflow: hidden;
+    .imgDetail1 {
+
+    }
+
+    .imgDetail2 {
+
+    }
+
+    .imgDetail3 {
+
+    }
+
+    .imgDetail4 {
+
+    }
+}

@@ -82,3 +82,18 @@
     background-color: transparent;
     width: 81%;
 }
+
+.cart {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    .cartIcon {
+        color: #FFF;
+        font-size: 25px;
+        margin: 0 10px;
+        &:hover {
+            cursor: pointer;
+            opacity: 80%;
+        }
+    }
+}

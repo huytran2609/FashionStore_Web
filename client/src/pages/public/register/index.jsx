@@ -3,6 +3,7 @@ import { IoMdMail } from "react-icons/io";
 import { FaUser, FaLock, FaInfoCircle, FaRegTimesCircle, FaCheckCircle } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { useState, useEffect, useRef } from "react";
+import { getAllUser } from '~/apis/user/index'
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{5,23}$/;
 const EMAIL_REGEX = /^\S+@\S+\.\S+$/;
@@ -31,6 +32,13 @@ export default function Register() {
 
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
+
+    const [values, setValues] = useState({
+        email: email,
+        name: user,
+        password: pwd,
+        phone: '012345678'
+    });
 
     useEffect(() => {
         userRef.current.focus();
@@ -61,152 +69,195 @@ export default function Register() {
         setErrMsg('');
     }, [user, email, pwd, matchPwd]);
 
+    useEffect(() => {
+        const fetchUser = async () => {
+            const listUser = await getAllUser();
+            console.log(listUser)
+        }
+
+        fetchUser();
+    }, []);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        // 
+        // const v1 = USER_REGEX.test(user);
+        // const v2 = PWD_REGEX.test(pwd);
+        // if (!v1 || !v2) {
+        //     setErrMsg("Invalid Entry");
+        //     return;
+        // }
+        // console.log(user, pwd);
+        // setSuccess(true);
+        try {
+            await axios.post("http://127.0.0.1:5173/Register", {
+                email,
+                name: user,
+                password: pwd,
+                phone: '012345678'
+            })
+        } catch (error) {
+
+        }
+    }
 
     return (
-        <section className={styles.bodyRegister}>
-            <div className={styles.wrapper}>
-                <p ref={errRef} className={errMsg ? styles.errMsg : styles.offScreen} aria-live="assertive">{errMsg}</p>
-                <form action="">
-                    <h1>Register</h1>
+        <>
+            {
+                success ? (
+                    <section>
+                        <h1>Success!</h1>
+                        <p>
+                            <a href="#">Sign In</a>
+                        </p>
+                    </section>
+                ) : (
+                    <section className={styles.bodyRegister}>
+                        <div className={styles.wrapper}>
+                            <p ref={errRef} className={errMsg ? styles.errMsg : styles.offScreen} aria-live="assertive">{errMsg}</p>
+                            <form onSubmit={handleSubmit} action="">
+                                <h1>Register</h1>
 
-                    <div className={styles.inputBox}>
+                                <div className={styles.inputBox}>
 
-                        <span className={validName ? styles.valid : styles.hide}>
-                            <FaCheckCircle />
-                        </span>
+                                    <span className={validName ? styles.valid : styles.hide}>
+                                        <FaCheckCircle />
+                                    </span>
 
-                        <span className={validName || !user ? styles.hide : styles.invalid}>
-                            <FaRegTimesCircle />
-                        </span>
+                                    <span className={validName || !user ? styles.hide : styles.invalid}>
+                                        <FaRegTimesCircle />
+                                    </span>
 
-                        <input
-                            type="text"
-                            id="userName"
-                            ref={userRef}
-                            autoComplete="off"
-                            onChange={(e) => { setUser(e.target.value) }}
-                            placeholder='Enter the Full Name . . .'
-                            aria-invalid={validName ? "false" : "true"}
-                            aria-describedby="uidnote"
-                            onFocus={() => setUserFocus(true)}
-                            onBlur={() => setUserFocus(false)}
-                            required />
+                                    <input
+                                        type="text"
+                                        id="userName"
+                                        ref={userRef}
+                                        autoComplete="off"
+                                        onChange={(e) => { setUser(e.target.value) }}
+                                        placeholder='Enter the Full Name . . .'
+                                        aria-invalid={validName ? "false" : "true"}
+                                        aria-describedby="uidnote"
+                                        onFocus={() => setUserFocus(true)}
+                                        onBlur={() => setUserFocus(false)}
+                                        required />
 
-                        <FaUser className={styles.icon} />
-                    </div>
+                                    <FaUser className={styles.icon} />
+                                </div>
 
-                    <p id="uidnote"
-                        className={userFocus && user && !validName ? styles.instructions : styles.offScreen}>
-                        <FaInfoCircle />
-                        4 to 24 character. <br />
-                        Must begin with a letter. <br />
-                        Letters, numbers, underscores, hyphens allowed.
-                    </p>
+                                <p id="uidnote"
+                                    className={userFocus && user && !validName ? styles.instructions : styles.offScreen}>
+                                    <FaInfoCircle />
+                                    4 to 24 character. <br />
+                                    Must begin with a letter. <br />
+                                    Letters, numbers, underscores, hyphens allowed.
+                                </p>
 
-                    <div className={styles.inputBox}>
+                                <div className={styles.inputBox}>
 
-                        <span className={validEmail ? styles.valid : styles.hide}>
-                            <FaCheckCircle />
-                        </span>
+                                    <span className={validEmail ? styles.valid : styles.hide}>
+                                        <FaCheckCircle />
+                                    </span>
 
-                        <span className={validEmail || !email ? styles.hide : styles.invalid}>
-                            <FaRegTimesCircle />
-                        </span>
+                                    <span className={validEmail || !email ? styles.hide : styles.invalid}>
+                                        <FaRegTimesCircle />
+                                    </span>
 
-                        <input
-                            type="email"
-                            id="email"
-                            autoComplete="off"
-                            onChange={(e) => { setEmail(e.target.value) }}
-                            aria-invalid={validEmail ? "false" : "true"}
-                            aria-describedby="emailnote"
-                            onFocus={() => setEmailFocus(true)}
-                            onBlur={() => setEmailFocus(false)}
-                            placeholder='Enter the Email . . .'
-                            required />
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        autoComplete="off"
+                                        onChange={(e) => { setEmail(e.target.value) }}
+                                        aria-invalid={validEmail ? "false" : "true"}
+                                        aria-describedby="emailnote"
+                                        onFocus={() => setEmailFocus(true)}
+                                        onBlur={() => setEmailFocus(false)}
+                                        placeholder='Enter the Email . . .'
+                                        required />
 
-                        <IoMdMail className={styles.icon} />
-                    </div>
+                                    <IoMdMail className={styles.icon} />
+                                </div>
 
-                    <p id="emailnote" className={emailFocus && email && !validEmail ? styles.instructions : styles.offScreen}>
-                        <FaInfoCircle />
-                        Your email must be in a valid format.
-                    </p>
+                                <p id="emailnote" className={emailFocus && email && !validEmail ? styles.instructions : styles.offScreen}>
+                                    <FaInfoCircle />
+                                    Your email must be in a valid format.
+                                </p>
 
-                    <div className={styles.inputBox}>
+                                <div className={styles.inputBox}>
 
-                        <span className={validPwd ? styles.valid : styles.hide}>
-                            <FaCheckCircle />
-                        </span>
+                                    <span className={validPwd ? styles.valid : styles.hide}>
+                                        <FaCheckCircle />
+                                    </span>
 
-                        <span className={validPwd || !pwd ? styles.hide : styles.invalid}>
-                            <FaRegTimesCircle />
-                        </span>
+                                    <span className={validPwd || !pwd ? styles.hide : styles.invalid}>
+                                        <FaRegTimesCircle />
+                                    </span>
 
-                        <input
-                            type="password"
-                            id="password"
-                            autoComplete="off"
-                            onChange={(e) => { setPwd(e.target.value) }}
-                            aria-invalid={validPwd ? "false" : "true"}
-                            aria-describedby="pwdnote"
-                            onFocus={() => setPwdFocus(true)}
-                            onBlur={() => setPwdFocus(false)}
-                            placeholder='Enter the Password . . .'
-                            required />
+                                    <input
+                                        type="password"
+                                        id="password"
+                                        autoComplete="off"
+                                        onChange={(e) => { setPwd(e.target.value) }}
+                                        aria-invalid={validPwd ? "false" : "true"}
+                                        aria-describedby="pwdnote"
+                                        onFocus={() => setPwdFocus(true)}
+                                        onBlur={() => setPwdFocus(false)}
+                                        placeholder='Enter the Password . . .'
+                                        required />
 
-                        <FaLock className={styles.icon} />
-                    </div>
+                                    <FaLock className={styles.icon} />
+                                </div>
 
-                    <p id="pwdnote" className={pwdFocus && !validPwd ? styles.instructions : styles.offScreen}>
-                        <FaInfoCircle />
-                        8 to 24 characters.<br />
-                        Must include uppercase and lowercase letters, a number and a special character.<br />
-                        Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
-                    </p>
+                                <p id="pwdnote" className={pwdFocus && !validPwd ? styles.instructions : styles.offScreen}>
+                                    <FaInfoCircle />
+                                    8 to 24 characters.<br />
+                                    Must include uppercase and lowercase letters, a number and a special character.<br />
+                                    Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
+                                </p>
 
-                    <div className={styles.inputBox}>
+                                <div className={styles.inputBox}>
 
-                        <span className={validMatch && matchPwd ? styles.valid : styles.hide}>
-                            <FaCheckCircle />
-                        </span>
+                                    <span className={validMatch && matchPwd ? styles.valid : styles.hide}>
+                                        <FaCheckCircle />
+                                    </span>
 
-                        <span className={validMatch || !matchPwd ? styles.hide : styles.invalid}>
-                            <FaRegTimesCircle />
-                        </span>
+                                    <span className={validMatch || !matchPwd ? styles.hide : styles.invalid}>
+                                        <FaRegTimesCircle />
+                                    </span>
 
-                        <input
-                            type="password"
-                            id="confirmPassword"
-                            autoComplete="off"
-                            onChange={(e) => setMatchPwd(e.target.value)}
-                            value={matchPwd}
-                            aria-invalid={validMatch ? "false" : "true"}
-                            aria-describedby="confirmnote"
-                            onFocus={() => setMatchFocus(true)}
-                            onBlur={() => setMatchFocus(false)}
-                            placeholder='Enter the Confirm Password . . .'
-                            required />
+                                    <input
+                                        type="password"
+                                        id="confirmPassword"
+                                        autoComplete="off"
+                                        onChange={(e) => setMatchPwd(e.target.value)}
+                                        value={matchPwd}
+                                        aria-invalid={validMatch ? "false" : "true"}
+                                        aria-describedby="confirmnote"
+                                        onFocus={() => setMatchFocus(true)}
+                                        onBlur={() => setMatchFocus(false)}
+                                        placeholder='Enter the Confirm Password . . .'
+                                        required />
 
-                        <FaLock className={styles.icon} />
-                    </div>
+                                    <FaLock className={styles.icon} />
+                                </div>
 
-                    <p id="confirmnote" className={matchFocus && !validMatch ? styles.instructions : styles.offScreen}>
-                        <FaInfoCircle />
-                        Must match the first password input field.
-                    </p>
+                                <p id="confirmnote" className={matchFocus && !validMatch ? styles.instructions : styles.offScreen}>
+                                    <FaInfoCircle />
+                                    Must match the first password input field.
+                                </p>
 
-                    <div className={styles.rememberForgot}>
-                        <label><input type="checkbox" />Remember Me</label>
-                        <a href="#">Forgot password?</a>
-                    </div>
+                                <div className={styles.rememberForgot}>
+                                    <label><input type="checkbox" />Remember Me</label>
+                                    <a href="#">Forgot password?</a>
+                                </div>
 
-                    <button type='submit'>Register</button>
-                    <div className={styles.loginLink}>
-                        <p>Have an account?<Link to="/login"> Login</Link></p>
-                    </div>
-                </form>
-            </div>
-        </section>
+                                <button disabled={!validName || !validPwd || !validMatch || !validEmail ? true : false} >Create Account</button>
+                                <div className={styles.loginLink}>
+                                    <p>Have an account?<Link to="/login"> Login</Link></p>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                )}
+        </>
     )
 }
