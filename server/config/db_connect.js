@@ -11,25 +11,4 @@ const dbConnect = async () => {
     }
 };
 
-// const newSchema = new mongoose.Schema({
-//     email: {
-//         type: String,
-//         require: true
-//     },
-//     user: {
-//         type: String,
-//         require: true
-//     },
-//     password: {
-//         type: String,
-//         require: true
-//     },
-//     phone: {
-//         type: String,
-//         require: false
-//     }
-// })
-
-// const collection = mongoose.model("collection", newSchema)
-
 module.exports = dbConnect;

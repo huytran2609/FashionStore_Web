@@ -5,9 +5,9 @@ import axios from '../axios';
 // };
 
 const categoryApi = {
-    getAll(params) {
+    getAll() {
         const url = '/category/';
-        return axios.get(url, { params });
+        return axios.get(url);
     },
 
     get(id) {
