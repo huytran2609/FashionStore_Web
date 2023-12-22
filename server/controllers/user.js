@@ -59,11 +59,62 @@ const getCurrent = asyncHandler(async (req, res) => {
 });
 
 const getUsers = asyncHandler(async (req, res) => {
-    const users = await User.find().select('-refreshToken -password');
-    return res.status(200).json({
-        success: users ? true : false,
-        users,
-    });
+    const queries = { ...req.query };
+    //Tách các trường đặc biệt ra khỏi query
+    const excludeFields = ['limit', 'sort', 'page', 'fields'];
+    excludeFields.forEach((el) => delete queries[el]);
+    //Format lại các operators cho đúng cú pháp mongoose
+    let queryString = JSON.stringify(queries);
+    queryString = queryString.replace(/\b(gte|gt|lt|lte)\b/g, (matchedEl) => `$${matchedEl}`);
+    const formatedQueries = JSON.parse(queryString);
+
+    //Filtering
+    if (queries?.name) formatedQueries.name = { $regex: queries.name, $options: 'i' };
+
+    if(req.query.q) {
+        delete formatedQueries.q;
+        const regex = { $regex: req.query.q, $options: 'i' };
+        formatedQueries.$or = [
+            { name: regex },
+            { email: regex },
+            { phone: regex },
+        ];
+    }
+
+    let queryCommand = User.find(formatedQueries);
+
+    //Sorting
+    if (req.query.sort) {
+        const sortBy = req.query.sort.split(',').join(' ');
+        queryCommand = queryCommand.sort(sortBy);
+    }
+
+    //Fields limiting
+    if (req.query.fields) {
+        const fields = req.query.fields.split(',').join(' ');
+        queryCommand = queryCommand.select(fields);
+    }
+
+    //Pagination, limit: số Object lấy về từ gọi API, skip: lấy bắt đầu từ số 'skip'
+    const page = +req.query.page || 1;
+    const limit = +req.query.limit || 10;
+    const skip = (page - 1) * limit;
+    queryCommand.skip(skip).limit(limit);
+
+    //Execute queries
+    //Số lượng sp thỏa mãn điều kiện !== số lượng sp trả về 1 lần gọi API
+    queryCommand
+        .then(async (result) => {
+            const counts = await User.find(formatedQueries).countDocuments();
+            return res.status(200).json({
+                success: result ? true : false,
+                counts,
+                users: result ? result : 'Fail to get users',
+            });
+        })
+        .catch((err) => {
+            throw new Error(err.message);
+        });
 });
 
 const deleteUser = asyncHandler(async (req, res) => {
