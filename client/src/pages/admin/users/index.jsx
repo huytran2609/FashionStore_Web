@@ -12,7 +12,7 @@ function User() {
 
     const fetchApiUsers = async (params) => {
         const response = await apiGetUsers(params);
-        setUsers(response.users);
+        setUsers(response);
     };
 
     useEffect(() => {
@@ -44,8 +44,8 @@ function User() {
                         </tr>
                     </thead>
                     <tbody>
-                        {users?.map((user, index) => (
-                            <tr key={user.id} className="border-b dark:border-neutral-500">
+                        {users?.users?.map((user, index) => (
+                            <tr key={user._id} className="border-b dark:border-neutral-500">
                                 <td className="whitespace-nowrap  px-4 py-2 font-semibold">{index + 1}</td>
                                 <td className="whitespace-nowrap  px-4 py-2">{user.name}</td>
                                 <td className="whitespace-nowrap  px-4 py-2">{user.email}</td>
@@ -66,7 +66,7 @@ function User() {
                     </tbody>
                 </table>
             </div>
-            <Pagination  totalCount={users.counts}/>
+            <Pagination totalCount={users.counts}/>
         </div>
     );
 }

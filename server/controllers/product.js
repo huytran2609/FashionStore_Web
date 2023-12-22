@@ -41,12 +41,17 @@ const getProducts = asyncHandler(async (req, res) => {
         const sortBy = req.query.sort.split(',').join(' ');
         queryCommand = queryCommand.sort(sortBy);
     }
+    if(!req.query.sort) {
+        queryCommand = queryCommand.sort({ title: -1 });
+    }
 
     //Fields limiting
     if (req.query.fields) {
         const fields = req.query.fields.split(',').join(' ');
         queryCommand = queryCommand.select(fields);
     }
+
+    
 
     //Pagination, limit: số Object lấy về từ gọi API, skip: lấy bắt đầu từ số 'skip'
     const page = +req.query.page || 1;
@@ -59,6 +64,8 @@ const getProducts = asyncHandler(async (req, res) => {
     queryCommand
         .then(async (result) => {
             const counts = await Product.find(formatedQueries).countDocuments();
+            // Lọc và lộn xộn mảng result            
+            // const shuffledResult = result.filter(() => true).sort(() => Math.random() - 0.5);
             return res.status(200).json({
                 success: result ? true : false,
                 counts,
