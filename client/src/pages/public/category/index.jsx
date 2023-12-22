@@ -8,9 +8,20 @@ import Sidebar from '~/layouts/public/Sidebar/Sidebar';
 import Card from '~/components/Card/Card';
 import { Row, Col } from 'antd';
 import { Pagination } from 'antd';
+import categoryApi from '~/apis/categoryAPI/categoryApi';
 
 
 export default function Category() {
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        const fetchApiCategories = async () => {
+            const response = await categoryApi.getAll();
+            setCategories(response.dataCategories);
+            console.log(response)
+        };
+        fetchApiCategories();
+    }, []);
 
     const [productData, setProductData] = useState([])
 
@@ -96,7 +107,7 @@ export default function Category() {
         <>
             <Row>
                 <Col span={4}>
-                    <Sidebar handleChange={handleChange} />
+                    <Sidebar handleChange={handleChange} productData={categories} />
                 </Col>
                 <Col span={20}>
                     <Row>
@@ -104,7 +115,7 @@ export default function Category() {
 
                         </Col>
                         <Col style={{ height: '90px' }} span={24}>
-                            <Recommended handleClick={handleClick} />
+                            <Recommended handleClick={handleClick} productData={categories} />
                         </Col>
                         <Col className={styles.productCategory} span={24}>
                             <div className='grid grid-cols-4 gap-4'>
