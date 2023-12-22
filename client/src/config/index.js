@@ -3,6 +3,8 @@ const config = {
     home: '/',
     login: '/login',
     register: '/register',
+    category: '/category',
+    productdetail: '/productdetail',
 
     //private
     admin: '/dashboard',

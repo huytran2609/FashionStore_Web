@@ -1,7 +1,7 @@
 import styles from './Header.module.scss';
 import { Row, Col } from 'antd';
 import Logo from '~/assets/Logo/Logo_grey.svg';
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaShoppingCart } from "react-icons/fa";
 import Button from '~/components/Button/Button';
 
 export default function Header() {
@@ -27,9 +27,14 @@ export default function Header() {
                         <input type="text" placeholder='Enter to Search ...' className={styles.searchInput} />
                     </div>
 
+                    <div className={styles.cart}>
+                        <FaShoppingCart className={styles.cartIcon} />
+                    </div>
+
                     <Button link="Login" content="Login" />
 
                     <Button link="Register" content="Register" />
+
                 </Col>
             </Row>
         </>

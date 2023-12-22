@@ -50,7 +50,7 @@ const getProducts = asyncHandler(async (req, res) => {
 
     //Pagination, limit: số Object lấy về từ gọi API, skip: lấy bắt đầu từ số 'skip'
     const page = +req.query.page || 1;
-    const limit = +req.query.limit || 10;
+    const limit = +req.query.limit || 20;
     const skip = (page - 1) * limit;
     queryCommand.skip(skip).limit(limit);
 
@@ -147,7 +147,6 @@ const uploadImagesProduct = asyncHandler(async (req, res) => {
         updatedProduct: response ? response : 'Fail to upload images',
     });
 });
-
 
 module.exports = {
     createProduct,

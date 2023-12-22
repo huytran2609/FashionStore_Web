@@ -12,16 +12,33 @@ import setSport2 from '../assets/Model/model2_nobg.png'
 import 'aos/dist/aos.css';
 import Star from '~/components/Star/Star'
 import Product from '~/layouts/public/Products/Product'
-import productData from '../../../db/FashionStoreData1'
-import React from 'react'
+import { getAllProducts } from '~/apis/products'
+import { useEffect, useState, memo } from 'react'
+import Card from '~/components/Card/Card'
 
 function Home() {
     const randomRate = Math.ceil(Math.random() * 5);
     const randomSale = Math.ceil(Math.random() * 80);
     const randomSale2 = Math.ceil(Math.random() * 80);
-    const arrayNameProduct = ['', '', '', '', '', '', '']
-    const MemoizedProduct = React.memo(({ img, title, prevPrice, newPrice }) => (
-        <Product
+
+    const [productData, setProductData] = useState([])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const productsData = await getAllProducts();
+                setProductData(productsData.products)
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        fetchData();
+    }, []);
+    console.log(productData);
+    console.log(productData.length);
+
+    const MemoizedCard = memo(({ img, title, newPrice }) => (
+        <Card
             key={Math.random()}
             img={img}
             title={title}
@@ -29,7 +46,15 @@ function Home() {
             newPrice={newPrice}
         />
     ));
-
+    const result = productData.slice(0, 10).map(({ thumbnail, title, price }) => (
+        <MemoizedCard
+            key={Math.random()}
+            img={thumbnail}
+            title={title}
+            prevPrice={Number(price * 3)}
+            newPrice={price}
+        />
+    ))
     return (
         <>
             <div className={styles.homeBgColor}>
@@ -146,15 +171,7 @@ function Home() {
                             newPrice={price}
                         />
                     ))} */}
-                    {productData.slice(0, 10).map(({ thumb, title, price }) => (
-                        <MemoizedProduct
-                            key={Math.random()}
-                            img={thumb}
-                            title={title}
-                            prevPrice={Number(price * 3)}
-                            newPrice={price}
-                        />
-                    ))}
+                    <Product result={result} />
                 </div>
                 <div className={styles.frameBtnAll}>
                     <Button classParent={styles.btnAll} link='AllProduct' content='View All Product' />
