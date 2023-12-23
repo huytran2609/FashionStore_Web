@@ -11,7 +11,7 @@ function User() {
     const debounced = useDebounce(query.q, 600);
 
     const fetchApiUsers = async (params) => {
-        const response = await apiGetUsers(params);
+        const response = await apiGetUsers({...params});
         setUsers(response);
     };
 

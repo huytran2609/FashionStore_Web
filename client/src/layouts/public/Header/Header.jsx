@@ -8,7 +8,7 @@ import categoryApi from '~/apis/categoryAPI/categoryApi';
 import { useState, useEffect } from 'react';
 
 export default function Header() {
-    // const [categories, setCategories] = useState([]);
+    const [categories, setCategories] = useState([]);
 
     useEffect(() => {
         const fetchApiCategories = async () => {

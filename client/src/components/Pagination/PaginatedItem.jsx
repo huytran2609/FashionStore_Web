@@ -12,13 +12,16 @@ function PaginatedItem({ children }) {
     // }, [params])
 
     const handlePagination = () => {
-        param = []
+        let param = []
         for(let p of params.entries()) param.push(p)
+        console.log(param);
         const queries = {};
+        for(let p of param) queries[p[0]] = p[1]
+        console.log(queries);
         if (Number(children)) queries.page = children;
         navigate({
             pathname: '/manage-user',
-            search: createSearchParams(params).toString(),
+            search: createSearchParams(queries).toString(),
         });
     };
 

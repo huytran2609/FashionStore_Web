@@ -34,8 +34,8 @@ function Home() {
         };
         fetchData();
     }, []);
-    console.log(productData);
-    console.log(productData.length);
+    // console.log(productData);
+    // console.log(productData.length);
 
     const MemoizedCard = memo(({ img, title, newPrice }) => (
         <Card
