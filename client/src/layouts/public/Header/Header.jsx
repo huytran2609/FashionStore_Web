@@ -31,8 +31,8 @@ export default function Header() {
                 <Col span={11} className={styles.category}>
                     <ul className={styles.categoryList}>
                         {categories.map((data) =>
-                            <Link to={config[data.title.toLowerCase()]}>
-                                <li key={data._id}>
+                            <Link key={data._id} to={config[data.title.toLowerCase()]}>
+                                <li>
                                     {data.title}
                                 </li>
                             </Link>
