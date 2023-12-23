@@ -4,6 +4,11 @@ const config = {
     login: '/login',
     register: '/register',
     category: '/category',
+    women: '/women',
+    men: '/men',
+    kids: '/kids',
+    lifestyle: '/lifestyle',
+    beauty: '/beauty',
     productdetail: '/productdetail',
 
     //private

@@ -88,7 +88,7 @@ function Home() {
                     <img className={styles.leftFire} src={fire} alt="" />
                     <h1>BEST SELLER</h1>
                     <img className={styles.rightFire} src={fire} alt="" />
-                    <Button link='AllProduct' content='See More' classParent={styles.btnMore} />
+                    <Button link='category' content='See More' classParent={styles.btnMore} />
                 </div>
                 <div className={`absolute top-[166px] w-[353px] h-[383px] text-2xl text-black ${styles.framePro2}`} data-aos="fade-right">
                     <div className="absolute top-[0px] rounded-xl bg-white shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] w-[323px] h-[383px]" >
@@ -174,7 +174,7 @@ function Home() {
                     <Product result={result} />
                 </div>
                 <div className={styles.frameBtnAll}>
-                    <Button classParent={styles.btnAll} link='AllProduct' content='View All Product' />
+                    <Button classParent={styles.btnAll} link='category' content='View All Product' />
                 </div>
             </div>
 
@@ -188,7 +188,7 @@ function Home() {
                     <p>Unlock unparalleled savings on the latest trends with our Best Savings on New Arrivals! Experience the joy of style and affordability as you explore a curated collection of fresh, must have items. Elevate your wardrobe without breaking the bank discover unbeatable discounts on chic new arrivals that blend fashion forward designs with incredible savings!</p>
                     <div className={styles.frameBtnEncourage}>
                         <Button classParent={styles.buyNow} content='Buy Now' />
-                        <Button classParent={styles.enSeeMore} content='See More' />
+                        <Button classParent={styles.enSeeMore} link='category' content='See More' />
                     </div>
                 </div>
             </div>

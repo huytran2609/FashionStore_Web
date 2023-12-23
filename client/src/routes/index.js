@@ -8,13 +8,23 @@ import Login from '~/pages/public/login';
 import Register from '~/pages/public/register';
 import Category from '~/pages/public/category';
 import ProductDetail from '~/pages/public/productdetail';
-
+import Women from '~/pages/public/category/women';
+import Men from '~/pages/public/category/men';
+import Beauty from '~/pages/public/category/beauty';
+import Kids from '~/pages/public/category/kids';
+import Lifestyle from '~/pages/public/category/lifestyle';
 const publicRoutes = [
     { path: config.home, page: Home },
     { path: config.login, page: Login, layout: null },
     { path: config.register, page: Register, layout: null },
     { path: config.category, page: Category },
     { path: config.productdetail, page: ProductDetail },
+    { path: config.women, page: Women },
+    { path: config.men, page: Men },
+    { path: config.beauty, page: Beauty },
+    { path: config.kids, page: Kids },
+    { path: config.lifestyle, page: Lifestyle },
+
     // { path: config.cart, page: Cart },
     // { path: config.profile, page: Profile },
 ];
