@@ -29,7 +29,7 @@ export default function ProductDetail() {
                         </div>
                     </div>
                 </Col>
-                <Col span={14}>
+                <Col className='p-5' span={14}>
                     <Row>
                         <Col style={{ height: '60px' }} span={24}>
 

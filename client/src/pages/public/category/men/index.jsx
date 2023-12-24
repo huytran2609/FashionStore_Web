@@ -1,6 +1,6 @@
 import { Pagination } from 'antd';
 import Product from '~/layouts/public/Products/Product'
-import { getAllProducts } from '~/apis/products'
+import { getProductsMen } from '~/apis/products'
 import { useState, useEffect, memo } from 'react';
 import Card from '~/components/Card/Card';
 export default function Men() {
@@ -10,8 +10,8 @@ export default function Men() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const productsData = await getAllProducts();
-                setProductData(productsData.products)
+                const productsData = await getProductsMen();
+                setProductData(productsData.productData)
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -25,37 +25,18 @@ export default function Men() {
             img={img}
             title={title}
             prevPrice={Number(newPrice * 2)}
-            newPrice={newPrice}
+            newPrice={newPrice} />
+    ));
+
+    const result = productData.map(({ thumbnail, title, price }) => (
+        <MemoizedProduct
+            key={Math.random()}
+            img={thumbnail}
+            title={title}
+            prevPrice={Number(price * 3)}
+            newPrice={price}
         />
     ));
-    // ...
-    const [selectedCategory, setSelectedCategory] = useState('men');
-
-    function filteredData(productData, selected) {
-        let filteredProducts = productData;
-
-        // Applying selected filter
-
-        filteredProducts = filteredProducts.filter(
-            ({ category, color, newPrice, title }) =>
-                (category.toLowerCase() === selected.toLowerCase()) ||
-                color === selected ||
-                newPrice === selected ||
-                title === selected,
-        );
-
-        return filteredProducts.map(({ thumbnail, title, price }) => (
-            <MemoizedProduct
-                key={Math.random()}
-                img={thumbnail}
-                title={title}
-                prevPrice={Number(price * 3)}
-                newPrice={price}
-            />
-        ));
-    }
-
-    const result = filteredData(productData, selectedCategory);
 
     return (
         <div style={{ margin: '70px 50px 10px 50px' }}  >
