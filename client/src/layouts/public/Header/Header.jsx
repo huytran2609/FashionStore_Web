@@ -47,9 +47,9 @@ export default function Header() {
                         <input type="text" placeholder="Enter to Search ..." className={styles.searchInput} />
                     </div>
 
-                    <div className={styles.cart}>
+                    <Link to={config.cart} className={styles.cart}>
                         <FaShoppingCart className={styles.cartIcon} />
-                    </div>
+                    </Link>
 
                     <Button link={config.login} content="Login" />
 

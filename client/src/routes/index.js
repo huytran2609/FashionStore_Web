@@ -13,6 +13,7 @@ import Men from '~/pages/public/category/men';
 import Beauty from '~/pages/public/category/beauty';
 import Kids from '~/pages/public/category/kids';
 import Lifestyle from '~/pages/public/category/lifestyle';
+import Cart from '~/layouts/public/Cart/Cart';
 const publicRoutes = [
     { path: config.home, page: Home },
     { path: config.login, page: Login, layout: null },
@@ -24,8 +25,7 @@ const publicRoutes = [
     { path: config.beauty, page: Beauty },
     { path: config.kids, page: Kids },
     { path: config.lifestyle, page: Lifestyle },
-
-    // { path: config.cart, page: Cart },
+    { path: config.cart, page: Cart },
     // { path: config.profile, page: Profile },
 ];
 
