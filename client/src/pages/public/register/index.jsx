@@ -27,7 +27,6 @@ export default function Register() {
     const [validEmail, setValidEmail] = useState(false);
     const [emailFocus, setEmailFocus] = useState(false);
 
-    const [pwd, setPwd] = useState('');
     const [validPwd, setValidPwd] = useState(false);
     const [pwdFocus, setPwdFocus] = useState(false);
 
@@ -54,17 +53,17 @@ export default function Register() {
     }, [payload.email]);
 
     useEffect(() => {
-        const result = PWD_REGEX.test(pwd);
+        const result = PWD_REGEX.test(payload.password);
         // console.log(result);
         // console.log(pwd);
         setValidPwd(result);
-        const match = pwd === matchPwd;
+        const match = payload.password === matchPwd;
         setValidMatch(match);
-    }, [pwd, matchPwd]);
+    }, [payload.password, matchPwd]);
 
     useEffect(() => {
         setErrMsg('');
-    }, [payload.name, payload.email, pwd, matchPwd]);
+    }, [payload.name, payload.email, payload.password, matchPwd]);
 
     const handleSubmit = async () => {
         const { name, email, password } = payload;
@@ -177,7 +176,7 @@ export default function Register() {
                             <FaCheckCircle />
                         </span>
 
-                        <span className={validPwd || !pwd ? styles.hide : styles.invalid}>
+                        <span className={validPwd || !payload.password ? styles.hide : styles.invalid}>
                             <FaRegTimesCircle />
                         </span>
 
