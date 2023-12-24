@@ -7,8 +7,12 @@ import config from '~/config';
 import categoryApi from '~/apis/categoryAPI/categoryApi';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function Header() {
+    const { isLoggedIn, current } = useSelector((state) => state.user);
+    console.log({ isLoggedIn, current });
+
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
@@ -30,13 +34,11 @@ export default function Header() {
                 <div className={styles.lineHeader}></div>
                 <Col span={11} className={styles.category}>
                     <ul className={styles.categoryList}>
-                        {categories.map((data) =>
+                        {categories.map((data) => (
                             <Link key={data._id} to={config[data.title.toLowerCase()]}>
-                                <li>
-                                    {data.title}
-                                </li>
+                                <li>{data.title}</li>
                             </Link>
-                        )}
+                        ))}
                     </ul>
                 </Col>
                 <Col className={styles.cpnHeader3} span={10}>

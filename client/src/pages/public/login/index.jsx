@@ -1,25 +1,50 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './Login.module.scss';
 import { FaUser, FaLock } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import config from '~/config';
 import { apiLogin } from '~/apis/user';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { login } from '~/redux/features/slices/userSlice';
 
 export default function index() {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const [payload, setPlayload] = useState({
         email: '',
         password: '',
     });
 
-    const handleSubmit = async() => {
+    const [errMsg, setErrMsg] = useState('');
+
+    useEffect(() => {
+        setErrMsg('');
+    }, [payload.email, payload.password]);
+
+    const handleSubmit = async () => {
         const { email, password } = payload;
-        const response = await apiLogin(payload)
-        console.log(response);
+        if (!email || !password) {
+            setErrMsg('Please enter all fields');
+            return;
+        }
+        const response = await apiLogin(payload);
+        if (response.success) {
+            dispatch(login({ isLoggedIn: true, userData: response.userData, token: response.accessToken }));
+            navigate(config.home);
+        } else {
+            Swal.fire('Failure', response.mes, 'error');
+        }
     };
 
     return (
         <div className={styles.bodyLogin}>
             <div className={styles.wrapper}>
+                <p className={errMsg ? styles.errMsg : styles.offScreen} aria-live="assertive">
+                    {errMsg}
+                </p>
                 <h1>Login</h1>
                 <div className={styles.inputBox}>
                     <input

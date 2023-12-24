@@ -114,6 +114,13 @@
     color: #fff;
 }
 
+// .wrapper button:disabled {
+//     background-color: #fff;
+//     color: #333;
+//     cursor: default;
+// }
+
+
 .wrapper .loginLink {
     font-size: 14.5px;
     text-align: center;
@@ -187,6 +194,8 @@
     font-weight: bold;
     padding: 0.5rem;
     margin-bottom: 0.5rem;
+    text-align: center;
+    border-radius: 25px;
 }
 
 .line {
