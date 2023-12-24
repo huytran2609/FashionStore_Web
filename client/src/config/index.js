@@ -10,6 +10,7 @@ const config = {
     lifestyle: '/lifestyle',
     beauty: '/beauty',
     productdetail: '/productdetail',
+    cart: '/cart',
 
     //private
     admin: '/dashboard',
