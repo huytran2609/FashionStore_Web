@@ -51,9 +51,10 @@ export default function Header() {
                         <FaShoppingCart className={styles.cartIcon} />
                     </Link>
 
-                    <Button link={config.login} content="Login" />
+                    {!current ? (<><Button link={config.login} content="Login" />
 
-                    <Button link={config.register} content="Register" />
+                        <Button link={config.register} content="Register" /></>)
+                        : (<span>{current.name}</span>)}
                 </Col>
             </Row>
         </>

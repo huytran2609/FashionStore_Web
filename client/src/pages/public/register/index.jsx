@@ -5,7 +5,8 @@ import { FaUser, FaLock, FaInfoCircle, FaRegTimesCircle, FaCheckCircle } from 'r
 import { Link } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { apiRegister } from '~/apis/user';
-import Swal from 'sweetalert2';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{5,23}$/;
 const EMAIL_REGEX = /^\S+@\S+\.\S+$/;
@@ -65,30 +66,68 @@ export default function Register() {
         setErrMsg('');
     }, [payload.name, payload.email, payload.password, matchPwd]);
 
+    // const handleSubmit = async () => {
+    //     const { name, email, password } = payload;
+    //     if (!name || !email || !password) {
+    //         setErrMsg('Please enter all fields');
+    //         return;
+    //     }
+    //     if (!validName || !validPwd || !validMatch || !validEmail ? true : false) {
+    //         setErrMsg('Please enter the correct information');
+    //         return;
+    //     }
+    //     const response = await apiRegister(payload);
+    //     if (response.success) {
+    //         Swal.fire('Congratulation', response.mes, 'success').then(() => {
+    //             //logic
+    //             setPayload({
+    //                 email: '',
+    //                 name: '',
+    //                 password: '',
+    //             });
+    //         });
+    //     }
+    //     else {
+    //         Swal.fire('Failure', response.mes, 'error');
+    //     }
+    // };
+
     const handleSubmit = async () => {
         const { name, email, password } = payload;
-        if(!name || !email || !password){
-            setErrMsg('Please enter all fields');
+
+        if (!name || !email || !password) {
+            // setErrMsg('Please enter all fields');
+            toast.error('Please enter all fields');
             return;
         }
-        if(!validName || !validPwd || !validMatch || !validEmail ? true : false){
-            setErrMsg('Please enter the correct information');
+
+        if (!validName || !validPwd || !validMatch || !validEmail) {
+            // setErrMsg('Please enter the correct information');
+            toast.error('Please enter the correct information');
             return;
         }
-        const response = await apiRegister(payload);
-        if (response.success) {
-            Swal.fire('Congratulation', response.mes, 'success').then(() => {
-                //logic
-                setPayload({
-                    email: '',
-                    name: '',
-                    password: '',
-                });
-            });
+
+        try {
+            const response = await apiRegister(payload);
+
+            if (response.success) {
+                toast.success(response.mes, { onClose: handleSuccess });
+            } else {
+                toast.error(response.mes);
+            }
+        } catch (error) {
+            toast.error('An unexpected error occurred!!!');
         }
-        else{
-            Swal.fire('Failure', response.mes, 'error');
-        }
+    };
+
+    const handleSuccess = () => {
+        // Thêm logic sau khi đăng ký thành công
+        setPayload({
+            email: '',
+            name: '',
+            password: '',
+        });
+        setMatchPwd('');
     };
 
     return (
@@ -259,6 +298,7 @@ export default function Register() {
                         </p>
                     </div>
                 </div>
+                <ToastContainer />
             </section>
         </>
     );

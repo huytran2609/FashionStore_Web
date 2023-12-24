@@ -8,6 +8,8 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '~/redux/features/slices/userSlice';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function index() {
     const navigate = useNavigate();
@@ -27,7 +29,7 @@ export default function index() {
     const handleSubmit = async () => {
         const { email, password } = payload;
         if (!email || !password) {
-            setErrMsg('Please enter all fields');
+            toast.error('Please enter all fields');
             return;
         }
         const response = await apiLogin(payload);
@@ -35,7 +37,7 @@ export default function index() {
             dispatch(login({ isLoggedIn: true, userData: response.userData, token: response.accessToken }));
             navigate(config.home);
         } else {
-            Swal.fire('Failure', response.mes, 'error');
+            toast.error('Failure', response.mes, 'error');
         }
     };
 
@@ -81,6 +83,7 @@ export default function index() {
                     </p>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 }
