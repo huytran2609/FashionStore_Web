@@ -11,7 +11,7 @@ instance.interceptors.request.use(
         let localStorage = window.localStorage.getItem('persist:store/user')
         if (localStorage && typeof localStorage === 'string') {
             localStorage = JSON.parse(localStorage)
-            const accessToken = localStorage.token
+            const accessToken = JSON.parse(localStorage?.token)
             config.headers.Authorization = accessToken ? `Bearer ${accessToken}` : '';
         }
 

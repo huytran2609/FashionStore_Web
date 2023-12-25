@@ -7,14 +7,22 @@ import config from '~/config';
 import categoryApi from '~/apis/categoryAPI/categoryApi';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import avatar from '~/assets/Avatar/avatarUser.jpg'
+import { getCurrent } from '~/redux/features/slices/asyncActions';
 
 export default function Header() {
+    const dispatch = useDispatch();
+
     const { isLoggedIn, current } = useSelector((state) => state.user);
-    console.log({ isLoggedIn, current });
 
     const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            dispatch(getCurrent());
+        }
+    }, [dispatch, isLoggedIn]);
 
     useEffect(() => {
         const fetchApiCategories = async () => {
@@ -52,13 +60,13 @@ export default function Header() {
                         <FaShoppingCart className={styles.cartIcon} />
                     </Link>
 
-                    {!current ? (<><Button link={config.login} content="Login" />
+                    {!isLoggedIn ? (<><Button link={config.login} content="Login" />
 
                         <Button link={config.register} content="Register" /></>)
                         :
                         (
                             <div className={styles.userInfo}>
-                                <h3>{current.name}</h3>
+                                <h3>{current?.name}</h3>
                                 <div className={styles.imgAvatar}>
                                     <img src={avatar} alt="UserImg" />
                                 </div>
