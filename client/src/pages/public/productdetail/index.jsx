@@ -2,57 +2,67 @@ import React from 'react'
 import styles from './ProductDetail.module.scss'
 import { Row, Col } from 'antd';
 import imgDetail from '../assets/ImgBestSeller/Shoe.jpeg'
-import absCeil from '../../../../node_modules/moment/src/lib/utils/abs-ceil';
 import Star from '~/components/Star/Star';
 import Counter from '~/components/Counter/Counter';
 import Button from '~/components/Button/Button';
+import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { getProductDetail } from '~/apis/products';
 
 export default function ProductDetail() {
+    const { id, title } = useParams();
+    const [productData, setProductData] = useState({});
+    useEffect(() => {
+        const fetchProduct = async () => {
+            const response = await getProductDetail(id);
+            console.log(response)
+            setProductData(response.productData);
+        };
+        fetchProduct(id);
+    }, []);
+    // Code 1 random comment rate tu 1k cmt -> 5k
+    const randomCmt = Math.ceil(Math.random() * 4000 + 1000);
     return (
         <>
             <Row style={{ margin: '70px 0 10px 50px', color: '#999', fontWeight: '500', fontSize: '18px' }} col={3}>
-                Home &gt; Product Detail
+                Home &gt; Product Detail &gt; {title}
             </Row>
             <Row style={{ margin: '0px 50px 10px 50px', backgroundColor: '#fff', boxShadow: '0.49px 0.958px 3.958px rgba(0, 0, 0, 0.25)', borderRadius: '20px' }} col={9}>
                 <Col span={10}>
                     <section className={styles.imgDetail}>
-                        <img src={imgDetail} alt="IMG Detail" />
+                        <img src={productData.thumbnail} alt="IMG Detail" />
                     </section>
                     <section className={styles.listImgDetail}>
-                        <div className={styles.imgDetail1}>
-                            <img src={imgDetail} alt="IMG Detail" />
-                        </div>
-                        <div className={styles.imgDetail2}>
-                            <img src={imgDetail} alt="IMG Detail" />
-                        </div>
-                        <div className={styles.imgDetail3}>
-                            <img src={imgDetail} alt="IMG Detail" />
-                        </div>
-                        <div className={styles.imgDetail4}>
-                            <img src={imgDetail} alt="IMG Detail" />
-                        </div>
+                        {productData?.images?.slice(1, 6)?.map((title, index) => {
+                            return (
+                                <div key={index} className={styles.imgDetail1}>
+                                    <img src={title} alt="IMG Detail" />
+                                </div>
+
+                            )
+                        })}
                     </section>
                 </Col>
                 <Col className='p-5' span={14}>
                     <section className={styles.productName}>
-                        pH5.5 Jelly Mask Pack - Soothing (10EA)
+                        {title}
                     </section>
                     <section className={styles.rateStar}>
-                        <Star rate={4} classParrent={styles.star} /> (3000)
+                        <Star rate={4} classParrent={styles.star} /> ({randomCmt})
                     </section>
                     <section className={styles.productPrice}>
                         <div className={styles.newPrice}>
-                            $30
+                            &#36;{productData.price}
                         </div>
                         <div className={styles.prevPrice}>
-                            $60
+                            &#36;{productData.price * 8}
                         </div>
                     </section>
                     <section className={styles.productInfo}>
-                        <h3>Availability: <p className={styles.firstP}>In Stock</p></h3>
-                        <h3>Brand: <p>In Stock</p></h3>
-                        <h3>Category: <p>In Stock</p></h3>
-                        <p className={styles.productDescription}>Welcome to 4Best SHOP, where your shopping experience is elevated to a whole new level! Dive into a world of unparalleled variety and quality, curated just for you. Discover the latest trends, must-have essentials, and exclusive deals that redefine your shopping journey. Join us in exploring a realm of style, convenience, and exceptional value. Happy shopping at 4Best SHOP – where excellence meets your every need!</p>
+                        <h3>Availability: <p className={styles.firstP}>In Stock</p> <span style={{ fontWeight: '400' }}>&nbsp;({productData.quantity})</span></h3>
+                        <h3>Brand: <p>{productData.brand}</p></h3>
+                        <h3>Category: <p>{productData.category}</p></h3>
+                        <p className={styles.productDescription}>{productData.description}</p>
                     </section>
                     <section className={styles.productColor}>
                         <h1>SELECT COLOR</h1>

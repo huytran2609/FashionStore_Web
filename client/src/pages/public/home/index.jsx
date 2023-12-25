@@ -28,6 +28,7 @@ function Home() {
             try {
                 const productsData = await getAllProducts();
                 setProductData(productsData.products)
+                console.log(productData)
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -37,22 +38,25 @@ function Home() {
     // console.log(productData);
     // console.log(productData.length);
 
-    const MemoizedCard = memo(({ img, title, newPrice }) => (
+    const MemoizedCard = memo(({ id, img, title, newPrice }) => (
         <Card
-            key={Math.random()}
+            key={id}
             img={img}
             title={title}
             prevPrice={Number(newPrice * 2)}
             newPrice={newPrice}
+            id={id}
         />
     ));
-    const result = productData.slice(0, 10).map(({ thumbnail, title, price }) => (
+    { console.log(productData) }
+    const result = productData.slice(0, 10).map(({ _id, thumbnail, title, price }) => (
         <MemoizedCard
-            key={Math.random()}
+            key={_id}
             img={thumbnail}
             title={title}
             prevPrice={Number(price * 3)}
             newPrice={price}
+            id={_id}
         />
     ))
     return (

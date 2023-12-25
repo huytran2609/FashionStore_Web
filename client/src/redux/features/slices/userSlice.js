@@ -16,6 +16,10 @@ export const userSlice = createSlice({
             state.isLoggedIn = action.payload.isLoggedIn;
             state.token = action.payload.token;
         },
+        logout: (state, action) => {
+            state.isLoggedIn = false;
+            state.token = null;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -34,6 +38,6 @@ export const userSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { login } = userSlice.actions;
+export const { login, logout } = userSlice.actions;
 
 export default userSlice.reducer;

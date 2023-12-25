@@ -9,8 +9,9 @@ const config = {
     kids: '/kids',
     lifestyle: '/lifestyle',
     beauty: '/beauty',
-    productdetail: '/productdetail',
+    productdetail: '/productdetail/:id/:title',
     cart: '/cart',
+    profile: '/profile',
 
     //private
     admin: '/dashboard',

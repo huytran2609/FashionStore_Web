@@ -37,13 +37,14 @@ export default function Category() {
         fetchData();
     }, []);
 
-    const MemoizedProduct = memo(({ img, title, newPrice }) => (
+    const MemoizedProduct = memo(({ id, img, title, newPrice }) => (
         <Card
             key={Math.random()}
             img={img}
             title={title}
             prevPrice={Number(newPrice * 2)}
             newPrice={newPrice}
+            id={id}
         />
     ));
 
@@ -90,13 +91,14 @@ export default function Category() {
             );
         }
 
-        return filteredProducts.map(({ thumbnail, title, price }) => (
+        return filteredProducts.map(({ _id, thumbnail, title, price }) => (
             <MemoizedProduct
                 key={Math.random()}
                 img={thumbnail}
                 title={title}
                 prevPrice={Number(price * 3)}
                 newPrice={price}
+                id={_id}
             />
         ));
     }
