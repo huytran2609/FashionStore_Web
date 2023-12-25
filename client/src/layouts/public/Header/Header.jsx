@@ -1,5 +1,5 @@
 import styles from './Header.module.scss';
-import { Row, Col } from 'antd';
+import { Row, Col, Dropdown } from 'antd';
 import Logo from '~/assets/Logo/Logo_grey.svg';
 import { FaSearch, FaShoppingCart } from 'react-icons/fa';
 import Button from '~/components/Button/Button';
@@ -8,6 +8,7 @@ import categoryApi from '~/apis/categoryAPI/categoryApi';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import avatar from '~/assets/Avatar/avatarUser.jpg'
 
 export default function Header() {
     const { isLoggedIn, current } = useSelector((state) => state.user);
@@ -54,7 +55,15 @@ export default function Header() {
                     {!current ? (<><Button link={config.login} content="Login" />
 
                         <Button link={config.register} content="Register" /></>)
-                        : (<span>{current.name}</span>)}
+                        :
+                        (
+                            <div className={styles.userInfo}>
+                                <h3>{current.name}</h3>
+                                <div className={styles.imgAvatar}>
+                                    <img src={avatar} alt="UserImg" />
+                                </div>
+                            </div>
+                        )}
                 </Col>
             </Row>
         </>

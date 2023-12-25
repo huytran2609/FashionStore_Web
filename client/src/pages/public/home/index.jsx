@@ -153,7 +153,7 @@ function Home() {
                         <Button classParent={styles.rightButton} content='BUY NOW' /> */}
                     </div>
                     <div className={styles.centerPopFrame}>
-                        <img src={setSport2} alt="Set Sport IMG" data-aos='fade-left' />
+                        <img src={setSport2} alt="Set Sport IMG" data-aos='fade-in' />
                     </div>
                 </div>
             </div>
