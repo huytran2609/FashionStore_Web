@@ -4,6 +4,10 @@ export const getAllProducts = () => {
     return axios.get('/product/');
 };
 
+export const getProductDetail = (id) => {
+    return axios.get(`/product/${id}`);
+};
+
 export const getProductsWomen = () => {
     return axios.get('/product/women');
 };

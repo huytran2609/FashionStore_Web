@@ -1,7 +1,9 @@
 import styles from './Header.module.scss';
-import { Row, Col, Dropdown } from 'antd';
+import { Row, Col } from 'antd';
 import Logo from '~/assets/Logo/Logo_grey.svg';
-import { FaSearch, FaShoppingCart } from 'react-icons/fa';
+import { FaSearch, FaShoppingCart, FaSignOutAlt } from 'react-icons/fa';
+import { BiSolidCategoryAlt } from "react-icons/bi";
+import { ImProfile } from "react-icons/im";
 import Button from '~/components/Button/Button';
 import config from '~/config';
 import categoryApi from '~/apis/categoryAPI/categoryApi';
@@ -10,7 +12,7 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import avatar from '~/assets/Avatar/avatarUser.jpg';
 import { getCurrent } from '~/redux/features/slices/asyncActions';
-
+import { logout } from '~/redux/features/slices/userSlice';
 export default function Header() {
     const dispatch = useDispatch();
 
@@ -23,6 +25,9 @@ export default function Header() {
             dispatch(getCurrent());
         }
     }, [dispatch, isLoggedIn]);
+
+    const displayName = current?.name;
+    const firstName = displayName ? displayName.split(' ')[0] : '';
 
     useEffect(() => {
         const fetchApiCategories = async () => {
@@ -64,15 +69,27 @@ export default function Header() {
                         <>
                             <Button link={config.login} content="Login" />
 
-                            <Button link={config.register} content="Register" />
-                        </>
-                    ) : (
-                        <div className={styles.userInfo}>
-                            <h3>{current?.name}</h3>
-                            <div className={styles.imgAvatar}>
-                                <img src={avatar} alt="UserImg" />
+                        <Button link={config.register} content="Register" /></>)
+                        :
+                        (
+                            <div className={styles.userInfo}>
+                                <h3>Hi,&nbsp;{firstName}</h3>
+                                <Link to={config.profile} className={styles.imgAvatar}>
+                                    <img src={avatar} alt="UserImg" />
+                                </Link>
+                                <div className={styles.dropdownContent}>
+                                    <Link
+                                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: 'black', fontSize: '15px' }}
+                                        to={config.profile}>Profile <ImProfile /></Link>
+                                    <Link
+                                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: 'black', fontSize: '15px' }}
+                                        to={config.category}>Category <BiSolidCategoryAlt /></Link>
+                                    <Link
+                                        onClick={() => dispatch(logout())}
+                                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: 'red', fontSize: '15px' }}
+                                    >Logout <FaSignOutAlt /></Link>
+                                </div>
                             </div>
-                        </div>
                     )}
                 </Col>
             </Row>

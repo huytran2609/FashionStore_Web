@@ -11,6 +11,7 @@ const config = {
     beauty: '/beauty',
     productdetail: '/productdetail/:id/:title',
     cart: '/cart',
+    profile: '/profile',
 
     //private
     admin: '/dashboard',

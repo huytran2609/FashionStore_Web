@@ -20,7 +20,6 @@ export const userSlice = createSlice({
             state.isLoggedIn = false;
             state.token = null;
         },
-
     },
     extraReducers: (builder) => {
         builder
