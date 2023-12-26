@@ -3,6 +3,7 @@ import SidebarAdmin from '../Components/Sidebar';
 import HeaderAdmin from '../Components/Header';
 
 function AdminLayout({ children }) {
+
     return (
         <div className="bg-neutral-100 h-screen w-screen overflow-hidden flex flex-row">
             <SidebarAdmin />

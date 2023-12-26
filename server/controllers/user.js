@@ -118,9 +118,9 @@ const getUsers = asyncHandler(async (req, res) => {
 });
 
 const deleteUser = asyncHandler(async (req, res) => {
-    const { _id } = req.query;
-    if (!_id) throw new Error('Missing input!');
-    const user = await User.findByIdAndDelete(_id);
+    const { uid } = req.params;
+    if (!uid) throw new Error('Missing input!');
+    const user = await User.findByIdAndDelete(uid);
     return res.status(200).json({
         success: user ? true : false,
         deletedUser: user ? `User ${user.email} deleted` : 'No user to delete',
@@ -143,7 +143,7 @@ const updateUserByAdmin = asyncHandler(async (req, res) => {
     const user = await User.findByIdAndUpdate(uid, req.body, { new: true }).select('-password -refreshToken');
     return res.status(200).json({
         success: user ? true : false,
-        updatedUser: user ? user : 'Update failed',
+        updatedUser: user ? 'Updated' : 'Update failed',
     });
 });
 

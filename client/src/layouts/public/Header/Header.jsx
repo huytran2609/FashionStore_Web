@@ -13,6 +13,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import avatar from '~/assets/Avatar/avatarUser.jpg';
 import { getCurrent } from '~/redux/features/slices/asyncActions';
 import { logout } from '~/redux/features/slices/userSlice';
+import { Navigate } from 'react-router-dom';
+import { is } from 'date-fns/locale';
 export default function Header() {
     const dispatch = useDispatch();
 
@@ -24,6 +26,7 @@ export default function Header() {
         if (isLoggedIn) {
             dispatch(getCurrent());
         }
+        if(!isLoggedIn || !current) return <Navigate to={config.login} replace={true} />;
     }, [dispatch, isLoggedIn]);
 
     const displayName = current?.name;

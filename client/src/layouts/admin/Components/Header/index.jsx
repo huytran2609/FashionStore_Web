@@ -1,9 +1,17 @@
+import config from '~/config';
 import { HiOutlineBell, HiOutlineChatAlt } from 'react-icons/hi';
 import { Menu, Popover, Transition } from '@headlessui/react';
 import classNames from 'classnames';
 import { Fragment } from 'react';
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
 function HeaderAdmin() {
+
+    const {isLoggedIn, current} = useSelector((state) => state.user);
+    console.log(current);
+    if(!isLoggedIn || !current || +current.role !== 1) return <Navigate to={config.login} replace={true} />;
+
     return (
         <div className="bg-white h-16 px-4 flex items-center justify-end border-b border-gray-200">
             <div className="mr-6 flex items-center">
