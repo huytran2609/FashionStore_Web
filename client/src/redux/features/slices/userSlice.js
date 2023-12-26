@@ -6,6 +6,7 @@ const initialState = {
     current: null,
     token: '',
     loading: false,
+    isToastVisible: true,
 };
 
 export const userSlice = createSlice({
@@ -15,10 +16,15 @@ export const userSlice = createSlice({
         login: (state, action) => {
             state.isLoggedIn = action.payload.isLoggedIn;
             state.token = action.payload.token;
+            state.isToastVisible = true;
         },
         logout: (state, action) => {
             state.isLoggedIn = false;
             state.token = null;
+            state.isToastVisible = true;
+        },
+        setToastVisibility: (state, action) => {
+            state.isToastVisible = false;
         },
     },
     extraReducers: (builder) => {
@@ -38,6 +44,6 @@ export const userSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { login, logout } = userSlice.actions;
+export const { login, logout, setToastVisibility } = userSlice.actions;
 
 export default userSlice.reducer;

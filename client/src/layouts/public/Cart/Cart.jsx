@@ -1,6 +1,7 @@
 import styles from './Cart.module.scss';
 import { Row, Col } from 'antd';
 import emptyCart from '~/assets/Cart/emptyCart.svg'
+import Button from '~/components/Button/Button';
 
 export default function Cart() {
     const haveOrder = true;
@@ -23,10 +24,32 @@ export default function Cart() {
                         </section>
                         <div style={{ display: 'flex' }}>
                             <Col span={16}>
-                                abc
+                                <section className="p-5">
+                                    abc
+                                </section>
                             </Col>
                             <Col className='p-5' span={8}>
-                                xyz
+                                <form className={`${styles.checkOut} p-5`}>
+                                    <h1>User Delivery Information</h1>
+                                    <input type="text" placeholder='FullName...' />
+                                    <input type="tel" placeholder='Phone number...' />
+                                    <input type="email" placeholder='Email...' />
+                                    <h1>Order Summary</h1>
+                                    <div className={`${styles.subTotal} ${styles.baseSub}`}>
+                                        <h1>Subtotal</h1>
+                                        <h3>$&nbsp;4444</h3>
+                                    </div>
+                                    <div className={`${styles.shipFee} ${styles.baseSub}`}>
+                                        <h1>Shipping Fee</h1>
+                                        <h3 style={{ color: 'green', fontWeight: 'bold' }}>Free</h3>
+                                    </div>
+                                    <hr />
+                                    <div className={`${styles.estimateTotal} ${styles.baseSub}`}>
+                                        <h1>Estimate Total</h1>
+                                        <h3>$&nbsp;4444</h3>
+                                    </div>
+                                    <Button link='/login' classParent={styles.btnParentCheck} classChild={styles.btnCheckout} content='Check Out' />
+                                </form>
                             </Col>
                         </div>
                     </div>

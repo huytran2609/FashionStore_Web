@@ -12,20 +12,35 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import avatar from '~/assets/Avatar/avatarUser.jpg'
 import { getCurrent } from '~/redux/features/slices/asyncActions';
-import { logout } from '~/redux/features/slices/userSlice';
+import { logout, setToastVisibility } from '~/redux/features/slices/userSlice';
 import { toast, ToastContainer } from 'react-toastify';
 export default function Header() {
     const dispatch = useDispatch();
 
-    const { isLoggedIn, current } = useSelector((state) => state.user);
+    const { isLoggedIn, current, isToastVisible } = useSelector((state) => state.user);
     const [categories, setCategories] = useState([]);
 
+    console.log(isToastVisible)
     useEffect(() => {
+        let timeoutId;
         if (isLoggedIn) {
             dispatch(getCurrent());
-            toast.success("Logged in Successfully!")
+
+            if (isToastVisible) {
+                toast.success("Logged in Successfully!");
+                timeoutId = setTimeout(() => {
+                    // If using Redux, dispatch an action to update isToastVisible in the global state
+                    dispatch(setToastVisibility());
+                }, 100);
+
+            }
         }
-    }, [dispatch, isLoggedIn]);
+        return () => {
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
+        };
+    }, [dispatch, isLoggedIn, isToastVisible]);
 
     // const [loading, setLoading] = useState(true);
     // const [userName, setUserName] = useState('');

@@ -1,7 +1,6 @@
 import React from 'react'
 import styles from './ProductDetail.module.scss'
 import { Row, Col } from 'antd';
-import imgDetail from '../assets/ImgBestSeller/Shoe.jpeg'
 import Star from '~/components/Star/Star';
 import Counter from '~/components/Counter/Counter';
 import Button from '~/components/Button/Button';

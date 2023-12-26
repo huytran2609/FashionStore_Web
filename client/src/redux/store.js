@@ -10,7 +10,7 @@ const persistConfig = {
 
 const userConfig = {
     ...persistConfig,
-    whitelist: ['isLoggedIn', 'token'],
+    whitelist: ['isLoggedIn', 'token', 'isToastVisible'],
 };
 
 export const store = configureStore({
@@ -18,11 +18,11 @@ export const store = configureStore({
         user: persistReducer(userConfig, userSlice),
     },
     middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
+        getDefaultMiddleware({
+            serializableCheck: {
+                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+            },
+        }),
 });
 
 export const persistor = persistStore(store);

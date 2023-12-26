@@ -4,7 +4,6 @@ import { FaUser, FaLock } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import config from '~/config';
 import { apiLogin } from '~/apis/user';
-import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '~/redux/features/slices/userSlice';
@@ -47,7 +46,6 @@ export default function index() {
                 dispatch(login({ isLoggedIn: true, userData: response.userData, token: response.accessToken }));
 
                 await new Promise(resolve => setTimeout(resolve, 100));
-
                 navigate(config.home);
             } else {
                 toast.error('Failure', response.mes, 'error');
