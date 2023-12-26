@@ -13,18 +13,40 @@ import { useSelector, useDispatch } from 'react-redux';
 import avatar from '~/assets/Avatar/avatarUser.jpg'
 import { getCurrent } from '~/redux/features/slices/asyncActions';
 import { logout } from '~/redux/features/slices/userSlice';
+import { toast, ToastContainer } from 'react-toastify';
 export default function Header() {
     const dispatch = useDispatch();
 
     const { isLoggedIn, current } = useSelector((state) => state.user);
-
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
         if (isLoggedIn) {
             dispatch(getCurrent());
+            toast.success("Logged in Successfully!")
         }
     }, [dispatch, isLoggedIn]);
+
+    // const [loading, setLoading] = useState(true);
+    // const [userName, setUserName] = useState('');
+
+    // useEffect(() => {
+    //     if (isLoggedIn) {
+    //         dispatch(getCurrent())
+    //             .then(() => setLoading(false))
+    //             .catch((error) => {
+    //                 console.error("Lỗi khi lấy dữ liệu người dùng:", error);
+    //                 setLoading(false);
+    //             });
+    //     }
+    // }, [dispatch, isLoggedIn]);
+
+    // useEffect(() => {
+    //     // Kiểm tra xem current tồn tại và có thuộc tính name không
+    //     if (current && current.name) {
+    //         setUserName(current.name.split(' ')[0]);
+    //     }
+    // }, [current]);
 
     const displayName = current?.name;
     const firstName = displayName ? displayName.split(' ')[0] : '';
@@ -64,7 +86,10 @@ export default function Header() {
                     <Link to={config.cart} className={styles.cart}>
                         <FaShoppingCart className={styles.cartIcon} />
                     </Link>
-
+                    {/* {loading ? (
+                        <div>Wait a minutes...</div>
+                    ) : (
+                        <> */}
                     {!isLoggedIn ? (<><Button link={config.login} content="Login" />
 
                         <Button link={config.register} content="Register" /></>)
@@ -89,8 +114,11 @@ export default function Header() {
                                 </div>
                             </div>
                         )}
+
+                    {/* </>)} */}
                 </Col>
             </Row>
+            <ToastContainer className={styles.toastPosition} position="bottom-right" />
         </>
     );
 }
