@@ -1,7 +1,9 @@
 import usePagination from '~/hooks/usePagination';
 import PaginatedItem  from './PaginatedItem';
+import { useSearchParams } from 'react-router-dom';
 
 function Pagination({ totalCount }) {
+
     const pagination = usePagination(totalCount, 1);
 
     return (

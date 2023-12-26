@@ -8,7 +8,7 @@ import categoryApi from '~/apis/categoryAPI/categoryApi';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import avatar from '~/assets/Avatar/avatarUser.jpg'
+import avatar from '~/assets/Avatar/avatarUser.jpg';
 import { getCurrent } from '~/redux/features/slices/asyncActions';
 
 export default function Header() {
@@ -60,18 +60,20 @@ export default function Header() {
                         <FaShoppingCart className={styles.cartIcon} />
                     </Link>
 
-                    {!isLoggedIn ? (<><Button link={config.login} content="Login" />
+                    {!isLoggedIn ? (
+                        <>
+                            <Button link={config.login} content="Login" />
 
-                        <Button link={config.register} content="Register" /></>)
-                        :
-                        (
-                            <div className={styles.userInfo}>
-                                <h3>{current?.name}</h3>
-                                <div className={styles.imgAvatar}>
-                                    <img src={avatar} alt="UserImg" />
-                                </div>
+                            <Button link={config.register} content="Register" />
+                        </>
+                    ) : (
+                        <div className={styles.userInfo}>
+                            <h3>{current?.name}</h3>
+                            <div className={styles.imgAvatar}>
+                                <img src={avatar} alt="UserImg" />
                             </div>
-                        )}
+                        </div>
+                    )}
                 </Col>
             </Row>
         </>
