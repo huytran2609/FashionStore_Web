@@ -2,8 +2,8 @@ import styles from './Header.module.scss';
 import { Row, Col } from 'antd';
 import Logo from '~/assets/Logo/Logo_grey.svg';
 import { FaSearch, FaShoppingCart, FaSignOutAlt } from 'react-icons/fa';
-import { BiSolidCategoryAlt } from "react-icons/bi";
-import { ImProfile } from "react-icons/im";
+import { BiSolidCategoryAlt } from 'react-icons/bi';
+import { ImProfile } from 'react-icons/im';
 import Button from '~/components/Button/Button';
 import config from '~/config';
 import categoryApi from '~/apis/categoryAPI/categoryApi';
@@ -12,22 +12,55 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import avatar from '~/assets/Avatar/avatarUser.jpg';
 import { getCurrent } from '~/redux/features/slices/asyncActions';
-import { logout } from '~/redux/features/slices/userSlice';
-import { Navigate } from 'react-router-dom';
-import { is } from 'date-fns/locale';
+import { logout, setToastVisibility } from '~/redux/features/slices/userSlice';
+import { toast, ToastContainer } from 'react-toastify';
 export default function Header() {
     const dispatch = useDispatch();
 
-    const { isLoggedIn, current } = useSelector((state) => state.user);
-
+    const { isLoggedIn, current, isToastVisible } = useSelector((state) => state.user);
     const [categories, setCategories] = useState([]);
 
+    console.log(isToastVisible);
     useEffect(() => {
+        let timeoutId;
         if (isLoggedIn) {
             dispatch(getCurrent());
+
+            if (isToastVisible) {
+                toast.success('Logged in Successfully!');
+                timeoutId = setTimeout(() => {
+                    // If using Redux, dispatch an action to update isToastVisible in the global state
+                    dispatch(setToastVisibility());
+                }, 100);
+            }
         }
-        if(!isLoggedIn || !current) return <Navigate to={config.login} replace={true} />;
-    }, [dispatch, isLoggedIn]);
+        return () => {
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
+        };
+    }, [dispatch, isLoggedIn, isToastVisible]);
+
+    // const [loading, setLoading] = useState(true);
+    // const [userName, setUserName] = useState('');
+
+    // useEffect(() => {
+    //     if (isLoggedIn) {
+    //         dispatch(getCurrent())
+    //             .then(() => setLoading(false))
+    //             .catch((error) => {
+    //                 console.error("Lỗi khi lấy dữ liệu người dùng:", error);
+    //                 setLoading(false);
+    //             });
+    //     }
+    // }, [dispatch, isLoggedIn]);
+
+    // useEffect(() => {
+    //     // Kiểm tra xem current tồn tại và có thuộc tính name không
+    //     if (current && current.name) {
+    //         setUserName(current.name.split(' ')[0]);
+    //     }
+    // }, [current]);
 
     const displayName = current?.name;
     const firstName = displayName ? displayName.split(' ')[0] : '';
@@ -67,35 +100,67 @@ export default function Header() {
                     <Link to={config.cart} className={styles.cart}>
                         <FaShoppingCart className={styles.cartIcon} />
                     </Link>
-
+                    {/* {loading ? (
+                        <div>Wait a minutes...</div>
+                    ) : (
+                        <> */}
                     {!isLoggedIn ? (
                         <>
                             <Button link={config.login} content="Login" />
 
-                        <Button link={config.register} content="Register" /></>)
-                        :
-                        (
-                            <div className={styles.userInfo}>
-                                <h3>Hi,&nbsp;{firstName}</h3>
-                                <Link to={config.profile} className={styles.imgAvatar}>
-                                    <img src={avatar} alt="UserImg" />
+                            <Button link={config.register} content="Register" />
+                        </>
+                    ) : (
+                        <div className={styles.userInfo}>
+                            <h3>Hi,&nbsp;{firstName}</h3>
+                            <Link to={config.profile} className={styles.imgAvatar}>
+                                <img src={avatar} alt="UserImg" />
+                            </Link>
+                            <div className={styles.dropdownContent}>
+                                <Link
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'space-between',
+                                        color: 'black',
+                                        fontSize: '15px',
+                                    }}
+                                    to={config.profile}
+                                >
+                                    Profile <ImProfile />
                                 </Link>
-                                <div className={styles.dropdownContent}>
-                                    <Link
-                                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: 'black', fontSize: '15px' }}
-                                        to={config.profile}>Profile <ImProfile /></Link>
-                                    <Link
-                                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: 'black', fontSize: '15px' }}
-                                        to={config.category}>Category <BiSolidCategoryAlt /></Link>
-                                    <Link
-                                        onClick={() => dispatch(logout())}
-                                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: 'red', fontSize: '15px' }}
-                                    >Logout <FaSignOutAlt /></Link>
-                                </div>
+                                <Link
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'space-between',
+                                        color: 'black',
+                                        fontSize: '15px',
+                                    }}
+                                    to={config.category}
+                                >
+                                    Category <BiSolidCategoryAlt />
+                                </Link>
+                                <Link
+                                    onClick={() => dispatch(logout())}
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'space-between',
+                                        color: 'red',
+                                        fontSize: '15px',
+                                    }}
+                                >
+                                    Logout <FaSignOutAlt />
+                                </Link>
                             </div>
+                        </div>
                     )}
+
+                    {/* </>)} */}
                 </Col>
             </Row>
+            <ToastContainer className={styles.toastPosition} position="bottom-right" />
         </>
     );
 }

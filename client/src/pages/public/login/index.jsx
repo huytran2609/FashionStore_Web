@@ -4,7 +4,6 @@ import { FaUser, FaLock } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import config from '~/config';
 import { apiLogin } from '~/apis/user';
-import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '~/redux/features/slices/userSlice';
@@ -32,12 +31,28 @@ export default function index() {
             toast.error('Please enter all fields');
             return;
         }
-        const response = await apiLogin(payload);
-        if (response.success) {
-            dispatch(login({ isLoggedIn: true, userData: response.userData, token: response.accessToken }));
-            navigate(config.home);
-        } else {
-            toast.error('Failure', response.mes, 'error');
+        // const response = await apiLogin(payload);
+        // if (response.success) {
+        //     dispatch(login({ isLoggedIn: true, userData: response.userData, token: response.accessToken }));
+        //     navigate(config.home);
+        // } else {
+        //     toast.error('Failure', response.mes, 'error');
+        // }
+
+        try {
+            const response = await apiLogin(payload);
+            if (response.success) {
+                // toast.success("Logged in Successfully!");
+                dispatch(login({ isLoggedIn: true, userData: response.userData, token: response.accessToken }));
+
+                await new Promise(resolve => setTimeout(resolve, 100));
+                navigate(config.home);
+            } else {
+                toast.error('Failure', response.mes, 'error');
+            }
+        } catch (error) {
+            console.error("Error during login:", error);
+            toast.error('An error occurred during login. Please try again later.');
         }
     };
 
