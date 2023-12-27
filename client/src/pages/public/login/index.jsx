@@ -4,7 +4,7 @@ import { FaUser, FaLock } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import config from '~/config';
 import { apiLogin } from '~/apis/user';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '~/redux/features/slices/userSlice';
 import { toast, ToastContainer } from 'react-toastify';
@@ -13,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function index() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const location = useLocation();
 
     const [payload, setPlayload] = useState({
         email: '',
@@ -42,11 +43,14 @@ export default function index() {
         try {
             const response = await apiLogin(payload);
             if (response.success) {
-                // toast.success("Logged in Successfully!");
                 dispatch(login({ isLoggedIn: true, userData: response.userData, token: response.accessToken }));
-
                 await new Promise(resolve => setTimeout(resolve, 100));
-                navigate(config.home);
+                if (location?.state) {
+                    navigate(location?.state)
+                }
+                else {
+                    navigate(config.home);
+                }
             } else {
                 toast.error('Failure', response.mes, 'error');
             }

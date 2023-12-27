@@ -13,7 +13,7 @@ import Men from '~/pages/public/category/men';
 import Beauty from '~/pages/public/category/beauty';
 import Kids from '~/pages/public/category/kids';
 import Lifestyle from '~/pages/public/category/lifestyle';
-import Cart from '~/layouts/public/Cart/Cart';
+import Cart from '~/pages/public/Cart/Cart';
 import Profile from '~/pages/public/profile/Profile';
 const publicRoutes = [
     { path: config.home, page: Home },

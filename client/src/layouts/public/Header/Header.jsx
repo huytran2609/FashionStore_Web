@@ -19,8 +19,6 @@ export default function Header() {
 
     const { isLoggedIn, current, isToastVisible } = useSelector((state) => state.user);
     const [categories, setCategories] = useState([]);
-
-    console.log(isToastVisible)
     useEffect(() => {
         let timeoutId;
         if (isLoggedIn) {
@@ -100,6 +98,7 @@ export default function Header() {
 
                     <Link to={config.cart} className={styles.cart}>
                         <FaShoppingCart className={styles.cartIcon} />
+                        <label>2</label>
                     </Link>
                     {/* {loading ? (
                         <div>Wait a minutes...</div>
