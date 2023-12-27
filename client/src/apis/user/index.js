@@ -19,3 +19,7 @@ export const apiLogin = (data) => {
 export const apiCart = (data) => {
     return axios.put('/user/cart', data);
 };
+
+export const apiRemoveCart = (pid, color) => {
+    return axios.delete(`/user/removeCart/${pid}/${color}`);
+};

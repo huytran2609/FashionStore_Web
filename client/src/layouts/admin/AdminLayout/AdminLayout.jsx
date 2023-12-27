@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import SidebarAdmin from '../Components/Sidebar';
 import HeaderAdmin from '../Components/Header';
-import { ToastContainer } from 'react-toastify';
 
 function AdminLayout({ children }) {
 
@@ -14,7 +13,6 @@ function AdminLayout({ children }) {
                     {children}
                 </div>
             </div>
-            <ToastContainer />
         </div>
     );
 }

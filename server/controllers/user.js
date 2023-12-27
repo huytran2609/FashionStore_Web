@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Product = require('../models/product');
 const asyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken');
 const { generateAccessToken, generateRefreshToken } = require('../middlewares/jwt');
@@ -51,7 +52,13 @@ const login = asyncHandler(async (req, res) => {
 
 const getCurrent = asyncHandler(async (req, res) => {
     const { _id } = req.user;
-    const user = await User.findById(_id).select('-refreshToken -password');
+    const user = await User.findById(_id).select('-refreshToken -password').populate({
+        path: 'cart',
+        populate: {
+            path: 'product',
+            select: 'title price thumbnail size',
+        },  
+    });
     return res.status(200).json({
         success: user ? true : false,
         response: user ? user : 'User not found ',
@@ -194,8 +201,9 @@ const updateCart = asyncHandler(async (req, res) => {
     const { pid, quantity = 1, color } = req.body;
     if (!pid || !color) throw new Error('Missing input!');
     const user = await User.findById(_id).select('cart');
+    // const alreadyProduct = user?.cart?.find((item) => item?.product.toString() === pid && item?.color === color);
     const alreadyProduct = user?.cart?.find((item) => item?.product.toString() === pid);
-    if (alreadyProduct) {
+    if (alreadyProduct && alreadyProduct.color.includes(color)) {
         const response = await User.updateOne(
             { cart: { $elemMatch: alreadyProduct } },
             { $set: { 'cart.$.quantity': alreadyProduct.quantity + +quantity } },
@@ -218,6 +226,26 @@ const updateCart = asyncHandler(async (req, res) => {
     }
 });
 
+const removeProductFromCart = asyncHandler(async (req, res) => {
+    const { _id } = req.user;
+    const { pid, color } = req.params;
+    if (!pid || !color) throw new Error('Missing input!');
+    const user = await User.findById(_id).select('cart');
+    // const alreadyProduct = user?.cart?.find((item) => item?.product.toString() === pid && item?.color === color);
+    const alreadyProduct = user?.cart?.find((item) => item?.product.toString() === pid);
+    if(!alreadyProduct) {
+        return res.status(200).json({
+            success: true,
+            mes: 'Product not found',
+        });
+    }
+    const response = await User.findByIdAndUpdate(_id, { $pull: { cart: { product: pid, color } } }, { new: true });
+    return res.status(200).json({
+        success: response ? true : false,
+        mes: response ? 'Update cart' : 'Update failed',
+    })
+});
+
 module.exports = {
     register,
     login,
@@ -230,4 +258,5 @@ module.exports = {
     updateUserByAdmin,
     updateUserAddress,
     updateCart,
+    removeProductFromCart,
 };
