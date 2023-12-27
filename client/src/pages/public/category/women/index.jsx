@@ -43,7 +43,7 @@ export default function Women() {
 
     return (
         <div style={{ margin: '70px 50px 10px 50px' }}>
-            <div style={{ padding: '10px 0 20px 0', fontWeight: '600', fontSize: '30px', textAlign: 'center' }}>
+            <div style={{ padding: '10px 0 20px 0', fontWeight: '600', fontSize: '30px', textAlign: 'center', color: '#d977a9', textShadow: '1px 2px 2px rgba(0, 0, 0, 0.20)' }}>
                 Women
             </div>
             <div className="grid grid-cols-5 gap-4">
