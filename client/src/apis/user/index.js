@@ -15,3 +15,7 @@ export const apiRegister = (data) => {
 export const apiLogin = (data) => {
     return axios.post('/user/login', data);
 };
+
+export const apiCart = (data) => {
+    return axios.put('/user/cart', data);
+};

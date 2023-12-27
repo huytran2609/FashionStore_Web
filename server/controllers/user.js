@@ -203,7 +203,7 @@ const updateCart = asyncHandler(async (req, res) => {
         );
         return res.status(200).json({
             success: response ? true : false,
-            updatedUser: response ? 'Update cart' : 'Update failed',
+            mes: response ? 'Update cart' : 'Update failed',
         });
     } else {
         const response = await User.findByIdAndUpdate(
@@ -213,7 +213,7 @@ const updateCart = asyncHandler(async (req, res) => {
         );
         return res.status(200).json({
             success: response ? true : false,
-            updatedUser: response ? 'Update cart' : 'Update failed',
+            mes: response ? 'Update cart' : 'Update failed',
         });
     }
 });

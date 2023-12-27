@@ -7,7 +7,7 @@ import { apiLogin } from '~/apis/user';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '~/redux/features/slices/userSlice';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function index() {
@@ -106,7 +106,6 @@ export default function index() {
                     </p>
                 </div>
             </div>
-            <ToastContainer />
         </div>
     );
 }

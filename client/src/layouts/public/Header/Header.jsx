@@ -13,7 +13,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import avatar from '~/assets/Avatar/avatarUser.jpg';
 import { getCurrent } from '~/redux/features/slices/asyncActions';
 import { logout, setToastVisibility } from '~/redux/features/slices/userSlice';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 export default function Header() {
     const dispatch = useDispatch();
 
@@ -97,7 +97,7 @@ export default function Header() {
 
                     <Link to={config.cart} className={styles.cart}>
                         <FaShoppingCart className={styles.cartIcon} />
-                        <label>2</label>
+                        <label>{current.cart.length || 0}</label>
                     </Link>
                     {/* {loading ? (
                         <div>Wait a minutes...</div>
@@ -159,7 +159,6 @@ export default function Header() {
                     {/* </>)} */}
                 </Col>
             </Row>
-            <ToastContainer className={styles.toastPosition} position="bottom-right" />
         </>
     );
 }

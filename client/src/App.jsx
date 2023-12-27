@@ -5,6 +5,7 @@ import { privateRoutes, publicRoutes } from './routes';
 import { Routes, Route } from 'react-router-dom';
 import DefaultLayout from '~/layouts/public/DefaultLayout';
 import AdminLayout from '~/layouts/admin/AdminLayout';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
     return (
@@ -51,6 +52,7 @@ function App() {
                     );
                 })}
             </Routes>
+            <ToastContainer position="bottom-right"/>
         </div>
     );
 }

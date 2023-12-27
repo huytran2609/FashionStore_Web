@@ -37,7 +37,7 @@ function Home() {
     // console.log(productData);
     // console.log(productData.length);
 
-    const MemoizedCard = memo(({ id, img, title, newPrice }) => (
+    const MemoizedCard = memo(({ id, img, title, newPrice, color }) => (
         <Card
             key={id}
             img={img}
@@ -45,10 +45,11 @@ function Home() {
             prevPrice={Number(newPrice * 2)}
             newPrice={newPrice}
             id={id}
+            color = {color}
         />
     ));
     // { console.log(productData) }
-    const result = productData.slice(0, 10).map(({ _id, thumbnail, title, price }) => (
+    const result = productData.slice(0, 10).map(({ _id, thumbnail, title, price, color }) => (
         <MemoizedCard
             key={_id}
             img={thumbnail}
@@ -56,6 +57,7 @@ function Home() {
             prevPrice={Number(price * 3)}
             newPrice={price}
             id={_id}
+            color = {color}
         />
     ))
     return (

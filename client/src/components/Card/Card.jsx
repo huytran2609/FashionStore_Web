@@ -6,17 +6,26 @@ import Button from '~/components/Button/Button'
 import { Link } from 'react-router-dom'
 import config from '~/config'
 import { useLocation, useNavigate } from "react-router-dom";
-import { useSelector } from 'react-redux';
-function Card({ id, img, title, newPrice, prevPrice }) {
-  const { isLoggedIn } = useSelector((state) => state.user);
+import { useSelector, useDispatch } from 'react-redux';
+import { apiCart } from '~/apis/user'
+import { toast } from 'react-toastify'
+import { getCurrent } from '~/redux/features/slices/asyncActions'
+function Card({ id, img, title, newPrice, prevPrice, color }) {
+  const { isLoggedIn, current } = useSelector((state) => state.user);
   const location = useLocation();
+  const dispatch = useDispatch();
   const Navigate = useNavigate();
-  const handleClick = () => {
+  const handleClick = async() => {
     if (!isLoggedIn) {
       Navigate('/login', { state: location?.pathname })
-    } {
-
+    } else {
+        const response = await apiCart({pid: id, color: color})
+        if(response.success) {
+          toast.success(response.mes)
+          dispatch(getCurrent())
+        }
     }
+    console.log(current)
   }
   return (
     <>

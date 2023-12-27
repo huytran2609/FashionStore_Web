@@ -5,7 +5,7 @@ import { FaUser, FaLock, FaInfoCircle, FaRegTimesCircle, FaCheckCircle } from 'r
 import { Link } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { apiRegister } from '~/apis/user';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{5,23}$/;
@@ -298,7 +298,6 @@ export default function Register() {
                         </p>
                     </div>
                 </div>
-                <ToastContainer />
             </section>
         </>
     );
