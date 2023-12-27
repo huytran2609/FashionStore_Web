@@ -2,6 +2,7 @@ import styles from './Cart.module.scss';
 import { Row, Col } from 'antd';
 import emptyCart from '~/assets/Cart/emptyCart.svg'
 import Button from '~/components/Button/Button';
+import CartProduct from '../../../layouts/public/CartProduct/CartProduct';
 
 export default function Cart() {
     const haveOrder = true;
@@ -22,10 +23,25 @@ export default function Cart() {
                                 <h3>Total</h3>
                             </div>
                         </section>
+                        {/* <hr /> */}
                         <div style={{ display: 'flex' }}>
                             <Col span={16}>
                                 <section className="p-5">
-                                    abc
+                                    <CartProduct />
+                                    <CartProduct />
+                                    <CartProduct />
+                                    <CartProduct />
+                                    <CartProduct />
+                                    <CartProduct />
+                                    <CartProduct />
+                                    <CartProduct />
+                                    <CartProduct />
+                                    <CartProduct />
+                                    <CartProduct />
+                                    <CartProduct />
+                                    <CartProduct />
+                                    <CartProduct />
+                                    <CartProduct />
                                 </section>
                             </Col>
                             <Col className='p-5' span={8}>
@@ -34,6 +50,7 @@ export default function Cart() {
                                     <input type="text" placeholder='FullName...' />
                                     <input type="tel" placeholder='Phone number...' />
                                     <input type="email" placeholder='Email...' />
+                                    <input type="text" placeholder='Address...' />
                                     <h1>Order Summary</h1>
                                     <div className={`${styles.subTotal} ${styles.baseSub}`}>
                                         <h1>Subtotal</h1>

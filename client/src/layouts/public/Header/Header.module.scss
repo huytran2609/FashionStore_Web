@@ -87,6 +87,17 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    &::before {
+        content: "";
+        width: 13%;
+        height: 37%;
+        top: 2%;
+        position: absolute;
+        z-index: 3;
+    }
+    &:hover {
+        opacity: 0.8;
+    }
     .cartIcon {
         color: #FFF;
         font-size: 25px;
@@ -96,6 +107,29 @@
             opacity: 80%;
         }
     }
+    label {
+        z-index: 2;
+        position: relative;
+        left: -23%;
+        top: -12px;    
+        color: #fff;
+    }
+    &::after {
+        content: "";
+        width: 20px;
+        height: 20px;
+        background-color: red;
+        position: relative;
+        top: -12px;
+        right: 42%;
+        border-radius: 10px;
+        box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+        border: 1px solid #fff;
+}
 }
 
 .userInfo {
@@ -119,7 +153,7 @@
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
         z-index: 1;
         top: 113%;
-        right: 12%;
+        right: 7%;
         border-radius: 10px;
         &::before {
             content: "";

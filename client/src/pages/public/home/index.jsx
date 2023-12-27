@@ -20,7 +20,6 @@ function Home() {
     const randomRate = Math.ceil(Math.random() * 5);
     const randomSale = Math.ceil(Math.random() * 80);
     const randomSale2 = Math.ceil(Math.random() * 80);
-
     const [productData, setProductData] = useState([])
 
     useEffect(() => {

@@ -7,7 +7,8 @@ import Button from '~/components/Button/Button';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getProductDetail } from '~/apis/products';
-
+import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from 'react-redux';
 export default function ProductDetail() {
     const { id, title } = useParams();
     const [productData, setProductData] = useState({});
@@ -21,6 +22,18 @@ export default function ProductDetail() {
     }, []);
     // Code 1 random comment rate tu 1k cmt -> 5k
     const randomCmt = Math.ceil(Math.random() * 4000 + 1000);
+
+    const { isLoggedIn, current } = useSelector((state) => state.user);
+    const location = useLocation();
+    console.log(location)
+    const navigate = useNavigate();
+    const handleClick = () => {
+        if (!isLoggedIn) {
+            navigate('/login', { state: location?.pathname })
+        } {
+
+        }
+    }
     return (
         <>
             <Row style={{ margin: '70px 0 10px 50px', color: '#999', fontWeight: '500', fontSize: '18px' }} col={3}>
@@ -85,7 +98,7 @@ export default function ProductDetail() {
                         <Counter />
                     </section>
                     <section className={styles.btnAdd}>
-                        <Button classParent={styles.customBtn} content='Add to Cart' />
+                        <Button onClick={handleClick} classParent={styles.customBtn} content='Add to Cart' />
                     </section>
                 </Col>
             </Row>
