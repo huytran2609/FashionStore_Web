@@ -15,6 +15,7 @@ import Kids from '~/pages/public/category/kids';
 import Lifestyle from '~/pages/public/category/lifestyle';
 import Cart from '~/pages/public/Cart/Cart';
 import Profile from '~/pages/public/profile/Profile';
+import HistoryOrder from '~/pages/public/historyOrder/HistoryOrder';
 const publicRoutes = [
     { path: config.home, page: Home },
     { path: config.login, page: Login, layout: null },
@@ -28,6 +29,7 @@ const publicRoutes = [
     { path: config.lifestyle, page: Lifestyle },
     { path: config.cart, page: Cart },
     { path: config.profile, page: Profile },
+    { path: config.history, page: HistoryOrder },
 ];
 
 const privateRoutes = [

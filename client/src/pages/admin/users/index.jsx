@@ -14,6 +14,8 @@ function User() {
     const {
         handleSubmit,
         register,
+        setValue,
+        watch,
         formState: { errors },
     } = useForm({ email: '', name: '', phone: '', status: '' });
 
@@ -39,6 +41,17 @@ function User() {
         }
         fetchApiUsers(queries);
     }, [debounced, params, updated]);
+
+    useEffect(() => {
+        // Khi editUser thay đổi, cập nhật giá trị mặc định của các trường
+        if (editUser) {
+            setValue('name', editUser.name);
+            setValue('email', editUser.email);
+            setValue('phone', editUser.phone);
+            setValue('status', editUser.isBlocked ? 'Block' : 'Active');
+        }
+        console.log(editUser);
+    }, [editUser, setValue]);
 
     const render = useCallback(() => {
         setUpdated(!updated);
@@ -72,7 +85,6 @@ function User() {
             }
         });
     };
-    console.log(editUser);
 
     return (
         <div>
@@ -117,7 +129,7 @@ function User() {
                                             <InputForm
                                                 register={register}
                                                 errors={errors}
-                                                defaultValue={editUser?.email}
+                                                defaultValue={watch(editUser?.email)}
                                                 id={'email'}
                                                 validate={{
                                                     required: 'Required',

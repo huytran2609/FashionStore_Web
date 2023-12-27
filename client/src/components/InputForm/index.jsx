@@ -1,9 +1,8 @@
 import classNames from 'classnames';
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 
 function InputForm({ label, disabled, register, errors, id, validate, type = 'text', placeholder, fullWidth, defaultValue }) {
-
-
+    
     return (
         <div className="relative flex h-[60px] items-center">
             {label && (
@@ -17,7 +16,7 @@ function InputForm({ label, disabled, register, errors, id, validate, type = 'te
                 {...register(id, validate)}
                 placeholder={placeholder}
                 disabled={disabled}
-                value = {defaultValue}
+                defaultValue = {defaultValue}
                 className={classNames(
                     'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white',
                     fullWidth && 'w-full',

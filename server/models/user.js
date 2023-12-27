@@ -25,10 +25,13 @@ var userSchema = new mongoose.Schema(
             enum: [1, 2],
             default: 2,
         },
-        cart: {
-            type: Array,
-            default: [],
-        },
+        cart: [
+            {
+                product: { type: mongoose.Types.ObjectId, ref: 'Product' },
+                quantity: Number,
+                color: Array,
+            }
+        ],
         address: [{ type: mongoose.Types.ObjectId, ref: 'Address' }],
         wishlist: [{ type: mongoose.Types.ObjectId, ref: 'Product' }],
         isBlocked: {
