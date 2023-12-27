@@ -194,7 +194,7 @@ const updateCart = asyncHandler(async (req, res) => {
     const { pid, quantity = 1, color } = req.body;
     if (!pid || !color) throw new Error('Missing input!');
     const user = await User.findById(_id).select('cart');
-    const alreadyProduct = user?.cart?.find((item) => item?.product.toString() === pid && item?.color === color);
+    const alreadyProduct = user?.cart?.find((item) => item?.product.toString() === pid);
     if (alreadyProduct) {
         const response = await User.updateOne(
             { cart: { $elemMatch: alreadyProduct } },
