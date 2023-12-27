@@ -16,11 +16,13 @@ export const userSlice = createSlice({
         login: (state, action) => {
             state.isLoggedIn = action.payload.isLoggedIn;
             state.token = action.payload.token;
+            state.current = action.payload.userData;
             state.isToastVisible = true;
         },
         logout: (state, action) => {
             state.isLoggedIn = false;
             state.token = null;
+            state.current = null,
             state.isToastVisible = true;
         },
         setToastVisibility: (state, action) => {

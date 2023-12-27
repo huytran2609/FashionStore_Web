@@ -28,7 +28,7 @@ function Home() {
             try {
                 const productsData = await getAllProducts();
                 setProductData(productsData.products)
-                console.log(productData)
+                // console.log(productData)
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -48,7 +48,7 @@ function Home() {
             id={id}
         />
     ));
-    { console.log(productData) }
+    // { console.log(productData) }
     const result = productData.slice(0, 10).map(({ _id, thumbnail, title, price }) => (
         <MemoizedCard
             key={_id}

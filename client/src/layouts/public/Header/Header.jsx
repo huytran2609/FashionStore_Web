@@ -20,7 +20,6 @@ export default function Header() {
     const { isLoggedIn, current, isToastVisible } = useSelector((state) => state.user);
     const [categories, setCategories] = useState([]);
 
-    console.log(isToastVisible);
     useEffect(() => {
         let timeoutId;
         if (isLoggedIn) {

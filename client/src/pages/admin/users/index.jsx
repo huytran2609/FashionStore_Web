@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { useCallback, useEffect, useState } from 'react';
-import { apiGetUsers, apiUpdateUser } from '~/apis/admin/user';
+import { apiDeleteUser, apiGetUsers, apiUpdateUser } from '~/apis/admin/user';
 import { Pagination } from '~/components/Pagination';
 import { useDebounce } from '~/hooks';
 import InputSearch from '~/layouts/admin/Components/InputSearch';
@@ -48,7 +48,7 @@ function User() {
         const response = await apiUpdateUser(data, editUser._id);
         if (response.success) {
             setEditUser(null);
-            render();
+            render()
             toast.success(response.mes);
         } else {
             toast.error(response.mes);
@@ -57,14 +57,14 @@ function User() {
 
     const handleDelete = async (uid) => {
         Swal.fire({
-            title: 'Are you sure',
+            title: 'Are you sure?',
             text: "You won't be able to revert this!",
             showCancelButton: true,
         }).then(async (result) => {
             if (result.isConfirmed) {
                 const response = await apiDeleteUser(uid);
                 if (response.success) {
-                    render();
+                    render()
                     toast.success(response.mes);
                 } else {
                     toast.error(response.mes);
@@ -72,6 +72,7 @@ function User() {
             }
         });
     };
+    console.log(editUser);
 
     return (
         <div>
@@ -98,7 +99,7 @@ function User() {
                                 <tr key={user._id} className="border-b dark:border-neutral-500">
                                     <td className="whitespace-nowrap  px-4 py-2 font-semibold">{index + 1}</td>
                                     <td className="whitespace-nowrap  px-4 py-2">
-                                        {editUser?._id === user?._id ? (
+                                        {editUser?._id === user._id ? (
                                             <InputForm
                                                 register={register}
                                                 errors={errors}
@@ -111,7 +112,7 @@ function User() {
                                         )}
                                     </td>
                                     <td className="whitespace-nowrap  px-4 py-2">
-                                        {editUser?._id === user?._id ? (
+                                        {editUser?._id === user._id ? (
                                             <InputForm
                                                 register={register}
                                                 errors={errors}
@@ -130,7 +131,7 @@ function User() {
                                         )}
                                     </td>
                                     <td className="whitespace-nowrap  px-4 py-2">
-                                        {editUser?._id === user?._id ? (
+                                        {editUser?._id === user._id ? (
                                             <InputForm
                                                 register={register}
                                                 errors={errors}
@@ -149,7 +150,7 @@ function User() {
                                         )}
                                     </td>
                                     <td className="whitespace-nowrap  px-4 py-2">
-                                        {editUser?._id === user?._id ? (
+                                        {editUser?._id === user._id ? (
                                             <InputForm
                                                 register={register}
                                                 errors={errors}
@@ -165,7 +166,7 @@ function User() {
                                         {moment(user?.createdAt).format('MM/DD/YYYY')}
                                     </td>
                                     <td className="whitespace-nowrap  px-4 py-2">
-                                        {editUser?._id === user?._id ? (
+                                        {editUser?._id === user._id ? (
                                             <>
                                                 <button
                                                     type="submit"
@@ -173,26 +174,27 @@ function User() {
                                                 >
                                                     Update
                                                 </button>
-                                                <button
+                                                <span
                                                     onClick={() => setEditUser(null)}
-                                                    className="rounded-md border bg-blue-100 border-blue-600 text-blue-600 text-[12px] w-12 p-1 mr-1 hover:bg-blue-500 hover:text-white"
+                                                    className="rounded-md border bg-blue-100 border-blue-600 text-blue-600 text-[12px] w-12 p-1 mr-1 hover:bg-blue-500 hover:text-white cursor-pointer"
                                                 >
                                                     Back
-                                                </button>
+                                                </span>
                                             </>
                                         ) : (
                                             <>
-                                                <button
+                                                <span
                                                     onClick={() => setEditUser(user)}
-                                                    className="rounded-md border border-blue-600 text-blue-600 text-[12px] w-12 p-1 mr-1 hover:bg-blue-500 hover:text-white"
+                                                    className="rounded-md border border-blue-600 text-blue-600 text-[12px] w-12 p-1 mr-1 hover:bg-blue-500 hover:text-white cursor-pointer"
                                                 >
                                                     Edit
-                                                </button>
-                                                <button 
+                                                </span>
+                                                <span
                                                     onClick={() => handleDelete(user._id)}
-                                                    className="bg-red-600 rounded-md border border-red-600 text-white text-[12px] w-12 p-1 hover:bg-red-700 hover:text-white">
+                                                    className="bg-red-600 rounded-md border border-red-600 text-white text-[12px] w-12 p-1 hover:bg-red-700 hover:text-white cursor-pointer"
+                                                >
                                                     Delete
-                                                </button>
+                                                </span>
                                             </>
                                         )}
                                     </td>

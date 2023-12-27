@@ -2,20 +2,29 @@ import config from '~/config';
 import { HiOutlineBell, HiOutlineChatAlt } from 'react-icons/hi';
 import { Menu, Popover, Transition } from '@headlessui/react';
 import classNames from 'classnames';
-import { Fragment } from 'react';
-import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { Fragment, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { getCurrent } from '~/redux/features/slices/asyncActions';
+import { logout } from '~/redux/features/slices/userSlice';
 
 function HeaderAdmin() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { isLoggedIn, current } = useSelector((state) => state.user);
 
-    const {isLoggedIn, current} = useSelector((state) => state.user);
-    console.log(current);
-    if(!isLoggedIn || !current || +current.role !== 1) return <Navigate to={config.login} replace={true} />;
+    const handleLogout = () => {
+        dispatch(logout());
+        navigate(config.login)
+    }
 
+    if (!isLoggedIn || +current?.role !== 1) return <Navigate to={config.login} replace={true} />;
+    
     return (
         <div className="bg-white h-16 px-4 flex items-center justify-end border-b border-gray-200">
             <div className="mr-6 flex items-center">
-                <HiOutlineBell fontSize={24} className='mr-6'/>
+                <HiOutlineBell fontSize={24} className="mr-6" />
+                <h3 className='mr-2 text-orange-500'>Hi {current?.name}!</h3>
                 <Menu as="div" className="relative">
                     <div>
                         <Menu.Button className="ml-2 bg-gray-800 flex text-sm rounded-full focus:ring-2 focus:ring-neutral-300 focus:outline-none">
@@ -70,6 +79,7 @@ function HeaderAdmin() {
                             <Menu.Item>
                                 {({ active }) => (
                                     <div
+                                        onClick={handleLogout}
                                         className={classNames(
                                             active && 'bg-gray-100',
                                             'active:bg-gray-200 rounded-md px-4 py-2 text-gray-700 cursor-pointer focus:bg-gray-200',

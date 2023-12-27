@@ -32,8 +32,8 @@ const login = asyncHandler(async (req, res) => {
     const user = await User.findOne({ email });
     if (user && (await user.isCorrectPassword(password))) {
         //Lấy password và role ra từ dữ liệu trả về
-        const { password, role, refreshToken, ...userData } = user.toObject();
-        const accessToken = generateAccessToken(user._id, role);
+        const { password, refreshToken, ...userData } = user.toObject();
+        const accessToken = generateAccessToken(user._id, user.role);
         const newRefreshToken = generateRefreshToken(user._id);
         //Lưu refresh token vào database
         await User.findByIdAndUpdate(user._id, { refreshToken: newRefreshToken }, { new: true }); //new: true -- trả về data sau khi update
@@ -68,17 +68,16 @@ const getUsers = asyncHandler(async (req, res) => {
     queryString = queryString.replace(/\b(gte|gt|lt|lte)\b/g, (matchedEl) => `$${matchedEl}`);
     const formatedQueries = JSON.parse(queryString);
 
+    // Thêm điều kiện tìm kiếm người dùng với vai trò là "customer"
+    formatedQueries.role = 2;
+
     //Filtering
     if (queries?.name) formatedQueries.name = { $regex: queries.name, $options: 'i' };
 
-    if(req.query.q) {
+    if (req.query.q) {
         delete formatedQueries.q;
         const regex = { $regex: req.query.q, $options: 'i' };
-        formatedQueries.$or = [
-            { name: regex },
-            { email: regex },
-            { phone: regex },
-        ];
+        formatedQueries.$or = [{ name: regex }, { email: regex }, { phone: regex }];
     }
 
     let queryCommand = User.find(formatedQueries);
@@ -123,7 +122,7 @@ const deleteUser = asyncHandler(async (req, res) => {
     const user = await User.findByIdAndDelete(uid);
     return res.status(200).json({
         success: user ? true : false,
-        deletedUser: user ? `User ${user.email} deleted` : 'No user to delete',
+        mes: user ? `User ${user.email} deleted` : 'No user to delete',
     });
 });
 
@@ -143,7 +142,7 @@ const updateUserByAdmin = asyncHandler(async (req, res) => {
     const user = await User.findByIdAndUpdate(uid, req.body, { new: true }).select('-password -refreshToken');
     return res.status(200).json({
         success: user ? true : false,
-        updatedUser: user ? 'Updated' : 'Update failed',
+        mes: user ? 'Updated' : 'Update failed',
     });
 });
 
@@ -204,7 +203,7 @@ const updateCart = asyncHandler(async (req, res) => {
         );
         return res.status(200).json({
             success: response ? true : false,
-            updatedUser: response ? response : 'Update failed',
+            updatedUser: response ? 'Update cart' : 'Update failed',
         });
     } else {
         const response = await User.findByIdAndUpdate(
@@ -214,7 +213,7 @@ const updateCart = asyncHandler(async (req, res) => {
         );
         return res.status(200).json({
             success: response ? true : false,
-            updatedUser: response ? response : 'Update failed',
+            updatedUser: response ? 'Update cart' : 'Update failed',
         });
     }
 });

@@ -10,7 +10,7 @@ const persistConfig = {
 
 const userConfig = {
     ...persistConfig,
-    whitelist: ['isLoggedIn', 'token', 'isToastVisible'],
+    whitelist: ['isLoggedIn', 'token', 'current', 'isToastVisible'],
 };
 
 export const store = configureStore({

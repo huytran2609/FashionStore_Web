@@ -44,9 +44,13 @@ export default function index() {
             if (response.success) {
                 // toast.success("Logged in Successfully!");
                 dispatch(login({ isLoggedIn: true, userData: response.userData, token: response.accessToken }));
-
-                await new Promise(resolve => setTimeout(resolve, 100));
-                navigate(config.home);
+                if(+response.userData.role === 1) {
+                    navigate(config.admin);
+                } else {
+                    navigate(config.home);
+                }
+                await new Promise(resolve => setTimeout(resolve, 300));
+                
             } else {
                 toast.error('Failure', response.mes, 'error');
             }
