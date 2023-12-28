@@ -6,6 +6,7 @@ import { Routes, Route } from 'react-router-dom';
 import DefaultLayout from '~/layouts/public/DefaultLayout';
 import AdminLayout from '~/layouts/admin/AdminLayout';
 import { ToastContainer } from 'react-toastify';
+import Scroll from './layouts/public/ScrollToTop/Scroll';
 
 function App() {
     return (
@@ -52,7 +53,8 @@ function App() {
                     );
                 })}
             </Routes>
-            <ToastContainer position="bottom-right"/>
+            <Scroll />
+            <ToastContainer position="bottom-right" />
         </div>
     );
 }
