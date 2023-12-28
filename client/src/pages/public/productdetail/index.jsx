@@ -45,16 +45,16 @@ export default function ProductDetail() {
                 dispatch(getCurrent())
             }
         }
-        console.log(current)
     }
 
     const colorString = current.cart.map((cart) => cart.color[0]).toString();
     // console.log(productData.color);
 
     const [counter, setCounter] = useState(1);
-    const handleCounter = (quantity) => {
-        setCounter(quantity)
+    const handleCounter = (newCounter) => {
+        setCounter(newCounter)
     }
+    console.log(counter);
 
     return (
         <>
@@ -106,7 +106,7 @@ export default function ProductDetail() {
                                 (productData?.color || []).map((color) => (
                                     <label key={color} className={styles.container}>
                                         <input value={color ? color : 'pink'} type="radio" name='color' />
-                                        {console.log(color)}
+                                        {/* {console.log(color)} */}
                                         <span style={{ backgroundColor: `${color ? color : '#E280AD'}`, border: '0.5px solid rgba(0, 0, 0, 0.25)', boxShadow: '0.49px 1.958px 4.958px rgba(0, 0, 0, 0.25)' }} className={`${styles.firstColor} ${styles.checkmark2}`}></span>
                                     </label>
                                 ))

@@ -9,7 +9,7 @@ import { useState } from 'react';
 export default function CartProduct({ pid, title, color, quantity, size, price, thumbnail, dispatch }) {
     const [count, setCount] = useState(quantity);
 
-    const handleChangeQuantity = (pid, quantity, color) => {
+    const handleChangeQuantity = (quantity) => {
         setCount(quantity);
     };
 

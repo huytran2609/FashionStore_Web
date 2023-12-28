@@ -13,7 +13,7 @@ export default function Counter({ pid, quantity = 1, color, classParent, handleC
     }
 
     useEffect(() => {
-        handleChangeQuantity && handleChangeQuantity(pid, count, color);
+        handleChangeQuantity && handleChangeQuantity(count);
     }, [count])
 
     const handleInputChange = (e) => {
