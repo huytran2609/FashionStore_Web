@@ -1,7 +1,7 @@
 import axios from '../axios';
 
-export const getAllProducts = () => {
-    return axios.get('/product/');
+export const getAllProducts = (params) => {
+    return axios.get('/product/', { params });
 };
 
 export const getProductDetail = (id) => {

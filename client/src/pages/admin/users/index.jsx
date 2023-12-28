@@ -217,7 +217,7 @@ function User() {
                     </table>
                 </form>
             </div>
-            <Pagination totalCount={users.counts} />
+            <Pagination totalCount={users.counts} pageSize="10"/>
         </div>
     );
 }
