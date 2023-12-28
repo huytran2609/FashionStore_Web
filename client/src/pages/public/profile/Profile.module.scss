@@ -1,0 +1,31 @@
+@mixin btn {
+    width: 50%;
+    margin: auto;
+    margin-top: 20px;
+    height: 3.5rem;
+    font-size: 16px;
+    border-radius: 40px;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    -ms-border-radius: 40px;
+    -o-border-radius: 40px;
+    color: #fff;
+}
+
+.btnEdit {
+    @include btn;
+    margin-right: 10%;
+    background-color: lightcoral;
+    &:hover {
+        background-color: rgb(241, 108, 108);
+    }
+}
+
+.btnUpdate {
+    @include btn;
+    background-color: rgb(98, 202, 98);
+    &:hover
+    {
+        background-color: rgb(77, 176, 77);
+    }
+}

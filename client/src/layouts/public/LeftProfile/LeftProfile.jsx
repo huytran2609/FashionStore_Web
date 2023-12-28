@@ -23,7 +23,7 @@ export default function LeftProfile() {
             </div>
             <Link to={config.profile} className={styles.userInfo}>
                 <FaUserCircle className={styles.icon} />
-                <h1>User Information</h1>
+                <h1>User Profile</h1>
             </Link>
             <Link to={config.history} className={styles.userInfo}>
                 <FaHistory className={`${styles.history} ${styles.icon}`} />

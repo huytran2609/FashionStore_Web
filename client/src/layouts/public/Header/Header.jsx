@@ -99,7 +99,9 @@ export default function Header() {
 
                     <Link to={config.cart} className={styles.cart}>
                         <FaShoppingCart className={styles.cartIcon} />
-                        <label>{current?.cart?.length || 0}</label>
+                        <div className={styles.bgNumCart}>
+                            <label>{current?.cart?.length || 0}</label>
+                        </div>
                     </Link>
                     {/* {loading ? (
                         <div>Wait a minutes...</div>

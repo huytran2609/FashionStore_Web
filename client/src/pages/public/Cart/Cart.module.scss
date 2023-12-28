@@ -37,7 +37,9 @@
         text-align: center;
         font-weight: bold;
     }
+
     input {
+        cursor: pointer;
         width: 100%;
         height: 40px;
         border: 1px solid #e5e5e5;
@@ -53,6 +55,7 @@
         -ms-border-radius: 30px;
         -o-border-radius: 30px;
     }
+
     .baseSub {
         font-size: 15px;
         height: 40px;

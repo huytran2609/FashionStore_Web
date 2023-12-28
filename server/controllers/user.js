@@ -46,7 +46,7 @@ const login = asyncHandler(async (req, res) => {
             userData,
         });
     } else {
-        throw new Error('invalid credentials');
+        throw new Error('The Username or Password is Incorrect !!!');
     }
 });
 

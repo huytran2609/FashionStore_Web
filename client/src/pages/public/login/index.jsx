@@ -44,9 +44,9 @@ export default function index() {
             const response = await apiLogin(payload);
             if (response.success) {
                 dispatch(login({ isLoggedIn: true, userData: response.userData, token: response.accessToken }));
-                
+
                 await new Promise(resolve => setTimeout(resolve, 100));
-                if(+response.userData.role === 1) {
+                if (+response.userData.role === 1) {
                     navigate(config.admin);
                 }
                 else if (location?.state) {
@@ -56,7 +56,7 @@ export default function index() {
                     navigate(config.home);
                 }
             } else {
-                toast.error('Failure', response.mes, 'error');
+                toast.error(response.mes);
             }
         } catch (error) {
             console.error("Error during login:", error);

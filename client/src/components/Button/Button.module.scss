@@ -26,7 +26,6 @@
         -moz-transition: color 0s;
         -ms-transition: color 0s;
         -o-transition: color 0s;
-         
 }
 }
 
@@ -44,4 +43,19 @@
     position: relative;
     top: -1px;
     left: -5px
+}
+
+.classDisable {
+    &:hover {
+        opacity: 100% !important;
+    }
+}
+
+.disabled {
+    background-color: #828282;
+    border-radius: 20px;
+    &:hover {
+        cursor: not-allowed;
+        background-color: #828282;
+    }
 }

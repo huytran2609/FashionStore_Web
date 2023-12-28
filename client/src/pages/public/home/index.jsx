@@ -15,6 +15,7 @@ import Product from '~/layouts/public/Products/Product'
 import { getAllProducts } from '~/apis/products'
 import { useEffect, useState, memo } from 'react'
 import Card from '~/components/Card/Card'
+import config from '~/config'
 
 function Home() {
     const randomRate = Math.ceil(Math.random() * 5);
@@ -45,7 +46,7 @@ function Home() {
             prevPrice={Number(newPrice * 2)}
             newPrice={newPrice}
             id={id}
-            color = {color}
+            color={color}
         />
     ));
     // { console.log(productData) }
@@ -57,7 +58,7 @@ function Home() {
             prevPrice={Number(price * 3)}
             newPrice={price}
             id={_id}
-            color = {color}
+            color={color}
         />
     ))
     return (
@@ -192,7 +193,7 @@ function Home() {
                     <h1>BEST SAVINGS ON NEW ARRIVALS</h1>
                     <p>Unlock unparalleled savings on the latest trends with our Best Savings on New Arrivals! Experience the joy of style and affordability as you explore a curated collection of fresh, must have items. Elevate your wardrobe without breaking the bank discover unbeatable discounts on chic new arrivals that blend fashion forward designs with incredible savings!</p>
                     <div className={styles.frameBtnEncourage}>
-                        <Button classParent={styles.buyNow} content='Buy Now' />
+                        <Button link={config.cart} classParent={styles.buyNow} content='Buy Now' />
                         <Button classParent={styles.enSeeMore} link='category' content='See More' />
                     </div>
                 </div>

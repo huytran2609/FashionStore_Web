@@ -5,11 +5,41 @@ import Button from '~/components/Button/Button';
 import CartProduct from '../../../layouts/public/CartProduct/CartProduct';
 import { useSelector, useDispatch } from 'react-redux';
 import InputInformation from '~/layouts/public/InputInformation/InputInformation';
+import { useState } from 'react';
 
 export default function Cart() {
     const { current } = useSelector((state) => state.user);
+    console.log(current)
     const haveOrder = current?.cart?.length;
     const dispatch = useDispatch();
+    const formattedCount = (numberValue) => Number(numberValue).toFixed(2);
+
+    const totalPrice = formattedCount(current?.cart?.reduce((acc, item) => {
+        return acc + item?.quantity * item?.product?.price;
+    }, 0));
+
+    const [nameValue, setNameValue] = useState(current?.name);
+    const handleNameChange = (event) => {
+        setNameValue(event.target.value)
+    }
+
+    const [emailValue, setEmailValue] = useState(current?.email);
+    const handleEmailChange = (event) => {
+        setEmailValue(event.target.value)
+    }
+
+    const [phoneValue, setPhoneValue] = useState('0308217772');
+    const handlePhoneChange = (event) => {
+        setPhoneValue(event.target.value)
+    }
+
+    const [addressValue, setAddressValue] = useState('Dai hoc cong nghe thong tin');
+    const handleAddressChange = (event) => {
+        setAddressValue(event.target.value)
+    }
+
+    const isDisabled = (current?.cart?.length <= 0) ? true : false;
+
 
     return <>
         <Row style={{ margin: '70px 0 10px 50px', color: '#000', fontWeight: 'bold', fontSize: '30px', display: 'flex', justifyContent: 'center' }} col={3}>
@@ -35,14 +65,14 @@ export default function Cart() {
                                 <>
                                     {current?.cart?.map((item, index) => (
                                         <CartProduct
-                                            key={item.product._id}
-                                            pid={item.product._id}
-                                            title={item.product.title}
-                                            color={item.color}
-                                            quantity={item.quantity}
-                                            size={item.product.size}
-                                            price={item.product.price}
-                                            thumbnail={item.product.thumbnail}
+                                            key={item?.product?._id}
+                                            pid={item?.product?._id}
+                                            title={item?.product?.title}
+                                            color={item?.color}
+                                            quantity={item?.quantity}
+                                            size={item?.product?.size}
+                                            price={item?.product?.price}
+                                            thumbnail={item?.product?.thumbnail}
                                             dispatch={dispatch}
                                         />
                                     ))}
@@ -58,11 +88,15 @@ export default function Cart() {
                     </Col>
                     <Col className='p-5' span={8}>
                         <form className={`${styles.checkOut} p-5`}>
-                            <InputInformation title='User Delivery Information' />
+                            <h1>User Delivery Information</h1>
+                            <input value={nameValue} type="text" placeholder='FullName...' onChange={handleNameChange} />
+                            <input value={phoneValue} type="tel" placeholder='Phone number...' onChange={handlePhoneChange} />
+                            <input value={emailValue} type="email" placeholder='Email...' onChange={handleEmailChange} />
+                            <input value={addressValue} type="text" placeholder='Address...' onChange={handleAddressChange} />
                             <h1>Order Summary</h1>
                             <div className={`${styles.subTotal} ${styles.baseSub}`}>
                                 <h1>Subtotal</h1>
-                                <h3>$&nbsp;4444</h3>
+                                <h3>$&nbsp;{totalPrice}</h3>
                             </div>
                             <div className={`${styles.shipFee} ${styles.baseSub}`}>
                                 <h1>Shipping Fee</h1>
@@ -71,9 +105,9 @@ export default function Cart() {
                             <hr />
                             <div className={`${styles.estimateTotal} ${styles.baseSub}`}>
                                 <h1>Estimate Total</h1>
-                                <h3>$&nbsp;4444</h3>
+                                <h3>$&nbsp;{totalPrice}</h3>
                             </div>
-                            <Button link='/login' classParent={styles.btnParentCheck} classChild={styles.btnCheckout} content='Check Out' />
+                            <Button disabled={isDisabled} link='/login' classParent={styles.btnParentCheck} classChild={styles.btnCheckout} content='Check Out' />
                         </form>
                     </Col>
                 </div>
