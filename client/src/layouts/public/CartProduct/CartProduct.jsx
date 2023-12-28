@@ -7,23 +7,21 @@ import { getCurrent } from '~/redux/features/slices/asyncActions';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
 
-export default function CartProduct({pid, title, color, quantity, size, price, thumbnail, dispatch }) {
-
+export default function CartProduct({ pid, title, color, quantity, size, price, thumbnail, dispatch }) {
     const [count, setCount] = useState(quantity);
 
     const handleChangeQuantity = (pid, quantity, color) => {
-        setCount(quantity)
-    }
+        setCount(quantity);
+    };
 
     const removeCart = async (pid, color) => {
-        const response = await apiRemoveCart(pid, color)
-        if(response.success) {
-            dispatch(getCurrent())
+        const response = await apiRemoveCart(pid, color && color[0]);
+        if (response.success) {
+            dispatch(getCurrent());
+        } else {
+            toast.error(response.mes);
         }
-        else {
-            toast.error(response.mes)
-        }
-    }
+    };
 
     return (
         <div
@@ -40,20 +38,23 @@ export default function CartProduct({pid, title, color, quantity, size, price, t
             </div>
             <div className={styles.cartProInfo}>
                 <h1>{title}</h1>
-                <h3>Color: {color}</h3>
-                <h3>Size: {size[0]}</h3>
+                <h3>Color: {color.length ? color[0] : 'Default'}</h3>
+                <h3>Size: {size[0] || 'No size'}</h3>
             </div>
-            <Counter pid = {pid} quantity = {quantity} color = {color} classParent={styles.counter} handleChangeQuantity = {handleChangeQuantity}/>
+            <Counter
+                pid={pid}
+                quantity={quantity}
+                color={color}
+                classParent={styles.counter}
+                handleChangeQuantity={handleChangeQuantity}
+            />
             <div className={styles.proPrice}>
                 <h3>$&nbsp;{price}</h3>
             </div>
             <div className={`${styles.totalPrice} ${styles.proPrice}`}>
                 <h3>$&nbsp;{price * count}</h3>
             </div>
-            <div 
-                className={styles.removeCartProduct}
-                onClick = {() => removeCart(pid, color)}
-            >
+            <div className={styles.removeCartProduct} onClick={() => removeCart(pid, color)}>
                 <FaRegTrashCan />
             </div>
         </div>

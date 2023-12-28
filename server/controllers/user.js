@@ -203,16 +203,30 @@ const updateCart = asyncHandler(async (req, res) => {
     const user = await User.findById(_id).select('cart');
     // const alreadyProduct = user?.cart?.find((item) => item?.product.toString() === pid && item?.color === color);
     const alreadyProduct = user?.cart?.find((item) => item?.product.toString() === pid);
-    if (alreadyProduct && alreadyProduct.color.includes(color)) {
-        const response = await User.updateOne(
-            { cart: { $elemMatch: alreadyProduct } },
-            { $set: { 'cart.$.quantity': alreadyProduct.quantity + +quantity } },
-            { new: true },
-        );
-        return res.status(200).json({
-            success: response ? true : false,
-            mes: response ? 'Update cart' : 'Update failed',
-        });
+    if (alreadyProduct) {
+        if(alreadyProduct.color.includes(color)) {
+            const response = await User.updateOne(
+                { cart: { $elemMatch: alreadyProduct } },
+                { $set: { 'cart.$.quantity': alreadyProduct.quantity + +quantity } },
+                { new: true },
+            );
+            return res.status(200).json({
+                success: response ? true : false,
+                mes: response ? 'Update cart' : 'Update failed',
+            });
+        }
+        else {
+            const response = await User.updateOne(
+                { cart: { $elemMatch: alreadyProduct } },
+                { $set: { 'cart.$.quantity': alreadyProduct.quantity + +quantity } },
+                { new: true },
+            );
+            return res.status(200).json({
+                success: response ? true : false,
+                mes: response ? 'Update cart' : 'Update failed',
+            });
+        }
+    
     } else {
         const response = await User.findByIdAndUpdate(
             _id,
@@ -229,8 +243,16 @@ const updateCart = asyncHandler(async (req, res) => {
 const removeProductFromCart = asyncHandler(async (req, res) => {
     const { _id } = req.user;
     const { pid, color } = req.params;
-    if (!pid || !color) throw new Error('Missing input!');
+    if (!pid) throw new Error('Missing input!');
     const user = await User.findById(_id).select('cart');
+    let filter = { product: pid };
+
+    // Nếu color là một mảng, thêm điều kiện để chỉ xóa mảng color
+    if (Array.isArray(color) && color.length > 0) {
+        filter.color = { $in: color };
+    } else if (color) {
+        filter.color = color;
+    }
     // const alreadyProduct = user?.cart?.find((item) => item?.product.toString() === pid && item?.color === color);
     const alreadyProduct = user?.cart?.find((item) => item?.product.toString() === pid);
     if(!alreadyProduct) {
@@ -239,7 +261,7 @@ const removeProductFromCart = asyncHandler(async (req, res) => {
             mes: 'Product not found',
         });
     }
-    const response = await User.findByIdAndUpdate(_id, { $pull: { cart: { product: pid, color } } }, { new: true });
+    const response = await User.findByIdAndUpdate(_id, { $pull: { cart: filter  } }, { new: true });
     return res.status(200).json({
         success: response ? true : false,
         mes: response ? 'Update cart' : 'Update failed',

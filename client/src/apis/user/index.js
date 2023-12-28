@@ -21,5 +21,12 @@ export const apiCart = (data) => {
 };
 
 export const apiRemoveCart = (pid, color) => {
-    return axios.delete(`/user/removeCart/${pid}/${color}`);
+    let url = `/user/removeCart/${pid}`;
+
+    // Nếu color tồn tại, thêm vào URL
+    if (color) {
+        url += `/${color}`;
+    }
+
+    return axios.delete(url);
 };

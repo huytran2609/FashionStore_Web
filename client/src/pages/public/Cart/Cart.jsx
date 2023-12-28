@@ -53,7 +53,7 @@ export default function Cart() {
                                     <section className="p-5">
                                         {current?.cart?.map((item, index) => (
                                             <CartProduct
-                                                key={item.product._id}
+                                                key={`${item.product._id}-${index}`}
                                                 pid = {item.product._id}
                                                 title={item.product.title}
                                                 color={item.color}
