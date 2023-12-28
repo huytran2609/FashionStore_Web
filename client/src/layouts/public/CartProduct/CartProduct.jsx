@@ -21,7 +21,7 @@ export default function CartProduct({ pid, title, color, quantity, size, price, 
             toast.error(response.mes);
         }
     };
-
+    const formattedCount = (numberValue) => Number(numberValue).toFixed(2);
     return (
         <div
             style={{
@@ -48,10 +48,10 @@ export default function CartProduct({ pid, title, color, quantity, size, price, 
                 handleChangeQuantity={handleChangeQuantity}
             />
             <div className={styles.proPrice}>
-                <h3>$&nbsp;{price}</h3>
+                <h3>$&nbsp;{formattedCount(price)}</h3>
             </div>
             <div className={`${styles.totalPrice} ${styles.proPrice}`}>
-                <h3>$&nbsp;{price * count}</h3>
+                <h3>$&nbsp;{formattedCount(price * count)}</h3>
             </div>
             <div className={styles.removeCartProduct} onClick={() => removeCart(pid, color)}>
                 <FaRegTrashCan />

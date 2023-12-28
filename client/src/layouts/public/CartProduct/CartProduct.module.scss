@@ -3,13 +3,16 @@
     height: 100%;
     width: 120px;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
     border-radius: 10px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
     img
-    {
+    {   
+        width: 100%;
         border-radius: 10px;
         -webkit-border-radius: 10px;
         -moz-border-radius: 10px;
@@ -52,12 +55,12 @@
 }
 
 .proPrice {
-    margin: auto;
-    margin-left: 6.5%;
+    margin: 48px 0 0 50px;
     font-size: 16px;
     font-weight: 500;
     h3 {
-
+        width: 80px;
+        overflow: hidden;
     }
 }
 

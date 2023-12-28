@@ -4,12 +4,13 @@ import emptyCart from '~/assets/Cart/emptyCart.png'
 import Button from '~/components/Button/Button';
 import CartProduct from '../../../layouts/public/CartProduct/CartProduct';
 import { useSelector, useDispatch } from 'react-redux';
+import InputInformation from '~/layouts/public/InputInformation/InputInformation';
 
 export default function Cart() {
-    const haveOrder = true;
+    const { current } = useSelector((state) => state.user);
+    const haveOrder = current?.cart?.length;
     const dispatch = useDispatch();
 
-    const { current } = useSelector((state) => state.user);
     return <>
         <Row style={{ margin: '70px 0 10px 50px', color: '#000', fontWeight: 'bold', fontSize: '30px', display: 'flex', justifyContent: 'center' }} col={3}>
             Cart
@@ -30,7 +31,7 @@ export default function Cart() {
                 <div style={{ display: 'flex' }}>
                     <Col span={16}>
                         <section className="p-5">
-                            {haveOrder ? (
+                            {(haveOrder > 0) ? (
                                 <>
                                     {current?.cart?.map((item, index) => (
                                         <CartProduct
@@ -57,11 +58,7 @@ export default function Cart() {
                     </Col>
                     <Col className='p-5' span={8}>
                         <form className={`${styles.checkOut} p-5`}>
-                            <h1>User Delivery Information</h1>
-                            <input type="text" placeholder='FullName...' />
-                            <input type="tel" placeholder='Phone number...' />
-                            <input type="email" placeholder='Email...' />
-                            <input type="text" placeholder='Address...' />
+                            <InputInformation title='User Delivery Information' />
                             <h1>Order Summary</h1>
                             <div className={`${styles.subTotal} ${styles.baseSub}`}>
                                 <h1>Subtotal</h1>

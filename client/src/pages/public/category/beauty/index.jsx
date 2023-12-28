@@ -19,18 +19,19 @@ export default function Beauty() {
         fetchData();
     }, []);
 
-    const MemoizedProduct = memo(({ id, img, title, newPrice }) => (
+    const MemoizedProduct = memo(({ id, img, title, newPrice, color }) => (
         <Card
-            key={Math.random()}
+            key={id}
             img={img}
             title={title}
             prevPrice={Number(newPrice * 2)}
             newPrice={newPrice}
             id={id}
+            color={color}
         />
     ));
 
-    const result = productData.map(({ _id, thumbnail, title, price }) => (
+    const result = productData.map(({ _id, thumbnail, title, price, color }) => (
         <MemoizedProduct
             key={Math.random()}
             img={thumbnail}
@@ -38,8 +39,10 @@ export default function Beauty() {
             prevPrice={Number(price * 3)}
             newPrice={price}
             id={_id}
+            color={color}
         />
     ));
+
     return (
         <div style={{ margin: '70px 50px 10px 50px' }}  >
             <div style={{ padding: '10px 0 20px 0', fontWeight: '600', fontSize: '30px', textAlign: 'center', color: '#d977a9', textShadow: '1px 2px 2px rgba(0, 0, 0, 0.20)' }}>

@@ -19,18 +19,19 @@ export default function Lifestyle() {
         fetchData();
     }, []);
 
-    const MemoizedProduct = memo(({ id, img, title, newPrice }) => (
+    const MemoizedProduct = memo(({ id, img, title, newPrice, color }) => (
         <Card
-            key={Math.random()}
+            key={id}
             img={img}
             title={title}
             prevPrice={Number(newPrice * 2)}
             newPrice={newPrice}
             id={id}
+            color={color}
         />
     ));
 
-    const result = productData.map(({ _id, thumbnail, title, price }) => (
+    const result = productData.map(({ _id, thumbnail, title, price, color }) => (
         <MemoizedProduct
             key={Math.random()}
             img={thumbnail}
@@ -38,6 +39,7 @@ export default function Lifestyle() {
             prevPrice={Number(price * 3)}
             newPrice={price}
             id={_id}
+            color={color}
         />
     ));
 
