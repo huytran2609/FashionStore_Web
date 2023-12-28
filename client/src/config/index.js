@@ -12,7 +12,7 @@ const config = {
     productdetail: '/productdetail/:id/:title',
     cart: '/cart',
     profile: '/profile',
-
+    history: '/history',
     //private
     admin: '/dashboard',
     manage_order: '/manage-order',

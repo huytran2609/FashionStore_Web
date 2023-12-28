@@ -14,7 +14,18 @@ import avatar from '~/assets/Avatar/avatarUser.jpg';
 import { getCurrent } from '~/redux/features/slices/asyncActions';
 import { logout, setToastVisibility } from '~/redux/features/slices/userSlice';
 import { toast } from 'react-toastify';
+import { useLocation } from 'react-router-dom';
+
 export default function Header() {
+    const ScrollToTop = () => {
+        const { pathname } = useLocation();
+
+        useEffect(() => {
+            window.scrollTo(0, 0);
+        }, [pathname]);
+
+        return null;
+    }
     const dispatch = useDispatch();
 
     const { isLoggedIn, current, isToastVisible } = useSelector((state) => state.user);
@@ -73,6 +84,7 @@ export default function Header() {
 
     return (
         <>
+            <ScrollToTop />
             <Row className={styles.header}>
                 <Col span={3} className={styles.logo}>
                     <Link to={config.home}>

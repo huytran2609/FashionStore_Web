@@ -10,7 +10,6 @@ import { Row, Col } from 'antd';
 import { Pagination } from 'antd';
 import categoryApi from '~/apis/categoryAPI/categoryApi';
 
-
 export default function Category() {
     const [categories, setCategories] = useState([]);
 
@@ -37,14 +36,15 @@ export default function Category() {
         fetchData();
     }, []);
 
-    const MemoizedProduct = memo(({ id, img, title, newPrice }) => (
+    const MemoizedCard = memo(({ id, img, title, newPrice, color }) => (
         <Card
-            key={Math.random()}
+            key={id}
             img={img}
             title={title}
             prevPrice={Number(newPrice * 2)}
             newPrice={newPrice}
             id={id}
+            color={color}
         />
     ));
 
@@ -91,14 +91,15 @@ export default function Category() {
             );
         }
 
-        return filteredProducts.map(({ _id, thumbnail, title, price }) => (
-            <MemoizedProduct
+        return filteredProducts.map(({ _id, thumbnail, title, price, color }) => (
+            <MemoizedCard
                 key={Math.random()}
                 img={thumbnail}
                 title={title}
                 prevPrice={Number(price * 3)}
                 newPrice={price}
                 id={_id}
+                color={color}
             />
         ));
     }

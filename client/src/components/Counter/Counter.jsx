@@ -4,11 +4,11 @@ import styles from './Counter.module.scss';
 export default function Counter({pid, quantity = 1, color, classParent, handleChangeQuantity }) {
     const [count, setCount] = useState(quantity);
 
-    const increaseCount = () => setCount((prevCount) => Number(prevCount) + 1);
+    const increaseCount = () => setCount((prevCount) => prevCount + 1);
 
     const decreaseCount = () => {
         if (count > 1) {
-            setCount((prevCount) => Number(prevCount) - 1);
+            setCount((prevCount) => prevCount - 1);
         }
     }
 

@@ -1,5 +1,4 @@
 import styles from './CartProduct.module.scss';
-import imgBest from '~/assets/Avatar/avatarUser.jpg';
 import Counter from '~/components/Counter/Counter';
 import { FaRegTrashCan } from 'react-icons/fa6';
 import { apiRemoveCart } from '~/apis/user';
