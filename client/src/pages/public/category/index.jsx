@@ -9,6 +9,8 @@ import Card from '~/components/Card/Card';
 import { Row, Col } from 'antd';
 import { Pagination } from 'antd';
 import categoryApi from '~/apis/categoryAPI/categoryApi';
+import Header from '~/layouts/public/Header';
+import Footer from '~/layouts/public/Footer';
 
 export default function Category() {
     const [categories, setCategories] = useState([]);
@@ -110,6 +112,7 @@ export default function Category() {
         <>
             <Row>
                 <Col span={4}>
+                    <Header query={query} handleInputChange={handleInputChange} />
                     <Sidebar handleChange={handleChange} productData={categories} />
                 </Col>
                 <Col span={20}>
@@ -131,7 +134,7 @@ export default function Category() {
                     </Row>
                 </Col>
             </Row>
-            {/* <Navigation query={query} handleInputChange={handleInputChange} /> */}
+            <Footer />
         </>
     )
 }

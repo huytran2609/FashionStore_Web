@@ -15,7 +15,7 @@ import { getCurrent } from '~/redux/features/slices/asyncActions';
 import { logout, setToastVisibility } from '~/redux/features/slices/userSlice';
 import { toast } from 'react-toastify';
 
-export default function Header() {
+export default function Header({ handleInputChange, query }) {
 
     const dispatch = useDispatch();
 
@@ -29,7 +29,6 @@ export default function Header() {
             if (isToastVisible) {
                 toast.success('Logged in Successfully!');
                 timeoutId = setTimeout(() => {
-                    // If using Redux, dispatch an action to update isToastVisible in the global state
                     dispatch(setToastVisibility());
                 }, 100);
             }
@@ -40,27 +39,6 @@ export default function Header() {
             }
         };
     }, [dispatch, isLoggedIn, isToastVisible]);
-
-    // const [loading, setLoading] = useState(true);
-    // const [userName, setUserName] = useState('');
-
-    // useEffect(() => {
-    //     if (isLoggedIn) {
-    //         dispatch(getCurrent())
-    //             .then(() => setLoading(false))
-    //             .catch((error) => {
-    //                 console.error("Lỗi khi lấy dữ liệu người dùng:", error);
-    //                 setLoading(false);
-    //             });
-    //     }
-    // }, [dispatch, isLoggedIn]);
-
-    // useEffect(() => {
-    //     // Kiểm tra xem current tồn tại và có thuộc tính name không
-    //     if (current && current.name) {
-    //         setUserName(current.name.split(' ')[0]);
-    //     }
-    // }, [current]);
 
     const displayName = current?.name;
     const firstName = displayName ? displayName.split(' ')[0] : '';
@@ -94,7 +72,8 @@ export default function Header() {
                 <Col className={styles.cpnHeader3} span={10}>
                     <div className={styles.headerSearch}>
                         <FaSearch className={styles.searchIcon} />
-                        <input type="text" placeholder="Enter to Search ..." className={styles.searchInput} />
+                        <input onChange={handleInputChange}
+                            value={query} type="text" placeholder="Enter to Search ..." className={styles.searchInput} />
                     </div>
 
                     <Link to={config.cart} className={styles.cart}>
@@ -103,10 +82,7 @@ export default function Header() {
                             <label>{current?.cart?.length || 0}</label>
                         </div>
                     </Link>
-                    {/* {loading ? (
-                        <div>Wait a minutes...</div>
-                    ) : (
-                        <> */}
+
                     {!isLoggedIn ? (
                         <>
                             <Button link={config.login} content="Login" />
@@ -159,8 +135,6 @@ export default function Header() {
                             </div>
                         </div>
                     )}
-
-                    {/* </>)} */}
                 </Col>
             </Row>
         </>

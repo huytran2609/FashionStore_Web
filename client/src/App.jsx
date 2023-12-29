@@ -54,7 +54,7 @@ function App() {
                 })}
             </Routes>
             <Scroll />
-            <ToastContainer position="bottom-right" />
+            <ToastContainer style={{ bottom: '-1%' }} position="bottom-right" />
         </div>
     );
 }

@@ -20,7 +20,7 @@ const publicRoutes = [
     { path: config.home, page: Home },
     { path: config.login, page: Login, layout: null },
     { path: config.register, page: Register, layout: null },
-    { path: config.category, page: Category },
+    { path: config.category, page: Category, layout: null },
     { path: config.productdetail, page: ProductDetail },
     { path: config.women, page: Women },
     { path: config.men, page: Men },
