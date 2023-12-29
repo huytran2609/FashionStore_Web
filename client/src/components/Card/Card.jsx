@@ -19,7 +19,12 @@ function Card({ id, img, title, newPrice, prevPrice, color }) {
     if (!isLoggedIn) {
       Navigate('/login', { state: location?.pathname })
     } else {
-        if(color.length === 0) color = ['DefaultColor']
+        if(color.length === 0) {
+          color = ['DefaultColor']
+        }
+        else {
+          color = color[0]
+        }
         const response = await apiCart({pid: id, color: color})
         if(response.success) {
           toast.success(response.mes)
