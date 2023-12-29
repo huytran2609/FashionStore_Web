@@ -6,6 +6,7 @@ import CartProduct from '../../../layouts/public/CartProduct/CartProduct';
 import { useSelector, useDispatch } from 'react-redux';
 import InputInformation from '~/layouts/public/InputInformation/InputInformation';
 import { useState } from 'react';
+import Address from '~/components/Address';
 
 export default function Cart() {
     const { current, currentCart, totalPrice } = useSelector((state) => state.user);
@@ -90,9 +91,14 @@ export default function Cart() {
                     <Col className='p-5' span={8}>
                         <form className={`${styles.checkOut} p-5`}>
                             <h1>User Delivery Information</h1>
-                            <input value={nameValue} type="text" placeholder='FullName...' onChange={handleNameChange} />
-                            <input value={phoneValue} type="tel" placeholder='Phone number...' onChange={handlePhoneChange} />
-                            <input value={emailValue} type="email" placeholder='Email...' onChange={handleEmailChange} />
+                            <label htmlFor='name'>Full Name</label>
+                            <input id ='name' value={nameValue} type="text" placeholder='FullName...' onChange={handleNameChange} />
+                            <label htmlFor='phone'>Phone Number</label>
+                            <input id = 'phone' value={phoneValue} type="tel" placeholder='Phone number...' onChange={handlePhoneChange} />
+                            <label htmlFor='email'>Email</label>
+                            <input id = 'email' value={emailValue} type="email" placeholder='Email...' onChange={handleEmailChange} />                            
+                            <Address />
+                            <label>Specific Address</label>
                             <input value={addressValue} type="text" placeholder='Address...' onChange={handleAddressChange} />
                             <h1>Order Summary</h1>
                             <div className={`${styles.subTotal} ${styles.baseSub}`}>
