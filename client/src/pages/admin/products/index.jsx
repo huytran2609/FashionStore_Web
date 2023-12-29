@@ -12,6 +12,9 @@ import Modal from '~/components/Modal';
 import categoryApi from '~/apis/categoryAPI/categoryApi';
 import Select from '~/components/Select';
 import { getAllProducts } from '~/apis/products';
+import TextArea from '~/components/TextArea';
+import { getBase64 } from '~/utils/helpers';
+import { set } from 'date-fns';
 
 function Product() {
     const [isOpen, setIsOpen] = useState(false);
@@ -34,6 +37,11 @@ function Product() {
         watch,
         formState: { errors },
     } = useForm();
+
+    const [preview, setPreview] = useState({
+        thumbnail: null,
+        // images: [],
+    });
 
     const [editProduct, setEditProduct] = useState(null);
     // const [updated, setUpdated] = useState(false);
@@ -104,9 +112,25 @@ function Product() {
     //     });
     // };
 
+    const handlePreviewImage = async (file) => {
+        const base64Thumb = await getBase64(file);
+        setPreview({ thumbnail: base64Thumb });
+    }
+
+    useEffect(() => {
+        const thumbnailFile = watch('thumbnail')[0];
+        if (thumbnailFile) {
+            handlePreviewImage(thumbnailFile);
+        }
+    }, [watch('thumbnail')])
+    console.log(preview);
+
     const handleCreateProduct = (data) => {
-        if(data.category) data.category = categories.find(item => item._id === data.category)?.title;
-        console.log(data);
+        if (data.category) data.category = categories.find((item) => item._id === data.category)?.title;
+        // console.log(data);
+        const formData = new FormData();
+        for(let i of Object.entries(data)) formData.append(i[0], i[1]);
+        for(let pair of formData.entries()) console.log(pair[0]+ ', '+ pair[1]);
     };
 
     return (
@@ -144,7 +168,10 @@ function Product() {
                         </thead>
                         <tbody>
                             {products?.products?.map((product, index) => (
-                                <tr key={`${product._id} - ${index} - ${product.color}`} className="border-b dark:border-neutral-500">
+                                <tr
+                                    key={`${product._id} - ${index} - ${product.color}`}
+                                    className="border-b dark:border-neutral-500"
+                                >
                                     <td className="whitespace-nowrap  px-5 py-2 font-semibold">{index + 1}</td>
                                     <td className="whitespace-nowrap  px-4 py-2">
                                         <img
@@ -264,14 +291,14 @@ function Product() {
                     </table>
                 </form>
             </div>
-            <Pagination totalCount={products.counts} pageSize={8}/>
+            <Pagination totalCount={products.counts} pageSize={8} />
             {/* Add product */}
             <Modal
                 isOpen={isOpen}
                 handleClose={() => {
                     setIsOpen(false);
                 }}
-                title="Tạo mới sản phẩm"
+                title="Tạo sản phẩm mới"
                 size="2xl"
             >
                 <form onSubmit={handleSubmit(handleCreateProduct)}>
@@ -326,14 +353,138 @@ function Product() {
                             <Select
                                 label="Category child"
                                 id="categoryChild"
-                                options={categories.find((item) => item._id === watch('category'))?.childrenCategory?.map((child) => ({ code: child, value: child }))}
+                                options={categories
+                                    .find((item) => item._id === watch('category'))
+                                    ?.childrenCategory?.map((child) => ({ code: child, value: child }))}
                                 register={register}
                                 errors={errors}
                                 validate={{ required: 'Required' }}
                             />
+                            <TextArea
+                                label="Description"
+                                id="description"
+                                register={register}
+                                errors={errors}
+                                validate={{ required: 'Required' }}
+                                rows={4}
+                                style="pl-[10px] pb-2"
+                            />
+                        </div>
+                        <div className="flex flex-1 flex-col gap-3">
+                            <label
+                                htmlFor="thumbnail"
+                                className="relative flex flex-col mt-6 items-center justify-center w-full h-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 "
+                            >
+                                <div>
+                                    {preview?.thumbnail ? (
+                                        <img
+                                            src={preview.thumbnail || 'https://www.freeiconspng.com/img/23494'}                                    
+                                            width={10}
+                                            height={100}
+                                            alt=""
+                                            className="w-full h-full object-cover"
+                                        />
+                                    ) : (
+                                        <div className="flex flex-col p-4 items-center justify-center">
+                                            <svg
+                                                aria-hidden="true"
+                                                className="w-10 h-10 mb-3 text-gray-400"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    strokeWidth={2}
+                                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                                                />
+                                            </svg>
+                                            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                                                <span className="font-semibold">Thumbnail</span>
+                                            </p>
+                                            <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+                                                SVG, PNG, JPG or GIF (MAX. 800x400px)
+                                            </p>
+                                        </div>
+                                    )}
+                                </div>
+                                <input
+                                    id="thumbnail"
+                                    type="file"
+                                    className="hidden"
+                                    {...register('thumbnail', { required: 'Required' })}
+                                    // onChange={(event) => setPreview({thumbnail: event.target.files[0]})}
+                                />
+                                {errors['thumbnail'] && (
+                                    <small className="text-red-400 text-[10px] absolute bottom-0 translate-y-[-3] pl-1 pt-1">
+                                        {errors['thumbnail']?.message}
+                                    </small>
+                                )}
+                            </label>
+                            {/* multiple images */}
+                            <label
+                                htmlFor="images"
+                                className="relative flex flex-col mt-6 items-center justify-center w-full h-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 "
+                            >
+                                <div>
+                                    {preview.images ? (
+                                        <img
+                                            src={preview.images || 'https://www.freeiconspng.com/img/23494'}                                            
+                                            width={10}
+                                            height={100}
+                                            alt=""
+                                            className="w-full h-full object-cover"
+                                        />
+                                    ) : (
+                                        <div className="flex flex-col p-4 items-center justify-center">
+                                            <svg
+                                                aria-hidden="true"
+                                                className="w-10 h-10 mb-3 text-gray-400"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    strokeWidth={2}
+                                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                                                />
+                                            </svg>
+                                            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                                                <span className="font-semibold">Images</span>
+                                            </p>
+                                            <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+                                                SVG, PNG, JPG or GIF (MAX. 800x400px)
+                                            </p>
+                                        </div>
+                                    )}
+                                </div>
+                                <input
+                                    id="images"
+                                    type="file"
+                                    className="hidden relative"
+                                    multiple
+                                    {...register('images', { required: 'Required' })}
+                                    // onChange={(event) => setPreview({images: event.target.files[0]})}
+                                />
+                                {errors['images'] && (
+                                    <small className="text-red-400 text-[10px] absolute bottom-0 translate-y-[-3] pl-1 pt-1">
+                                        {errors['images']?.message}
+                                    </small>
+                                )}
+                            </label>
                         </div>
                     </div>
-                    <button type = "submit">Add</button>
+                    <button
+                        type="submit"
+                        className="w-full mt-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    >
+                        Add
+                    </button>
                 </form>
             </Modal>
         </div>

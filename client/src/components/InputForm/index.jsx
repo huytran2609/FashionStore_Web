@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { memo, useEffect } from 'react';
+import { memo } from 'react';
 
 function InputForm({ label, disabled, register, errors, id, validate, type = 'text', placeholder, width, defaultValue, style }) {
     
