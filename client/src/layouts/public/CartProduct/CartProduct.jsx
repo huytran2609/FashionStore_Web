@@ -4,15 +4,16 @@ import { FaRegTrashCan } from 'react-icons/fa6';
 import { apiRemoveCart } from '~/apis/user';
 import { getCurrent } from '~/redux/features/slices/asyncActions';
 import { toast } from 'react-toastify';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { updateCart } from '~/redux/features/slices/userSlice';
 
 export default function CartProduct({ pid, title, color, quantity, size, price, thumbnail, dispatch }) {
+
     const [count, setCount] = useState(quantity);
 
     const handleChangeQuantity = (quantity) => {
         setCount(quantity);
-        dispatch(updateCart({ pid, quantity, color }));
+        dispatch(updateCart({ pid, quantity, color })); 
     };
 
     const removeCart = async (pid, color) => {

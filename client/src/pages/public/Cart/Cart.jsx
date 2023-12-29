@@ -7,6 +7,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import InputInformation from '~/layouts/public/InputInformation/InputInformation';
 import { useState } from 'react';
 import Address from '~/components/Address';
+import { apiCreateOrder } from '~/apis/order';
+import { toast } from 'react-toastify';
 
 export default function Cart() {
     const { current, currentCart, totalPrice } = useSelector((state) => state.user);
@@ -38,6 +40,16 @@ export default function Cart() {
     const [addressValue, setAddressValue] = useState('Dai hoc cong nghe thong tin');
     const handleAddressChange = (event) => {
         setAddressValue(event.target.value)
+    }
+    const handleCheckOut = async () => {
+        const response = await apiCreateOrder(currentCart);
+        console.log(response);
+        if (response.success) {
+            toast.success('Create Order Successfully!')
+            dispatch(current);
+        } else {
+            toast.error(response.mes);
+        }
     }
 
     const isDisabled = (currentCart?.length <= 0) ? true : false;
@@ -116,7 +128,7 @@ export default function Cart() {
                                 <h3>$&nbsp;{totalPrice ? formattedCount(totalPrice) : estimatePrice}</h3>
                                 {/* <h3>$&nbsp;{estimatePrice}</h3> */}
                             </div>
-                            <Button disabled={isDisabled} link='/login' classParent={styles.btnParentCheck} classChild={styles.btnCheckout} content='Check Out' />
+                            <Button onClick = {handleCheckOut} disabled={isDisabled} classParent={styles.btnParentCheck} classChild={styles.btnCheckout} content='Check Out' />
                         </form>
                     </Col>
                 </div>

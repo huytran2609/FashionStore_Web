@@ -5,7 +5,8 @@ const asyncHandler = require('express-async-handler');
 
 const createOrder = asyncHandler(async (req, res) => {
     const { _id } = req.user;
-    const { coupon } = req.body;
+    const { coupon, currentCart } = req.body;
+    console.log(currentCart);
     const userCart = await User.findById(_id).select('cart').populate('cart.product', 'title price');
     const products = userCart?.cart?.map((item) => ({
         product: item.product._id,
@@ -13,6 +14,14 @@ const createOrder = asyncHandler(async (req, res) => {
         color: item.color[0],
     }));
     let total = userCart?.cart?.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+
+    // const products = currentCart?.map((item) => ({
+    //     product: item.product._id,
+    //     quantity: item.quantity,
+    //     color: item.color[0],
+    // }));
+
+    // let total = currentCart.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
     const createdData = { products, totalPrice: total, orderBy: _id };
     if (coupon) {
         const selectedCoupon = await Coupon.findById(coupon);
