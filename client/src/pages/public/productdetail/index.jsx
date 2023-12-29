@@ -25,6 +25,7 @@ export default function ProductDetail() {
         };
         fetchProduct(id);
     }, []);
+    const [colorValue, setColorValue] = useState('DefaultColor');
 
     // Code 1 random comment rate tu 1k cmt -> 5k
     const randomCmt = Math.ceil(Math.random() * 4000 + 1000);
@@ -39,12 +40,16 @@ export default function ProductDetail() {
         if (!isLoggedIn) {
             navigate('/login', { state: location?.pathname })
         } else {
-            const response = await apiCart({ pid: id, color: (productData?.color)[0], quantity: counter })
+            const response = await apiCart({ pid: id, color: colorValue, quantity: counter })
             if (response.success) {
                 toast.success(response.mes)
                 dispatch(getCurrent())
             }
         }
+    }
+
+    const handleColor = (event) => {
+        setColorValue(event.target.value);
     }
 
     const colorString = current.cart.map((cart) => cart.color[0]).toString();
@@ -105,7 +110,7 @@ export default function ProductDetail() {
                             {(productData?.color != 0) ?
                                 (productData?.color || []).map((color) => (
                                     <label key={color} className={styles.container}>
-                                        <input value={color ? color : 'pink'} type="radio" name='color' />
+                                        <input onClick={handleColor} value={color ? color : 'Pink'} type="radio" name='color' />
                                         {/* {console.log(color)} */}
                                         <span style={{ backgroundColor: `${color ? color : '#E280AD'}`, border: '0.5px solid rgba(0, 0, 0, 0.25)', boxShadow: '0.49px 1.958px 4.958px rgba(0, 0, 0, 0.25)' }} className={`${styles.firstColor} ${styles.checkmark2}`}></span>
                                     </label>
@@ -114,15 +119,15 @@ export default function ProductDetail() {
                                 (
                                     <>
                                         <label className={styles.container}>
-                                            <input value='pink' type="radio" name='color' />
+                                            <input onClick={handleColor} value='Pink' type="radio" name='color' />
                                             <span style={{ border: '1px solid transparent', boxShadow: '0.49px 1.958px 4.958px rgba(0, 0, 0, 0.25)' }} className={`${styles.firstColor} ${styles.checkmark}`}></span>
                                         </label>
                                         <label className={styles.container}>
-                                            <input value='black' type="radio" name='color' />
+                                            <input onClick={handleColor} value='Black' type="radio" name='color' />
                                             <span style={{ border: '1px solid transparent', boxShadow: '0.49px 1.958px 4.958px rgba(0, 0, 0, 0.25)' }} className={`${styles.secondColor} ${styles.checkmark}`}></span>
                                         </label>
                                         <label className={styles.container}>
-                                            <input value='red' type="radio" name='color' />
+                                            <input onClick={handleColor} value='Red' type="radio" name='color' />
                                             <span style={{ border: '1px solid transparent', boxShadow: '0.49px 1.958px 4.958px rgba(0, 0, 0, 0.25)' }} className={`${styles.thirdColor} ${styles.checkmark}`}></span>
                                         </label>
                                     </>
