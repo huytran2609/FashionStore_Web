@@ -37,7 +37,7 @@ export default function CartProduct({ pid, title, color, quantity, size, price, 
             </div>
             <div className={styles.cartProInfo}>
                 <h1>{title}</h1>
-                <h3>Color: {color.length ? color : 'Default'}</h3>
+                <h3>Color: {color.length ? color : 'DefaultColor'}</h3>
                 <h3>Size: {size[0] || 'No size'}</h3>
             </div>
             <Counter

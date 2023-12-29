@@ -205,28 +205,16 @@ const updateCart = asyncHandler(async (req, res) => {
     const user = await User.findById(_id).select('cart');
     // const alreadyProduct = user?.cart?.find((item) => item?.product.toString() === pid && item?.color === color);
     const alreadyProduct = user?.cart?.find((item) => item?.product.toString() === pid);
-    if (alreadyProduct) {
-        if (alreadyProduct.color.includes(color)) {
-            const response = await User.updateOne(
-                { cart: { $elemMatch: alreadyProduct } },
-                { $set: { 'cart.$.quantity': alreadyProduct.quantity + +quantity } },
-                { new: true },
-            );
-            return res.status(200).json({
-                success: response ? true : false,
-                mes: response ? 'Successfully added to cart!' : 'Failed added to cart!',
-            });
-        } else {
-            const response = await User.updateOne(
-                { cart: { $elemMatch: alreadyProduct } },
-                { $set: { 'cart.$.quantity': alreadyProduct.quantity + +quantity } },
-                { new: true },
-            );
-            return res.status(200).json({
-                success: response ? true : false,
-                mes: response ? 'Successfully added to cart!' : 'Failed added to cart!',
-            });
-        }
+    if (alreadyProduct && alreadyProduct?.color?.includes(color)) {
+        const response = await User.updateOne(
+            { cart: { $elemMatch: alreadyProduct } },
+            { $set: { 'cart.$.quantity': alreadyProduct.quantity + +quantity } },
+            { new: true },
+        );
+        return res.status(200).json({
+            success: response ? true : false,
+            mes: response ? 'Successfully added to cart!' : 'Failed added to cart!',
+        })
     } else {
         const response = await User.findByIdAndUpdate(
             _id,

@@ -9,7 +9,7 @@ import { useState } from 'react';
 
 export default function Cart() {
     const { current } = useSelector((state) => state.user);
-    console.log(current)
+    // console.log(current)
     const haveOrder = current?.cart?.length;
     const dispatch = useDispatch();
     const formattedCount = (numberValue) => Number(numberValue).toFixed(2);
@@ -65,7 +65,7 @@ export default function Cart() {
                                 <>
                                     {current?.cart?.map((item, index) => (
                                         <CartProduct
-                                            key={item?.product?._id}
+                                            key={`${item?.product?._id} - ${item?.color}`}
                                             pid={item?.product?._id}
                                             title={item?.product?.title}
                                             color={item?.color}

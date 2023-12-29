@@ -112,7 +112,7 @@ function Product() {
     //     });
     // };
 
-    const handlePreviewImage = async (file) => {
+    const handlePreviewThumb = async (file) => {
         const base64Thumb = await getBase64(file);
         setPreview({ thumbnail: base64Thumb });
     }
@@ -120,7 +120,7 @@ function Product() {
     useEffect(() => {
         const thumbnailFile = watch('thumbnail')[0];
         if (thumbnailFile) {
-            handlePreviewImage(thumbnailFile);
+            handlePreviewThumb(thumbnailFile);
         }
     }, [watch('thumbnail')])
     console.log(preview);
@@ -381,7 +381,7 @@ function Product() {
                                             src={preview.thumbnail || 'https://www.freeiconspng.com/img/23494'}                                    
                                             width={10}
                                             height={100}
-                                            alt=""
+                                            alt="Thumbail"
                                             className="w-full h-full object-cover"
                                         />
                                     ) : (
@@ -434,7 +434,7 @@ function Product() {
                                             src={preview.images || 'https://www.freeiconspng.com/img/23494'}                                            
                                             width={10}
                                             height={100}
-                                            alt=""
+                                            alt="Images"
                                             className="w-full h-full object-cover"
                                         />
                                     ) : (
