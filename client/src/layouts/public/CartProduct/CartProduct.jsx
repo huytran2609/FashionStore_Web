@@ -5,15 +5,18 @@ import { apiRemoveCart } from '~/apis/user';
 import { getCurrent } from '~/redux/features/slices/asyncActions';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
+import { updateCart } from '~/redux/features/slices/userSlice';
 
 export default function CartProduct({ pid, title, color, quantity, size, price, thumbnail, dispatch }) {
     const [count, setCount] = useState(quantity);
 
     const handleChangeQuantity = (quantity) => {
         setCount(quantity);
+        dispatch(updateCart({ pid, quantity, color }));
     };
 
     const removeCart = async (pid, color) => {
+        dispatch(updateCart({ pid, quantity: 0, color }));
         const response = await apiRemoveCart(pid, color && color[0]);
         if (response.success) {
             dispatch(getCurrent());
@@ -46,6 +49,7 @@ export default function CartProduct({ pid, title, color, quantity, size, price, 
                 color={color}
                 classParent={styles.counter}
                 handleChangeQuantity={handleChangeQuantity}
+                dispatch = {dispatch}
             />
             <div className={styles.proPrice}>
                 <h3>$&nbsp;{formattedCount(price)}</h3>

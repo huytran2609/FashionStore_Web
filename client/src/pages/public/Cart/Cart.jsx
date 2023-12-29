@@ -8,13 +8,14 @@ import InputInformation from '~/layouts/public/InputInformation/InputInformation
 import { useState } from 'react';
 
 export default function Cart() {
-    const { current } = useSelector((state) => state.user);
-    // console.log(current)
-    const haveOrder = current?.cart?.length;
+    const { current, currentCart, totalPrice } = useSelector((state) => state.user);
+
+    // console.log(currentCart);
+    const haveOrder = currentCart?.length;
     const dispatch = useDispatch();
     const formattedCount = (numberValue) => Number(numberValue).toFixed(2);
 
-    const totalPrice = formattedCount(current?.cart?.reduce((acc, item) => {
+    const estimatePrice = formattedCount(currentCart?.reduce((acc, item) => {
         return acc + item?.quantity * item?.product?.price;
     }, 0));
 
@@ -38,7 +39,7 @@ export default function Cart() {
         setAddressValue(event.target.value)
     }
 
-    const isDisabled = (current?.cart?.length <= 0) ? true : false;
+    const isDisabled = (currentCart?.length <= 0) ? true : false;
 
 
     return <>
@@ -63,7 +64,7 @@ export default function Cart() {
                         <section className="p-5">
                             {(haveOrder > 0) ? (
                                 <>
-                                    {current?.cart?.map((item, index) => (
+                                    {currentCart?.map((item, index) => (
                                         <CartProduct
                                             key={`${item?.product?._id} - ${item?.color}`}
                                             pid={item?.product?._id}
@@ -96,7 +97,8 @@ export default function Cart() {
                             <h1>Order Summary</h1>
                             <div className={`${styles.subTotal} ${styles.baseSub}`}>
                                 <h1>Subtotal</h1>
-                                <h3>$&nbsp;{totalPrice}</h3>
+                                <h3>$&nbsp;{totalPrice ? formattedCount(totalPrice) : estimatePrice}</h3>
+                                {/* <h3>$&nbsp;{estimatePrice}</h3> */}
                             </div>
                             <div className={`${styles.shipFee} ${styles.baseSub}`}>
                                 <h1>Shipping Fee</h1>
@@ -105,7 +107,8 @@ export default function Cart() {
                             <hr />
                             <div className={`${styles.estimateTotal} ${styles.baseSub}`}>
                                 <h1>Estimate Total</h1>
-                                <h3>$&nbsp;{totalPrice}</h3>
+                                <h3>$&nbsp;{totalPrice ? formattedCount(totalPrice) : estimatePrice}</h3>
+                                {/* <h3>$&nbsp;{estimatePrice}</h3> */}
                             </div>
                             <Button disabled={isDisabled} link='/login' classParent={styles.btnParentCheck} classChild={styles.btnCheckout} content='Check Out' />
                         </form>

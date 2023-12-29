@@ -59,7 +59,7 @@ export default function ProductDetail() {
     const handleCounter = (newCounter) => {
         setCounter(newCounter)
     }
-    console.log(counter);
+    // console.log(counter);
 
     return (
         <>
