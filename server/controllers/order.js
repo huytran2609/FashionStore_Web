@@ -9,7 +9,8 @@ const createOrder = asyncHandler(async (req, res) => {
     if (address) {
         await User.findByIdAndUpdate(_id, { phone, address, cart: [] });
     }
-    const createdData = { products, totalPrice, orderBy: _id };
+    const user = await User.findById(_id).select('name');
+    const createdData = { products, totalPrice, orderBy: {userId: _id, name: user.name, address} };
     // const userCart = await User.findById(_id).select('cart').populate('cart.product', 'title price');
     // const products = userCart?.cart?.map((item) => ({
     //     product: item.product._id,

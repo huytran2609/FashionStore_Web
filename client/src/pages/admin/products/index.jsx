@@ -259,7 +259,7 @@ function Product() {
                                     </td>
 
                                     <td className="whitespace-nowrap px-4 py-2">
-                                        <span>{product?.price}</span>
+                                        <span>$&nbsp;{product?.price}</span>
                                     </td>
                                     <td className="whitespace-nowrap px-4 py-2">
                                         <span>{product?.quantity}</span>

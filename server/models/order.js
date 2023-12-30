@@ -16,8 +16,9 @@ var orderSchema = new mongoose.Schema(
             enum: ['Cancelled', 'Processing', 'Succeed'],
         },
         orderBy: {
-            type: mongoose.Types.ObjectId,
-            ref: 'User',
+            userId: {type: mongoose.Types.ObjectId, ref: 'User'},
+            name: String,
+            address: String,
         },
         coupon: {
             type: mongoose.Types.ObjectId,
