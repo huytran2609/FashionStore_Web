@@ -10,7 +10,7 @@ export default function HistoryOrder() {
     useEffect(() => {
         const fetchUserOrder = async () => {
             const response = await apiGetUserOrder();
-            // console.log(response);
+            console.log(response);
             if(response.success) {
                 setUserOrder(response.userOrder)
             }

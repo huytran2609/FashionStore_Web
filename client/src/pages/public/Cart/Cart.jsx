@@ -12,7 +12,7 @@ import { toast } from 'react-toastify';
 export default function Cart() {
     const { current, currentCart, totalPrice } = useSelector((state) => state.user);
 
-    // console.log(currentCart);
+    // console.log(current);
     const haveOrder = currentCart?.length;
     const dispatch = useDispatch();
     const formattedCount = (numberValue) => Number(numberValue).toFixed(2);
@@ -56,6 +56,10 @@ export default function Cart() {
     };
 
     const handleCheckOut = async () => {
+        if(!nameValue || !phoneValue || !emailValue || !addressValue || !addressDefault) {
+            toast.error('Lack of information to delivery');
+            return;
+        }
         if (!validatePhone(phoneValue)) {
             toast.error('Invalid phone number');
             return;
@@ -70,7 +74,7 @@ export default function Cart() {
             phone: phoneValue,
             address: `${addressValue}, ${addressDefault}`,
         });
-        console.log(response);
+        // console.log(response);
         if (response.success) {
             toast.success('Create Order Successfully!');
             dispatch(current);

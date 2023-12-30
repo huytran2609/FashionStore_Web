@@ -56,6 +56,7 @@ export const userSlice = createSlice({
                 state.loading = false;
                 state.current = action.payload;
                 state.currentCart = action.payload.cart;
+                state.totalPrice = action.payload.cart.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
             })
             .addCase(getCurrent.rejected, (state, action) => {
                 state.loading = false;
