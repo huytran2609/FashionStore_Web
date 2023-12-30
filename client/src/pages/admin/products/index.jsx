@@ -14,7 +14,7 @@ import Select from '~/components/Select';
 import { getAllProducts } from '~/apis/products';
 import TextArea from '~/components/TextArea';
 import { getBase64 } from '~/utils/helpers';
-import { set } from 'date-fns';
+import { apiCreateProduct } from '~/apis/admin/product';
 
 function Product() {
     const [isOpen, setIsOpen] = useState(false);
@@ -40,7 +40,7 @@ function Product() {
 
     const [preview, setPreview] = useState({
         thumbnail: null,
-        // images: [],
+        images: [],
     });
 
     const [editProduct, setEditProduct] = useState(null);
@@ -114,23 +114,48 @@ function Product() {
 
     const handlePreviewThumb = async (file) => {
         const base64Thumb = await getBase64(file);
-        setPreview({ thumbnail: base64Thumb });
-    }
+        setPreview((prev) => ({ ...prev, thumbnail: base64Thumb }));
+    };
 
     useEffect(() => {
         const thumbnailFile = watch('thumbnail')[0];
         if (thumbnailFile) {
             handlePreviewThumb(thumbnailFile);
         }
-    }, [watch('thumbnail')])
-    console.log(preview);
+    }, [watch('thumbnail')]);
+
+    const handlePreviewImages = async (files) => {
+        const imagesPreview = [];
+        for (let file of files) {
+            const base64Images = await getBase64(file);
+            imagesPreview.push(base64Images);
+        }
+        setPreview((prev) => ({ ...prev, images: imagesPreview }));
+    };
+
+    useEffect(() => {
+        const thumbnailImages = watch('images');
+        if (thumbnailImages) {
+            handlePreviewImages(thumbnailImages);
+        }
+    }, [watch('images')]);
 
     const handleCreateProduct = (data) => {
         if (data.category) data.category = categories.find((item) => item._id === data.category)?.title;
         // console.log(data);
         const formData = new FormData();
-        for(let i of Object.entries(data)) formData.append(i[0], i[1]);
-        for(let pair of formData.entries()) console.log(pair[0]+ ', '+ pair[1]);
+        for (let i of Object.entries(data)) formData.append(i[0], i[1]);
+        for (let pair of formData.entries()) console.log(pair[0] + ', ' + pair[1]);
+        if (data.thumbnail) formData.append('thumbnail', data.thumbnail[0]);
+        if (data.images) for (let image of data.images) formData.append('images', image);
+        const response = apiCreateProduct(formData);
+        if (response.success) {
+            toast.success('Create new product successfully!');
+            reset();
+            setPreview({ thumnail: '', images: [] });
+        } else {
+            toast.error(response.mes);
+        }
     };
 
     return (
@@ -378,7 +403,7 @@ function Product() {
                                 <div>
                                     {preview?.thumbnail ? (
                                         <img
-                                            src={preview.thumbnail || 'https://www.freeiconspng.com/img/23494'}                                    
+                                            src={preview.thumbnail || 'https://www.freeiconspng.com/img/23494'}
                                             width={10}
                                             height={100}
                                             alt="Thumbail"
@@ -429,14 +454,19 @@ function Product() {
                                 className="relative flex flex-col mt-6 items-center justify-center w-full h-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 "
                             >
                                 <div>
-                                    {preview.images ? (
-                                        <img
-                                            src={preview.images || 'https://www.freeiconspng.com/img/23494'}                                            
-                                            width={10}
-                                            height={100}
-                                            alt="Images"
-                                            className="w-full h-full object-cover"
-                                        />
+                                    {preview.images.length > 0 ? (
+                                        <div className="flex gap-1 w-fit flex-wrap">
+                                            {preview.images.map((image, index) => (
+                                                <img
+                                                    key={index}
+                                                    src={image || 'https://www.freeiconspng.com/img/23494'}
+                                                    width={10}
+                                                    height={100}
+                                                    alt="Images"
+                                                    className="w-[170px] object-contain rounded-md"
+                                                />
+                                            ))}
+                                        </div>
                                     ) : (
                                         <div className="flex flex-col p-4 items-center justify-center">
                                             <svg

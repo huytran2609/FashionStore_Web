@@ -18,7 +18,7 @@ export default function CartProduct({ pid, title, color, quantity, size, price, 
 
     const removeCart = async (pid, color) => {
         dispatch(updateCart({ pid, quantity: 0, color }));
-        const response = await apiRemoveCart(pid, color && color[0]);
+        const response = await apiRemoveCart(pid, color && color);
         if (response.success) {
             dispatch(getCurrent());
         } else {
@@ -41,7 +41,7 @@ export default function CartProduct({ pid, title, color, quantity, size, price, 
             </div>
             <div className={styles.cartProInfo}>
                 <h1>{title}</h1>
-                <h3>Color: {color.length ? color : 'DefaultColor'}</h3>
+                <h3>Color: {color ? color : 'DefaultColor'}</h3>
                 <h3>Size: {size[0] || 'No size'}</h3>
             </div>
             <Counter

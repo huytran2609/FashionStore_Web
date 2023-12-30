@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import SelectAddress from "../SelectAddress";
 import { apiGetPublicProvinces, apiGetPublicDistrict } from "~/apis/address";
 
-function Address() {
+function Address({setAddressDefault}) {
 
     const [provinces, setProvinces] = useState([])
     const [districts, setDistricts] = useState([])
     const [province, setProvince] = useState('')
     const [district, setDistrict] = useState('')
     const [reset, setReset] = useState(false)
+    const [pro, setPro] = useState('')
+    const [dis, setDis] = useState('')
 
     useEffect(() => {
         const fetchPublicProvince = async () => {
@@ -31,6 +33,16 @@ function Address() {
         !province ? setReset(true) : setReset(false)
         !province && setDistricts([])
     }, [province])
+
+    useEffect(() => {
+        setPro(province ? provinces?.find(item => item.province_id === province)?.province_name : '')
+    }, [province])
+    useEffect(() => {
+        setDis(district ? districts?.find(item => item.district_id === district)?.district_name : '')
+    }, [district])
+    useEffect(() => {
+        setAddressDefault(`${dis}, ${pro}`)
+    }, [pro, dis])
     // useEffect(() => {
     //     setPayload(prev => ({
     //         ...prev,

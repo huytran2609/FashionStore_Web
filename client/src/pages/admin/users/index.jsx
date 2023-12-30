@@ -113,7 +113,6 @@ function User() {
                                     <td className="whitespace-nowrap  px-4 py-2">
                                         {editUser?._id === user._id ? (
                                             <InputForm
-                                                key={editUser?._id}
                                                 register={register}
                                                 errors={errors}
                                                 defaultValue={editUser?.name}

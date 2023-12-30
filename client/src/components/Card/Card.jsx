@@ -20,7 +20,7 @@ function Card({ id, img, title, newPrice, prevPrice, color }) {
       Navigate('/login', { state: location?.pathname })
     } else {
         if(color.length === 0) {
-          color = ['DefaultColor']
+          color = 'DefaultColor'
         }
         else {
           color = color[0]
