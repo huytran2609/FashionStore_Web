@@ -27,6 +27,9 @@
     -moz-border-radius: 30px;
     -ms-border-radius: 30px;
     -o-border-radius: 30px;
+    label {
+        font-weight: 600;
+    }
     h1
     {
         font-size: 20px;
@@ -49,12 +52,12 @@
         font-size: 15px;
         padding-left: 15px;
         padding-right: 15px;
-        border-radius: 30px;
-        -webkit-border-radius: 30px;
-        -moz-border-radius: 30px;
-        -ms-border-radius: 30px;
-        -o-border-radius: 30px;
-    }
+        border-radius: 10px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+}
 
     .baseSub {
         font-size: 15px;

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import SelectAddress from "../SelectAddress";
 import { apiGetPublicProvinces, apiGetPublicDistrict } from "~/apis/address";
 
-function Address({ setAddressDefault, name }) {
+function Address({ placeHolder, setAddressDefault, name }) {
 
     const [provinces, setProvinces] = useState([])
     const [districts, setDistricts] = useState([])
@@ -59,7 +59,7 @@ function Address({ setAddressDefault, name }) {
                     <SelectAddress reset={reset} type='district' value={district} setValue={setDistrict} options={districts} label='District/Town' />
                 </div>
                 <input
-                    placeholder='Quận 1, Thành Phố Hồ Chí Minh'
+                    placeholder={placeHolder}
                     type='text'
                     name={name}
                     readOnly

@@ -59,7 +59,7 @@ export default function Cart() {
     const form = useRef();
 
     const handleCheckOut = async (e) => {
-        // e.preventDefault();
+        e.preventDefault();
         if (!nameValue || !phoneValue || !emailValue || !addressValue || !addressDefault) {
             toast.error('Lack of information to delivery');
             return;
@@ -87,6 +87,7 @@ export default function Cart() {
 
             emailjs.sendForm('service_0hirvyh', 'template_ypt2vbd', form.current, 'Zuy7iE_yJXzm4f2rZ')
                 .then((result) => {
+                    window.location.reload();
                     console.log(result.text);
                 }, (error) => {
                     console.log(error.text);
@@ -215,7 +216,7 @@ export default function Cart() {
                                     placeholder="Email..."
                                     onChange={handleEmailChange}
                                 />
-                                <Address name="addressValue" setAddressDefault={setAddressDefault} />
+                                <Address placeHolder='abc' name="addressValue" setAddressDefault={setAddressDefault} />
                                 <label>Specific Address</label>
                                 <input
                                     value={addressValue}
@@ -248,7 +249,6 @@ export default function Cart() {
                                     classChild={styles.btnCheckout}
                                     content="Check Out"
                                 />
-                                <button>Email Send</button>
                             </form>
                         </Col>
                     </div>

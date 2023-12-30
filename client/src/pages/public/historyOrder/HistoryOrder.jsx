@@ -8,10 +8,10 @@ export default function HistoryOrder() {
 
     const formatCreatedAt = (createdAt) => {
         const createdAtDate = new Date(createdAt);
-        const hours = createdAtDate.getHours();
-        const minutes = createdAtDate.getMinutes();
-        const day = createdAtDate.getDate();
-        const month = createdAtDate.getMonth() + 1;
+        const hours = createdAtDate.getHours().toString().padStart(2, '0');
+        const minutes = createdAtDate.getMinutes().toString().padStart(2, '0');;
+        const day = createdAtDate.getDate().toString().padStart(2, '0');
+        const month = (createdAtDate.getMonth() + 1).toString().padStart(2, '0');
         const year = createdAtDate.getFullYear();
         return `${hours}:${minutes} ${day}/${month}/${year}`;
     }
@@ -37,26 +37,33 @@ export default function HistoryOrder() {
                     <table className={styles.listOrder}>
                         <tbody>
                             <tr>
-                                <th>NUMBER</th>
-                                <th>ORDER ITEMS</th>
-                                <th>CREATE AT</th>
-                                <th>STATE</th>
+                                <th style={{ width: '16%' }}>NUMBER</th>
+                                <th style={{ width: '24%' }}>ORDER ITEMS</th>
+                                <th style={{ width: '27%' }}>CREATE AT</th>
+                                <th style={{ width: '19.5%' }}>STATE</th>
                                 <th>TOTAL</th>
                             </tr>
                         </tbody>
                     </table>
-                    <div style={{ maxHeight: '500px', overflow: 'auto', border: '0.5px solid #d4d4d4', boxShadow: '1px 2px 2px 1px rgba(155, 155, 155, 0.25)' }}>
+                    <div style={{ fontSize: '18px', textAlign: 'center', maxHeight: '500px', overflow: 'auto', border: '0.5px solid #d4d4d4', boxShadow: '1px 2px 2px 1px rgba(155, 155, 155, 0.25)' }}>
                         <table className={styles.listOrder}>
                             <tbody>
-                                {userOrder.map((orderItem, index) => (
+                                {userOrder.reverse().map((orderItem, index) => (
                                     <tr key={index}>
-                                        <td>&#35;{index + 1}</td>
-                                        <td>Order&nbsp;{index + 1}</td>
+                                        <td>&#35;{userOrder.length - index}</td>
+                                        <td>Order&nbsp;{userOrder.length - index}</td>
                                         <td>{formatCreatedAt(orderItem.createdAt)}</td>
                                         <td style={{ color: 'darkorange' }}>{orderItem.status.toString()}</td>
                                         <td>{orderItem.totalPrice}</td>
                                     </tr>
                                 ))}
+                                <tr style={{ visibility: 'hidden' }}>
+                                    <th>NUMBER</th>
+                                    <th>ORDER ITEMS</th>
+                                    <th>CREATE AT</th>
+                                    <th>STATE</th>
+                                    <th>TOTAL</th>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
