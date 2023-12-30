@@ -2,9 +2,10 @@ import styles from './Button.module.scss';
 import { Link } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
 
-export default function Button({ onSubmit, ref, onClick, link, content, classParent, classChild, cart, disabled }) {
+export default function Button({ onClick, link, content, classParent, classChild, cart, disabled }) {
+    const handleNoneClick = () => { }
     return <>
-        <div onSubmit={onSubmit} ref={ref} onClick={onClick} className={`${disabled ? styles.classDisable : ''} ${styles.btn} ${classParent}`}>
+        <div onClick={disabled ? handleNoneClick : onClick} className={`${disabled ? styles.classDisable : ''} ${styles.btn} ${classParent}`}>
             {disabled ? (
                 <div className={`${styles.btnLink} ${classChild} ${styles.disabled}`}>{cart ? <FaShoppingCart className={styles.cartIcon} /> : ""}{content}</div>
             ) : (
