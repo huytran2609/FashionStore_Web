@@ -3,6 +3,7 @@ import styles from './HistoryOrder.module.scss'
 import { Row, Col } from 'antd';
 import { useEffect, useState } from 'react';
 import { apiGetUserOrder } from '~/apis/order';
+import orderEmpty from '~/assets/Cart/emptyOrder.jpeg'
 
 export default function HistoryOrder() {
 
@@ -45,28 +46,33 @@ export default function HistoryOrder() {
                             </tr>
                         </tbody>
                     </table>
-                    <div style={{ fontSize: '18px', textAlign: 'center', maxHeight: '500px', overflow: 'auto', border: '0.5px solid #d4d4d4', boxShadow: '1px 2px 2px 1px rgba(155, 155, 155, 0.25)' }}>
-                        <table className={styles.listOrder}>
-                            <tbody>
-                                {userOrder.reverse().map((orderItem, index) => (
-                                    <tr key={index}>
-                                        <td>&#35;{userOrder.length - index}</td>
-                                        <td>Order&nbsp;{userOrder.length - index}</td>
-                                        <td>{formatCreatedAt(orderItem.createdAt)}</td>
-                                        <td style={{ color: 'darkorange' }}>{orderItem.status.toString()}</td>
-                                        <td>{orderItem.totalPrice}</td>
+                    {(userOrder.length > 0) ?
+                        (<div style={{ fontSize: '18px', textAlign: 'center', maxHeight: '500px', overflow: 'auto', border: '0.5px solid #d4d4d4', boxShadow: '1px 2px 2px 1px rgba(155, 155, 155, 0.25)' }}>
+                            <table className={styles.listOrder}>
+                                <tbody>
+                                    {userOrder.reverse().map((orderItem, index) => (
+                                        <tr key={index}>
+                                            <td>&#35;{userOrder.length - index}</td>
+                                            <td>Order&nbsp;{userOrder.length - index}</td>
+                                            <td>{formatCreatedAt(orderItem.createdAt)}</td>
+                                            <td style={{ color: 'darkorange' }}>{orderItem.status.toString()}</td>
+                                            <td>{orderItem.totalPrice}</td>
+                                        </tr>
+                                    ))}
+                                    <tr style={{ visibility: 'hidden' }}>
+                                        <th>NUMBER</th>
+                                        <th>ORDER ITEMS</th>
+                                        <th>CREATE AT</th>
+                                        <th>STATE</th>
+                                        <th>TOTAL</th>
                                     </tr>
-                                ))}
-                                <tr style={{ visibility: 'hidden' }}>
-                                    <th>NUMBER</th>
-                                    <th>ORDER ITEMS</th>
-                                    <th>CREATE AT</th>
-                                    <th>STATE</th>
-                                    <th>TOTAL</th>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                                </tbody>
+                            </table>
+                        </div>)
+                        : (<div style={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            {console.log(userOrder.length)}
+                            <img style={{ height: '55%' }} src={orderEmpty} alt="" />
+                        </div>)}
 
                 </Col>
             </Row>
