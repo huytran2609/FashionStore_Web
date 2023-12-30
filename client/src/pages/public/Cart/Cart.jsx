@@ -41,7 +41,8 @@ export default function Cart() {
     };
     const [addressDefault, setAddressDefault] = useState('');
     const [addressValue, setAddressValue] = useState('');
-
+    const isDisabled = currentCart?.length <= 0 ? true : false;
+    console.log(isDisabled)
     const handleAddressChange = (event) => {
         setAddressValue(event.target.value);
     };
@@ -78,6 +79,8 @@ export default function Cart() {
             phone: phoneValue,
             address: `${addressValue}, ${addressDefault}`,
         });
+
+
         // console.log(response);
         // if (totalPrice === 0 || estimatePrice === 0) {
         //     toast.error("Please add some products to your cart");
@@ -100,7 +103,6 @@ export default function Cart() {
         }
     };
 
-    const isDisabled = currentCart?.length <= 0 ? true : false;
 
 
     // const sendEmail = (e) => {
@@ -216,7 +218,7 @@ export default function Cart() {
                                     placeholder="Email..."
                                     onChange={handleEmailChange}
                                 />
-                                <Address placeHolder='abc' name="addressValue" setAddressDefault={setAddressDefault} />
+                                <Address name="addressValue" setAddressDefault={setAddressDefault} />
                                 <label>Specific Address</label>
                                 <input
                                     value={addressValue}
