@@ -8,6 +8,8 @@ import { useState } from 'react';
 import Address from '~/components/Address';
 import { apiCreateOrder } from '~/apis/order';
 import { toast } from 'react-toastify';
+import { useRef } from 'react';
+import emailjs from '@emailjs/browser';
 
 export default function Cart() {
     const { current, currentCart, totalPrice } = useSelector((state) => state.user);
@@ -54,9 +56,11 @@ export default function Cart() {
         const regex = /^[0-9]{10}$/;
         return regex.test(phone);
     };
+    const form = useRef();
 
-    const handleCheckOut = async () => {
-        if(!nameValue || !phoneValue || !emailValue || !addressValue || !addressDefault) {
+    const handleCheckOut = async (e) => {
+        // e.preventDefault();
+        if (!nameValue || !phoneValue || !emailValue || !addressValue || !addressDefault) {
             toast.error('Lack of information to delivery');
             return;
         }
@@ -75,7 +79,19 @@ export default function Cart() {
             address: `${addressValue}, ${addressDefault}`,
         });
         // console.log(response);
+        // if (totalPrice === 0 || estimatePrice === 0) {
+        //     toast.error("Please add some products to your cart");
+        //     return;
+        // }
         if (response.success) {
+
+            emailjs.sendForm('service_0hirvyh', 'template_ypt2vbd', form.current, 'Zuy7iE_yJXzm4f2rZ')
+                .then((result) => {
+                    console.log(result.text);
+                }, (error) => {
+                    console.log(error.text);
+                });
+            // form.current.reset()
             toast.success('Create Order Successfully!');
             dispatch(current);
         } else {
@@ -84,6 +100,19 @@ export default function Cart() {
     };
 
     const isDisabled = currentCart?.length <= 0 ? true : false;
+
+
+    // const sendEmail = (e) => {
+    //     e.preventDefault();
+
+    //     emailjs.sendForm('service_0hirvyh', 'template_ypt2vbd', form.current, 'Zuy7iE_yJXzm4f2rZ')
+    //         .then((result) => {
+    //             console.log(result.text);
+    //         }, (error) => {
+    //             console.log(error.text);
+    //         });
+    //     e.target.reset()
+    // };
 
     return (
         <>
@@ -157,12 +186,13 @@ export default function Cart() {
                             </section>
                         </Col>
                         <Col className="p-5" span={8}>
-                            <form className={`${styles.checkOut} p-5`}>
+                            <form ref={form} onSubmit={handleCheckOut} className={`${styles.checkOut} p-5`}>
                                 <h1>User Delivery Information</h1>
                                 <label htmlFor="name">Full Name</label>
                                 <input
                                     id="name"
                                     value={nameValue}
+                                    name="nameValue"
                                     type="text"
                                     placeholder="FullName..."
                                     onChange={handleNameChange}
@@ -172,6 +202,7 @@ export default function Cart() {
                                     id="phone"
                                     value={phoneValue}
                                     type="tel"
+                                    name="phoneValue"
                                     placeholder="Phone number..."
                                     onChange={handlePhoneChange}
                                 />
@@ -179,14 +210,16 @@ export default function Cart() {
                                 <input
                                     id="email"
                                     value={emailValue}
+                                    name="emailValue"
                                     type="email"
                                     placeholder="Email..."
                                     onChange={handleEmailChange}
                                 />
-                                <Address setAddressDefault={setAddressDefault} />
+                                <Address name="addressValue" setAddressDefault={setAddressDefault} />
                                 <label>Specific Address</label>
                                 <input
                                     value={addressValue}
+                                    name="addressSpecificValue"
                                     type="text"
                                     placeholder="Address..."
                                     onChange={handleAddressChange}
@@ -207,6 +240,7 @@ export default function Cart() {
                                     <h3>$&nbsp;{totalPrice ? formattedCount(totalPrice) : estimatePrice}</h3>
                                     {/* <h3>$&nbsp;{estimatePrice}</h3> */}
                                 </div>
+                                <input type="hidden" value={totalPrice ? formattedCount(totalPrice) : estimatePrice} name="priceValue" />
                                 <Button
                                     onClick={handleCheckOut}
                                     disabled={isDisabled}
@@ -214,6 +248,7 @@ export default function Cart() {
                                     classChild={styles.btnCheckout}
                                     content="Check Out"
                                 />
+                                <button>Email Send</button>
                             </form>
                         </Col>
                     </div>

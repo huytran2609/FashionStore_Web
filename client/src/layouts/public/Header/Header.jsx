@@ -15,6 +15,7 @@ import { getCurrent } from '~/redux/features/slices/asyncActions';
 import { logout, setToastVisibility } from '~/redux/features/slices/userSlice';
 import { toast } from 'react-toastify';
 import ChatBot from '../ChatBot/ChatBot';
+import { HiClipboardDocumentList } from "react-icons/hi2";
 
 export default function Header({ handleInputChange, query }) {
 
@@ -109,6 +110,18 @@ export default function Header({ handleInputChange, query }) {
                                     to={config.profile}
                                 >
                                     Profile <ImProfile />
+                                </Link>
+                                <Link
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'space-between',
+                                        color: 'black',
+                                        fontSize: '15px',
+                                    }}
+                                    to={config.history}
+                                >
+                                    My Order <HiClipboardDocumentList />
                                 </Link>
                                 <Link
                                     style={{

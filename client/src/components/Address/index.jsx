@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import SelectAddress from "../SelectAddress";
 import { apiGetPublicProvinces, apiGetPublicDistrict } from "~/apis/address";
 
-function Address({setAddressDefault}) {
+function Address({ setAddressDefault, name }) {
 
     const [provinces, setProvinces] = useState([])
     const [districts, setDistricts] = useState([])
@@ -61,6 +61,7 @@ function Address({setAddressDefault}) {
                 <input
                     placeholder='Quận 1, Thành Phố Hồ Chí Minh'
                     type='text'
+                    name={name}
                     readOnly
                     className='border border-gray-200 outline-none rounded-md bg-gray-100 p-2 w-full'
                     value={`${district ? `${districts?.find(item => item.district_id === district)?.district_name},` : ''} ${province ? provinces?.find(item => item.province_id === province)?.province_name : ''}` || ''}

@@ -29,7 +29,7 @@ export default function HistoryOrder() {
     }, [])
     return (
         <>
-            <Row style={{ height: '600px', margin: '90px 50px 10px 50px', backgroundColor: '#fff', boxShadow: '0.49px 0.958px 3.958px rgba(0, 0, 0, 0.25)', borderRadius: '20px' }} col={9}>
+            <Row style={{ minHeight: '600px', margin: '90px 50px 10px 50px', backgroundColor: '#fff', boxShadow: '0.49px 0.958px 3.958px rgba(0, 0, 0, 0.25)', borderRadius: '20px' }} col={9}>
                 <Col style={{ borderRight: '2px solid #ececec' }} span={7}>
                     <LeftProfile />
                 </Col>
@@ -43,17 +43,24 @@ export default function HistoryOrder() {
                                 <th>STATE</th>
                                 <th>TOTAL</th>
                             </tr>
-                            {userOrder.map((orderItem, index) =>
-                                <tr key={index}>
-                                    <td>&#35;{index + 1}</td>
-                                    <td>Order&nbsp;{index + 1}</td>
-                                    <td>{formatCreatedAt(orderItem.createdAt)}</td>
-                                    <td style={{ color: 'darkorange' }}>{orderItem.status.toString()}</td>
-                                    <td>{orderItem.totalPrice}</td>
-                                </tr>
-                            )}
                         </tbody>
                     </table>
+                    <div style={{ maxHeight: '500px', overflow: 'auto', border: '0.5px solid #d4d4d4', boxShadow: '1px 2px 2px 1px rgba(155, 155, 155, 0.25)' }}>
+                        <table className={styles.listOrder}>
+                            <tbody>
+                                {userOrder.map((orderItem, index) => (
+                                    <tr key={index}>
+                                        <td>&#35;{index + 1}</td>
+                                        <td>Order&nbsp;{index + 1}</td>
+                                        <td>{formatCreatedAt(orderItem.createdAt)}</td>
+                                        <td style={{ color: 'darkorange' }}>{orderItem.status.toString()}</td>
+                                        <td>{orderItem.totalPrice}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+
                 </Col>
             </Row>
         </>
