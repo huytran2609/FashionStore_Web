@@ -14,6 +14,7 @@ import avatar from '~/assets/Avatar/avatarUser.jpg';
 import { getCurrent } from '~/redux/features/slices/asyncActions';
 import { logout, setToastVisibility } from '~/redux/features/slices/userSlice';
 import { toast } from 'react-toastify';
+import ChatBot from '../ChatBot/ChatBot';
 
 export default function Header({ handleInputChange, query }) {
 
@@ -53,6 +54,7 @@ export default function Header({ handleInputChange, query }) {
 
     return (
         <>
+            {isLoggedIn ? <ChatBot /> : ''}
             <Row className={styles.header}>
                 <Col span={3} className={styles.logo}>
                     <Link to={config.home}>

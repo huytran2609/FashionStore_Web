@@ -1,0 +1,130 @@
+.comments {
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+.commentsTitle {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  color: rgb(217, 119, 169);
+  font-size: 35px;
+  text-shadow: rgba(0, 0, 0, 0.4) 1px 2px 2px;
+}
+
+.commentsContainer {
+  margin-top: 40px;
+}
+
+.commentFormTitle {
+  font-size: 22px;
+}
+
+.commentFormTextarea {
+  width: 100%;
+  height: 80px;
+  margin-bottom: 8px;
+  margin-top: 8px;
+  border: 1px solid rgb(169, 169, 160);
+  outline: none;
+  padding-left: 10px;
+  padding-top: 5px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  box-shadow: 1px 1px 4px 0px rgba(0,0,0,0.2);
+
+}
+
+.commentFormButton {
+  font-size: 16px;
+  padding: 8px 16px;
+  background: rgb(59, 130, 246);
+  border-radius: 8px;
+  color: white;
+}
+
+.commentFormButton:hover:enabled {
+  cursor: pointer;
+  background: rgb(37, 99, 235);
+}
+
+.commentFormButton:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.commentFormCancelButton {
+  margin-left: 10px;
+}
+
+.comment {
+  display: flex;
+  margin-bottom: 15px;
+  padding: 20px;
+  border: 1px solid #cccccc;
+  box-shadow: 1px 1px 4px 0px rgba(0,0,0,0.2);
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.commentImageContainer {
+  margin-right: 12px;
+}
+
+.commentImageContainer img {
+  border-radius: 50px;
+}
+
+.commentRightPart {
+  width: 100%;
+  margin-top: -8px;
+}
+
+.commentContent {
+  display: flex;
+  div:last-child {
+    padding-top: 2px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.commentAuthor {
+  margin-right: 8px;
+  font-size: 20px;
+  color: rgb(59, 130, 246);
+}
+
+.commentText {
+  font-size: 18px;
+}
+
+.commentActions {
+  display: flex;
+  font-size: 12px;
+  color: rgb(51, 51, 51);
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.commentAction {
+  margin-right: 8px;
+}
+
+.commentAction:hover {
+  text-decoration: underline;
+}
+
+.replies {
+  margin-top: 20px;
+}
+  

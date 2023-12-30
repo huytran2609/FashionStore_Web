@@ -12,6 +12,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getCurrent } from '~/redux/features/slices/asyncActions'
 import { apiCart } from '~/apis/user'
 import { toast } from 'react-toastify'
+import Comments from '~/layouts/public/Comments/Comments';
+
 
 export default function ProductDetail() {
     const { id, title } = useParams();
@@ -35,7 +37,7 @@ export default function ProductDetail() {
     // console.log(location)
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    console.log(current._id)
     const handleClick = async () => {
         if (!isLoggedIn) {
             navigate('/login', { state: location?.pathname })
@@ -143,6 +145,10 @@ export default function ProductDetail() {
                         <Button onClick={handleClick} classParent={styles.customBtn} content='Add to Cart' />
                     </section>
                 </Col>
+                <Comments
+                    commentsUrl="http://127.0.0.1:5173/comments"
+                    currentUserId="1"
+                />
             </Row>
         </>
     )
