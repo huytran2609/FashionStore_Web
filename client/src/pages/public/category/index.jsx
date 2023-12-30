@@ -7,10 +7,11 @@ import Recommended from '~/layouts/public/Recommended/Recommended';
 import Sidebar from '~/layouts/public/Sidebar/Sidebar';
 import Card from '~/components/Card/Card';
 import { Row, Col } from 'antd';
-import { Pagination } from 'antd';
 import categoryApi from '~/apis/categoryAPI/categoryApi';
 import Header from '~/layouts/public/Header';
 import Footer from '~/layouts/public/Footer';
+import { Pagination } from '~/components/Pagination';
+import { useSearchParams } from 'react-router-dom';
 
 export default function Category() {
     const [categories, setCategories] = useState([]);
@@ -19,24 +20,30 @@ export default function Category() {
         const fetchApiCategories = async () => {
             const response = await categoryApi.getAll();
             setCategories(response.dataCategories);
-            console.log(response)
         };
         fetchApiCategories();
     }, []);
 
     const [productData, setProductData] = useState([])
+    const [count , setCount] = useState(0)
+ 
+
+    const [params] = useSearchParams();
+
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchData = async (params) => {
             try {
-                const productsData = await getAllProducts();
+                const productsData = await getAllProducts({ ...params, limit: 30 });
                 setProductData(productsData.products)
+                setCount(productsData.counts)
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         };
-        fetchData();
-    }, []);
+        const queries = Object.fromEntries([...params]);
+        fetchData(queries);
+    }, [params]);
 
     const MemoizedCard = memo(({ id, img, title, newPrice, color }) => (
         <Card
@@ -128,7 +135,7 @@ export default function Category() {
                                 <Product result={result} />
                             </div>
                             <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '30px' }}>
-                                <Pagination defaultCurrent={1} total={10} />
+                                <Pagination totalCount={count} pageSize={30}/>
                             </div>
                         </Col>
                     </Row>

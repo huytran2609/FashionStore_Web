@@ -10,7 +10,7 @@ const createOrder = asyncHandler(async (req, res) => {
         await User.findByIdAndUpdate(_id, { phone, address, cart: [] });
     }
     const user = await User.findById(_id).select('name');
-    const createdData = { products, totalPrice, orderBy: {userId: _id, name: user.name, address} };
+    const createdData = { products, totalPrice, orderBy: { userId: _id, name: user.name, address } };
     // const userCart = await User.findById(_id).select('cart').populate('cart.product', 'title price');
     // const products = userCart?.cart?.map((item) => ({
     //     product: item.product._id,
@@ -63,16 +63,27 @@ const getOrders = asyncHandler(async (req, res) => {
     const formatedQueries = JSON.parse(queryString);
 
     //Filtering
-    if (queries?.title) formatedQueries.title = { $regex: queries.title, $options: 'i' };
+    if (queries?.status) formatedQueries.status = { $regex: queries.status, $options: 'i' };
 
     // let queryObject = {}
     if (queries?.q) {
         delete formatedQueries.q;
         const regex = { $regex: queries?.q, $options: 'i' };
-        formatedQueries.$or = [{ title: regex }, { color: regex }, { category: regex }, { brand: regex }];
+        formatedQueries.$or = [
+            { 'orderBy.name': regex },
+            { 'orderBy.address': regex },
+            { status: regex },
+            { 'products.product.title': regex },
+            { 'products.color': regex },
+        ];
     }
 
     let queryCommand = Order.find(formatedQueries);
+    queryCommand = queryCommand.populate({
+        path: 'products.product',
+        model: 'Product', // Hãy chắc chắn sử dụng tên mô hình chính xác
+        select: 'title price', // Chọn các trường bạn muốn bao gồm từ mô hình 'Product'
+    });
 
     //Sorting
     if (req.query.sort) {
@@ -105,7 +116,7 @@ const getOrders = asyncHandler(async (req, res) => {
             return res.status(200).json({
                 success: result ? true : false,
                 counts,
-                Orders: result ? result : 'Fail to get orders',
+                orders: result ? result : 'Fail to get orders',
             });
         })
         .catch((err) => {

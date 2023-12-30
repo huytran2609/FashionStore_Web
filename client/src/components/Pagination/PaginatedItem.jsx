@@ -21,8 +21,8 @@ function PaginatedItem({ children }) {
             disabled={!Number(children)}
             className= {
                 classNames(
-                    +params.get('page') === +children && 'bg-neutral-100'
-                    ,"relative block rounded  px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-100 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"                
+                    +params.get('page') === +children && 'bg-neutral-300'
+                    ,"relative block rounded  px-3 py-1.5 text-sm text-neutral-600 transition-all duration-300 hover:bg-neutral-200 dark:text-white dark:hover:bg-neutral-700 dark:hover:text-white"                
                 )
             }
         >

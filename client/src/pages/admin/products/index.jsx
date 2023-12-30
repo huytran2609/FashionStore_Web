@@ -187,7 +187,7 @@ function Product() {
                                 <th className="px-4 py-2">Sold</th>
                                 <th className="px-4 py-2">Color</th>
                                 <th className="px-4 py-2">Ratings</th>
-                                <th className="px-4 py-2">UpdatedAtt</th>
+                                <th className="px-4 py-2">UpdatedAt</th>
                                 <th className="px-4 py-2">Action</th>
                             </tr>
                         </thead>

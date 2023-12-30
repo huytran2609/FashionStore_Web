@@ -11,6 +11,7 @@ export default function Women() {
         const fetchData = async () => {
             try {
                 const productsData = await getProductsWomen();
+                console.log(productsData);
                 setProductData(productsData.productData);
             } catch (error) {
                 console.error('Error fetching data:', error);
