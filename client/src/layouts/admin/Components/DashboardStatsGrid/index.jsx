@@ -1,8 +1,10 @@
 import { IoBagHandle, IoPieChart, IoPeople, IoCart } from 'react-icons/io5';
 
-function DashboardStatsGrid() {
+function DashboardStatsGrid({ totalUsers, totalOrders }) {
+
     return (
         <div className="flex gap-4">
+
             <BoxWrapper>
                 <div className="rounded-full h-12 w-12 flex items-center justify-center bg-sky-500">
                     <IoBagHandle className="text-2xl text-white" />
@@ -34,8 +36,8 @@ function DashboardStatsGrid() {
                 <div className="pl-4">
                     <span className="text-sm text-gray-500 font-light">Total Customers</span>
                     <div className="flex items-center">
-                        <strong className="text-xl text-gray-700 font-semibold">12313</strong>
-                        <span className="text-sm text-red-500 pl-2">-30</span>
+                        <strong className="text-xl text-gray-700 font-semibold">{totalUsers}</strong>
+                        <span className="text-sm text-green-500 pl-2">+10</span>
                     </div>
                 </div>
             </BoxWrapper>
@@ -46,8 +48,8 @@ function DashboardStatsGrid() {
                 <div className="pl-4">
                     <span className="text-sm text-gray-500 font-light">Total Orders</span>
                     <div className="flex items-center">
-                        <strong className="text-xl text-gray-700 font-semibold">16432</strong>
-                        <span className="text-sm text-red-500 pl-2">-43</span>
+                        <strong className="text-xl text-gray-700 font-semibold">{totalOrders}</strong>
+                        <span className="text-sm text-green-500 pl-2">+43</span>
                     </div>
                 </div>
             </BoxWrapper>

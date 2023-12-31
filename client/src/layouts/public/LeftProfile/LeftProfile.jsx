@@ -2,7 +2,7 @@ import styles from './LeftProfile.module.scss'
 import avatar from '~/assets/Avatar/avatarUser.jpg';
 import { Link } from 'react-router-dom';
 import config from '~/config';
-import { FaHistory, FaUserCircle } from "react-icons/fa";
+import { FaHistory, FaUserCircle, FaTrash } from "react-icons/fa";
 
 export default function LeftProfile() {
     const handleChange = (evt) => {
@@ -28,6 +28,11 @@ export default function LeftProfile() {
             <Link to={config.history} className={styles.userInfo}>
                 <FaHistory className={`${styles.history} ${styles.icon}`} />
                 <h1>Order History</h1>
+            </Link>
+
+            <Link style={{ color: 'red' }} className={styles.userInfo}>
+                <FaTrash className={`${styles.history} ${styles.icon}`} />
+                <h1>Delete Account</h1>
             </Link>
         </>
     )

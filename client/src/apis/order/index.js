@@ -7,3 +7,7 @@ export const apiCreateOrder = (data) => {
 export const apiGetUserOrder = () => {
     return axios.get('/order/userOrder');
 };
+
+export const adminGetUserOrder = () => {
+    return axios.get('/order');
+};
