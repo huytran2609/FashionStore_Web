@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import styles from './InputInformation.module.scss'
 
- 
+
 
 export default function InputInformation({ info, base, title, classTitle, classFullName, classPhone, classEmail, classAddress, readOnly, onInputChange }) {
     const [nameValue, setNameValue] = useState(info?.name);
@@ -9,7 +9,7 @@ export default function InputInformation({ info, base, title, classTitle, classF
     const [phoneValue, setPhoneValue] = useState(info?.phone);
     const [addressValue, setAddressValue] = useState(info?.address);
 
- 
+
 
     // Hàm gọi callback khi giá trị thay đổi
     const handleChangeName = (e) => {
@@ -29,12 +29,13 @@ export default function InputInformation({ info, base, title, classTitle, classF
         onInputChange('address', e.target.value);
     }
 
- 
+
 
     return (
         <>
             <h1 className={`${classTitle} ${styles.title}`}>{title}</h1>
             <input
+                style={readOnly ? { backgroundColor: '#e5e5e5', color: '#000', userSelect: 'none' } : {}}
                 className={`${classFullName} ${base} ${styles.baseInput}`}
                 onChange={handleChangeName}
                 value={nameValue}
@@ -42,6 +43,7 @@ export default function InputInformation({ info, base, title, classTitle, classF
                 placeholder='FullName...'
                 readOnly={readOnly} />
             <input
+                style={readOnly ? { backgroundColor: '#e5e5e5', color: '#000', userSelect: 'none' } : {}}
                 className={`${classPhone} ${base} ${styles.baseInput}`}
                 onChange={handleChangePhone}
                 value={phoneValue}
@@ -49,6 +51,7 @@ export default function InputInformation({ info, base, title, classTitle, classF
                 placeholder='Phone number...'
                 readOnly={readOnly} />
             <input
+                style={readOnly ? { backgroundColor: '#e5e5e5', color: '#000', userSelect: 'none' } : {}}
                 className={`${classEmail} ${base} ${styles.baseInput}`}
                 onChange={handleChangeEmail}
                 value={emailValue}
@@ -56,6 +59,7 @@ export default function InputInformation({ info, base, title, classTitle, classF
                 placeholder='Email...'
                 readOnly={readOnly} />
             <input
+                style={readOnly ? { backgroundColor: '#e5e5e5', color: '#000', userSelect: 'none' } : {}}
                 className={`${classAddress} ${base} ${styles.baseInput}`}
                 onChange={handleChangeAddress}
                 value={addressValue}

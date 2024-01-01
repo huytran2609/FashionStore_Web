@@ -13,6 +13,8 @@ import { getCurrent } from '~/redux/features/slices/asyncActions'
 import { apiCart } from '~/apis/user'
 import { toast } from 'react-toastify'
 import Comments from '~/layouts/public/Comments/Comments';
+import config from '~/config';
+import { Link } from 'react-router-dom';
 
 
 export default function ProductDetail() {
@@ -65,7 +67,7 @@ export default function ProductDetail() {
     return (
         <>
             <Row style={{ margin: '70px 0 10px 50px', color: '#999', fontWeight: '500', fontSize: '18px' }} col={3}>
-                Home &gt; Product Detail &gt; {title}
+                <Link to={config.home}>Home</Link> &nbsp;&gt;&nbsp; <Link to={config.category}>Category</Link> &nbsp;&gt;&nbsp; Product Detail &nbsp;&gt;&nbsp; {title}
             </Row>
             <Row style={{ margin: '0px 50px 10px 50px', backgroundColor: '#fff', boxShadow: '0.49px 0.958px 3.958px rgba(0, 0, 0, 0.25)', borderRadius: '20px' }} col={9}>
                 <Col span={10}>
@@ -92,7 +94,7 @@ export default function ProductDetail() {
                         {title}
                     </section>
                     <section className={styles.rateStar}>
-                        <Star rate={4} classParrent={styles.star} /> ({randomCmt})
+                        <Star rate={4} classParrent={styles.star} /> (4293)
                     </section>
                     <section className={styles.productPrice}>
                         <div className={styles.newPrice}>
