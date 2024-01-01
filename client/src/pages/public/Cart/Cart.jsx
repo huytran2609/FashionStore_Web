@@ -42,7 +42,7 @@ export default function Cart() {
     const [addressDefault, setAddressDefault] = useState('');
     const [addressValue, setAddressValue] = useState('');
     const isDisabled = currentCart?.length <= 0 ? true : false;
-    console.log(isDisabled)
+    // console.log(isDisabled)
     const handleAddressChange = (event) => {
         setAddressValue(event.target.value);
     };

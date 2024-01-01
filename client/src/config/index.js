@@ -3,6 +3,8 @@ const config = {
     home: '/',
     login: '/login',
     register: '/register',
+    verifyemail: '/verifyEmail/:status',
+    resetpassword: '/reset-password/:token',
     category: '/category',
     women: '/women',
     men: '/men',
@@ -18,6 +20,7 @@ const config = {
     manage_order: '/manage-order',
     manage_product: '/manage-product',
     manage_user: '/manage-user',
+    manage_coupon: '/manage-coupon',
 };
 
 export default config;

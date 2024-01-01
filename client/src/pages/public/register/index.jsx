@@ -7,6 +7,7 @@ import { useState, useEffect, useRef } from 'react';
 import { apiRegister } from '~/apis/user';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Swal from 'sweetalert2';
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{5,23}$/;
 const EMAIL_REGEX = /^\S+@\S+\.\S+$/;
@@ -111,6 +112,9 @@ export default function Register() {
             const response = await apiRegister(payload);
 
             if (response.success) {
+                //     Swal.fire('Success', response.mes, 'success').then(() => {
+                //     handleSuccess();
+                // });
                 toast.success(response.mes, { onClose: handleSuccess });
             } else {
                 toast.error(response.mes);

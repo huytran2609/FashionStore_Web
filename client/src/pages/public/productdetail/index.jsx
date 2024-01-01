@@ -37,7 +37,6 @@ export default function ProductDetail() {
     // console.log(location)
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    console.log(current._id)
     const handleClick = async () => {
         if (!isLoggedIn) {
             navigate('/login', { state: location?.pathname })
@@ -54,7 +53,7 @@ export default function ProductDetail() {
         setColorValue(event.target.value);
     }
 
-    const colorString = current.cart.map((cart) => cart.color[0]).toString();
+    // const colorString = current.cart.map((cart) => cart.color[0]).toString();
     // console.log(productData.color);
 
     const [counter, setCounter] = useState(1);

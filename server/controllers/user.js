@@ -3,23 +3,55 @@ const Product = require('../models/product');
 const asyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken');
 const { generateAccessToken, generateRefreshToken } = require('../middlewares/jwt');
+const sendMail = require('../utils/sendMail');
+const crypto = require('crypto');
+const { response } = require('express');
 
 const register = asyncHandler(async (req, res) => {
     const { name, email, password } = req.body;
-    if (!name || !email || !password)
+    if (!name || !email || !password) {
         return res.status(400).json({
             success: false,
             mes: 'Missing inputs',
         });
+    }
     const user = await User.findOne({ email });
-    if (user) {
-        throw new Error('User has existed');
-    } else {
-        const newUser = await User.create(req.body);
+    if (user) throw new Error('User has existed');
+    else {
+        const token = crypto.randomBytes(20).toString('hex');
+        res.cookie('dataRegister', { ...req.body, token }, { maxAge: 1000 * 60 * 5, httpOnly: true });
+        const html = `Click <a href="http://localhost:5001/api/user/verifyEmail/${token}">here</a> to verify your email. This link will be expired in 5 minutes`;
+        const data = {
+            email,
+            html,
+            subject: 'Verify email',
+        };
+        await sendMail(data);
         return res.status(200).json({
-            success: newUser ? true : false,
-            mes: newUser ? 'Register is succesfull.' : 'Something went wrong',
+            success: true,
+            mes: 'Please check your email to verify your account',
         });
+    }
+});
+
+const verifyEmail = asyncHandler(async (req, res) => {
+    const cookie = req.cookies;
+    const { token } = req.params;
+    if (!cookie || cookie?.dataRegister?.token !== token){
+        res.clearCookie('dataRegister');
+        return res.redirect(`${process.env.CLIENT_URL}/verifyEmail/failed`)
+    };
+    const newUser = await User.create({
+        email: cookie?.dataRegister.email,
+        name: cookie?.dataRegister.name,
+        password: cookie?.dataRegister.password,
+    });
+    res.clearCookie('dataRegister');
+    if(newUser) {
+        return res.redirect(`${process.env.CLIENT_URL}/verifyEmail/success`)
+    }
+    else {
+        return res.redirect(`${process.env.CLIENT_URL}/verifyEmail/failed`)
     }
 });
 
@@ -214,7 +246,7 @@ const updateCart = asyncHandler(async (req, res) => {
         return res.status(200).json({
             success: response ? true : false,
             mes: response ? 'Successfully added to cart!' : 'Failed added to cart!',
-        })
+        });
     } else {
         const response = await User.findByIdAndUpdate(
             _id,
@@ -256,8 +288,52 @@ const removeProductFromCart = asyncHandler(async (req, res) => {
     });
 });
 
+// Check email có hợp lệ hay không => gửi email, kèm theo link password change
+// Client click vào link
+// Client gửi api kèm token
+// check token có giống token mà server gửi email hay không
+// Change password
+const forgotPassword = asyncHandler(async (req, res) => {
+    const { email } = req.body;
+    if (!email) throw new Error('Missing email!');
+    const user = await User.findOne({ email });
+    if (!user) throw new Error('Email not found!');
+    console.log(user);
+    const resetToken = user.createPasswordChangedToken();
+    user.save({ validateBeforeSave: false });
+    const html = `Click <a href="${process.env.CLIENT_URL}/reset-password/${resetToken}">here</a> to reset your password. This link will be expired in 10 minutes`;
+    const data = {
+        email,
+        html,
+        subject: 'Forgot password',
+    };
+    const result = await sendMail(data);
+    return res.status(200).json({
+        success:  result?.response?.includes('OK') ? true : false,
+        mes: result?.response?.includes('OK') ? 'Please check your email to reset your password' : 'Failed to send email',
+    });
+});
+
+const resetPassword = asyncHandler(async (req, res) => {
+    const { password, token } = req.body;
+    if (!password || !token) throw new Error('Missing input!');
+    const passwordResetToken = crypto.createHash('sha256').update(token).digest('hex');
+    const user = await User.findOne({ passwordResetToken, passwordResetExpires: { $gt: Date.now() } });
+    if (!user) throw new Error('Your link may be expired! Please send otp to your email again!');
+    user.password = password;
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
+    user.passwordChangedAt = Date.now();
+    await user.save();
+    return res.status(200).json({
+        success: user ? true : false,
+        mes: user ? 'Reset password successfully!' : 'Reset password failed!',
+    });
+});
+
 module.exports = {
     register,
+    verifyEmail,
     login,
     getCurrent,
     refreshAccessToken,
@@ -269,4 +345,6 @@ module.exports = {
     updateUserAddress,
     updateCart,
     removeProductFromCart,
+    forgotPassword,
+    resetPassword,
 };

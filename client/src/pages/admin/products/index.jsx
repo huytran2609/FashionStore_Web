@@ -323,7 +323,7 @@ function Product() {
                 handleClose={() => {
                     setIsOpen(false);
                 }}
-                title="Tạo sản phẩm mới"
+                title="Create new product"
                 size="2xl"
             >
                 <form onSubmit={handleSubmit(handleCreateProduct)}>

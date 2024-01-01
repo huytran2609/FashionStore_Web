@@ -3,9 +3,12 @@ import Dashboard from '~/pages/admin/dashboard';
 import Order from '~/pages/admin/orders';
 import Product from '~/pages/admin/products';
 import User from '~/pages/admin/users';
+import Coupon from '~/pages/admin/coupon';
 import Home from '~/pages/public/home';
 import Login from '~/pages/public/login';
 import Register from '~/pages/public/register';
+import VerifyEmail from '~/pages/public/verifyEmail';
+import ForgotPassword from '~/pages/public/forgotPassword';
 import Category from '~/pages/public/category';
 import ProductDetail from '~/pages/public/productdetail';
 import Women from '~/pages/public/category/women';
@@ -20,6 +23,8 @@ const publicRoutes = [
     { path: config.home, page: Home },
     { path: config.login, page: Login, layout: null },
     { path: config.register, page: Register, layout: null },
+    { path: config.verifyemail, page: VerifyEmail, layout: null },
+    { path: config.resetpassword, page: ForgotPassword, layout: null },
     { path: config.category, page: Category, layout: null },
     { path: config.productdetail, page: ProductDetail },
     { path: config.women, page: Women },
@@ -37,6 +42,7 @@ const privateRoutes = [
     { path: config.manage_product, page: Product },
     { path: config.manage_order, page: Order },
     { path: config.manage_user, page: User },
+    { path: config.manage_coupon, page: Coupon },
 ];
 
 export { publicRoutes, privateRoutes };

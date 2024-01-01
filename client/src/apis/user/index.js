@@ -9,7 +9,15 @@ export const apiGetCurrent = () => {
 };
 
 export const apiRegister = (data) => {
-    return axios.post('/user/register', data);
+    return axios.post('/user/register', data, {withCredentials: true});
+};
+
+export const apiForgotPassword = (data) => {
+    return axios.post('/user/forgotPassword', data);
+};
+
+export const apiResetPassword = (data) => {
+    return axios.put('/user/resetPassword', data);
 };
 
 export const apiLogin = (data) => {
