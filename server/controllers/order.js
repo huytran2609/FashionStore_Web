@@ -45,10 +45,27 @@ const updateStatusOrder = asyncHandler(async (req, res) => {
 
 const getUserOrder = asyncHandler(async (req, res) => {
     const { _id } = req.user;
-    const response = await Order.find({ 'orderBy.userId': _id });
+    const response = await Order.find({ 'orderBy.userId': _id })
     return res.status(200).json({
         success: response ? true : false,
         userOrder: response ? response : 'Fail to get user order',
+    });
+});
+
+const getOrderDetail = asyncHandler(async (req, res) => {
+    const { _id } = req.user;
+    const { oid } = req.params;
+    if(!oid) throw new Error('Order id is required');
+    const response = await Order.findOne({ 'orderBy.userId': _id, _id: oid})
+        .populate({
+            path: 'products.product',
+            model: 'Product',
+            select: 'title price',
+        })
+        .exec();
+    return res.status(200).json({
+        success: response ? true : false,
+        orderDetail: response ? response : 'Fail to get order detail',
     });
 });
 
@@ -151,4 +168,5 @@ module.exports = {
     getUserOrder,
     getOrders,
     cancelUserOrder,
+    getOrderDetail,
 };

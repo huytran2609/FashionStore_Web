@@ -2,8 +2,27 @@ import LeftProfile from '~/layouts/public/LeftProfile/LeftProfile'
 import { Col, Row } from 'antd';
 import styles from './HistoryOrderDetail.module.scss'
 import Button from '~/components/Button/Button';
+import { useParams } from 'react-router-dom';
+import { apigetOrderDetail } from '~/apis/order';
+import { useEffect, useState } from 'react';
 
 export default function HistoryOrderDetail() {
+
+    const [orderDetail, setOrderDetail] = useState({})
+    const { oid } = useParams()
+    console.log(oid);
+    useEffect(() => {
+        const fetchOrderDetail = async () => {
+            const response = await apigetOrderDetail(oid)
+            if (response.success) {
+                setOrderDetail(response.orderDetail)
+            }
+        }
+        fetchOrderDetail()
+    }, [])
+    console.log(orderDetail);
+    
+
     return (
         <>
             <Row style={{ minHeight: '600px', margin: '90px 50px 10px 50px', backgroundColor: '#fff', boxShadow: '0.49px 0.958px 3.958px rgba(0, 0, 0, 0.25)', borderRadius: '20px' }} col={9}>

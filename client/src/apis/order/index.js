@@ -8,6 +8,10 @@ export const apiGetUserOrder = () => {
     return axios.get('/order/userOrder');
 };
 
+export const apigetOrderDetail = (oid) => {
+    return axios.get(`/order/orderDetail/${oid}`);
+};
+
 export const adminGetUserOrder = () => {
     return axios.get('/order');
 };

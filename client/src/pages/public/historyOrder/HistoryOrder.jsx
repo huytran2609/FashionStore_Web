@@ -22,6 +22,7 @@ export default function HistoryOrder() {
         };
         fetchUserOrder();
     }, []);
+
     return (
         <>
             <Row
@@ -71,7 +72,7 @@ export default function HistoryOrder() {
                                             <td style={{ color: 'darkorange' }}>{orderItem.status.toString()}</td>
                                             <td>{orderItem.totalPrice}</td>
                                             <td style={{ display: 'flex', alignItems: 'center', height: '100%', justifyContent: 'center' }}>
-                                                <Link to={config.historydetail} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                                <Link to={`${config.historydetail.replace(":oid", orderItem._id)}`} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                                     Detail&nbsp;<FaInfoCircle />
                                                 </Link>
                                                 <Link className={styles.btnCancel} style={{ paddingLeft: '20px', marginRight: '-10xp', color: 'red' }}>Cancel</Link>
