@@ -2,26 +2,38 @@ import LeftProfile from '~/layouts/public/LeftProfile/LeftProfile';
 import styles from './HistoryOrder.module.scss';
 import { Row, Col } from 'antd';
 import { useEffect, useState } from 'react';
-import { apiGetUserOrder } from '~/apis/order';
+import { apiDeleteUserOrder, apiGetUserOrder } from '~/apis/order';
 import orderEmpty from '~/assets/Cart/emptyOrder.jpeg';
 import { formatCreatedAt } from '~/utils/helpers';
 import { FaInfoCircle } from "react-icons/fa";
 import Button from '~/components/Button/Button';
 import { Link } from 'react-router-dom';
 import config from '~/config';
+import {toast} from 'react-toastify';
 
 export default function HistoryOrder() {
     const [userOrder, setUserOrder] = useState([]);
+    const [update, setUpdate] = useState(false);
     useEffect(() => {
         const fetchUserOrder = async () => {
             const response = await apiGetUserOrder();
-            console.log(response);
+            // console.log(response);
             if (response.success) {
                 setUserOrder(response.userOrder);
             }
         };
         fetchUserOrder();
-    }, []);
+    }, [update]);
+
+    const handleDelete = async(orderId) => {
+        const response = await apiDeleteUserOrder(orderId);
+        if (response.success) {
+            setUpdate(!update);
+            toast.success(response.mes);
+        }else {
+            toast.error(response.mes);
+        }
+    }
 
     return (
         <>
@@ -75,7 +87,7 @@ export default function HistoryOrder() {
                                                 <Link to={`${config.historydetail.replace(":oid", orderItem._id)}`} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                                     Detail&nbsp;<FaInfoCircle />
                                                 </Link>
-                                                <Link className={styles.btnCancel} style={{ paddingLeft: '20px', marginRight: '-10xp', color: 'red' }}>Cancel</Link>
+                                                <Link onClick={() => handleDelete(orderItem._id)} className={styles.btnCancel} style={{ paddingLeft: '20px', marginRight: '-10xp', color: 'red' }}>Cancel</Link>
                                             </td>
                                         </tr>
                                     ))}

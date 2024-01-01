@@ -14,6 +14,7 @@ function Order() {
     const debounced = useDebounce(query.q, 600);
 
     const [params] = useSearchParams();
+    const [editOrder, setEditOrder] = useState(null);
 
     useEffect(() => {
         const fetchOrders = async (params) => {

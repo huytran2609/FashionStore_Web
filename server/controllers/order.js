@@ -45,7 +45,7 @@ const updateStatusOrder = asyncHandler(async (req, res) => {
 
 const getUserOrder = asyncHandler(async (req, res) => {
     const { _id } = req.user;
-    const response = await Order.find({ 'orderBy.userId': _id })
+    const response = await Order.find({ 'orderBy.userId': _id, $or: [{ status: 'Processing' }, { status: 'Succeed' }] });
     return res.status(200).json({
         success: response ? true : false,
         userOrder: response ? response : 'Fail to get user order',
@@ -55,14 +55,12 @@ const getUserOrder = asyncHandler(async (req, res) => {
 const getOrderDetail = asyncHandler(async (req, res) => {
     const { _id } = req.user;
     const { oid } = req.params;
-    if(!oid) throw new Error('Order id is required');
-    const response = await Order.findOne({ 'orderBy.userId': _id, _id: oid})
-        .populate({
-            path: 'products.product',
-            model: 'Product',
-            select: 'title price',
-        })
-        .exec();
+    if (!oid) throw new Error('Order id is required');
+    const response = await Order.findOne({ 'orderBy.userId': _id, _id: oid }).populate({
+        path: 'products.product',
+        model: 'Product',
+        select: 'title price',
+    });
     return res.status(200).json({
         success: response ? true : false,
         orderDetail: response ? response : 'Fail to get order detail',
@@ -145,21 +143,19 @@ const cancelUserOrder = asyncHandler(async (req, res) => {
     const { _id } = req.user;
     const { orderId } = req.params;
 
-    try {
-        // Kiểm tra xem đơn hàng có tồn tại không và có thuộc về người dùng không
-        const order = await Order.findOne({ _id: orderId, 'orderBy.userId': _id });
+    const order = await Order.findOne({ _id: orderId, 'orderBy.userId': _id });
 
-        if (!order) {
-            return res.status(404).json({ success: false, message: 'Order not found' });
-        }
-
-        // Hủy đơn hàng
-        await Order.findByIdAndDelete(orderId);
-
-        return res.status(200).json({ success: true, message: 'Order canceled successfully' });
-    } catch (error) {
-        return res.status(500).json({ success: false, message: 'Internal Server Error' });
+    if (!order) {
+        throw new Error('Order not found');
     }
+
+    // Hủy đơn hàng
+    const response = await Order.findByIdAndUpdate(orderId, { $set: { status: 'Cancelled' } });
+
+    return res.status(200).json({ 
+        success: response ? true : false, 
+        mes: response ? 'Order canceled successfully' : 'Fail to cancel order'
+    })
 });
 
 module.exports = {

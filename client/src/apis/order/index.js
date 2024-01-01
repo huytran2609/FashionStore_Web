@@ -12,6 +12,10 @@ export const apigetOrderDetail = (oid) => {
     return axios.get(`/order/orderDetail/${oid}`);
 };
 
+export const apiDeleteUserOrder = (orderId) => {
+    return axios.put(`/order/cancelOrder/${orderId}`);
+};
+
 export const adminGetUserOrder = () => {
     return axios.get('/order');
 };
