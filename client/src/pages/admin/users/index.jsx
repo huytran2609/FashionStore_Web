@@ -78,6 +78,7 @@ function User() {
                 const response = await apiDeleteUser(uid);
                 if (response.success) {
                     render()
+                    
                     toast.success(response.mes);
                 } else {
                     toast.error(response.mes);

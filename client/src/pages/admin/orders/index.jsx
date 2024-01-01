@@ -5,6 +5,7 @@ import { apiGetOrders } from '~/apis/admin/order';
 import { Pagination } from '~/components/Pagination';
 import { useDebounce } from '~/hooks';
 import InputSearch from '~/layouts/admin/Components/InputSearch';
+import { formatCreatedAt } from '~/utils/helpers';
 
 function Order() {
     const [orders, setOrders] = useState([]);
@@ -16,7 +17,7 @@ function Order() {
 
     useEffect(() => {
         const fetchOrders = async (params) => {
-            const response = await apiGetOrders({...params, limit: 5});
+            const response = await apiGetOrders({...params, limit: 5, sort: '-createdAt'});
             if (response.success) {
                 setOrders(response);
             }
@@ -81,7 +82,8 @@ function Order() {
                                         <span>$&nbsp;{order?.totalPrice}</span>
                                     </td>
                                     <td className="whitespace-nowrap px-4 py-2 max-w-[400px] overflow-hidden overflow-ellipsis">
-                                        {moment(order?.createdAt).format('MM/DD/YYYY')}
+                                        {/* {moment(order?.createdAt).format('MM/DD/YYYY')} */}
+                                        {formatCreatedAt(order?.createdAt)}
                                     </td>
                                     <td className="whitespace-nowrap px-4 py-2 w-[50px] overflow-hidden overflow-ellipsis text-center">
                                         <span className="rounded-md border border-blue-600 text-blue-600 text-[12px] w-12 p-1 mr-1 hover:bg-blue-500 hover:text-white cursor-pointer">

@@ -124,9 +124,31 @@ const getOrders = asyncHandler(async (req, res) => {
         });
 });
 
+const cancelUserOrder = asyncHandler(async (req, res) => {
+    const { _id } = req.user;
+    const { orderId } = req.params;
+
+    try {
+        // Kiểm tra xem đơn hàng có tồn tại không và có thuộc về người dùng không
+        const order = await Order.findOne({ _id: orderId, 'orderBy.userId': _id });
+
+        if (!order) {
+            return res.status(404).json({ success: false, message: 'Order not found' });
+        }
+
+        // Hủy đơn hàng
+        await Order.findByIdAndDelete(orderId);
+
+        return res.status(200).json({ success: true, message: 'Order canceled successfully' });
+    } catch (error) {
+        return res.status(500).json({ success: false, message: 'Internal Server Error' });
+    }
+});
+
 module.exports = {
     createOrder,
     updateStatusOrder,
     getUserOrder,
     getOrders,
+    cancelUserOrder,
 };

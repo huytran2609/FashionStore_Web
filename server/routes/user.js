@@ -17,6 +17,6 @@ router.put('/address', verifyAccessToken, controllers.updateUserAddress);
 router.put('/cart', verifyAccessToken, controllers.updateCart);
 router.put('/:uid', [verifyAccessToken, isAdmin], controllers.updateUserByAdmin);
 router.delete('/removeCart/:pid/:color?', [verifyAccessToken], controllers.removeProductFromCart);
-router.delete('/:uid', [verifyAccessToken, isAdmin], controllers.deleteUser);
+router.delete('/:uid', [verifyAccessToken], controllers.deleteUser);
 
 module.exports = router;
