@@ -5,11 +5,14 @@ import config from '~/config';
 import { FaHistory, FaUserCircle, FaTrash } from 'react-icons/fa';
 import { apiDeleteUser } from '~/apis/admin/user';
 import Swal from 'sweetalert2';
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { logout } from '~/redux/features/slices/userSlice';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
-export default function LeftProfile({ userId }) {
+export default function LeftProfile() {
+    const { current } = useSelector((state) => state.user);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -28,11 +31,12 @@ export default function LeftProfile({ userId }) {
             showCancelButton: true,
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const response = await apiDeleteUser(userId);
+                const response = await apiDeleteUser(current._id);
                 if (response.success) {
                     dispatch(logout())
                     navigate('/')
-                    toast.success(response.mes);
+                    toast.success("Delete user successfully!")
+                    window.reload()
                 } else {
                     toast.error(response.mes);
                 }

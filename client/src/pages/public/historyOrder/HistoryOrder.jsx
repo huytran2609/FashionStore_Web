@@ -9,7 +9,8 @@ import { FaInfoCircle } from "react-icons/fa";
 import Button from '~/components/Button/Button';
 import { Link } from 'react-router-dom';
 import config from '~/config';
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
 
 export default function HistoryOrder() {
     const [userOrder, setUserOrder] = useState([]);
@@ -25,15 +26,24 @@ export default function HistoryOrder() {
         fetchUserOrder();
     }, [update]);
 
-    const handleDelete = async(orderId) => {
-        const response = await apiDeleteUserOrder(orderId);
-        if (response.success) {
-            setUpdate(!update);
-            toast.success(response.mes);
-        }else {
-            toast.error(response.mes);
-        }
-    }
+    const handleDelete = async (orderId) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            showCancelButton: true,
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const response = await apiDeleteUserOrder(orderId);
+                if (response.success) {
+                    setUpdate(!update);
+                    toast.success('Cancel Order Successfully!');
+                } else {
+                    toast.error(response.mes);
+                }
+            }
+        });
+    };
+    console.log(userOrder)
 
     return (
         <>
@@ -48,7 +58,7 @@ export default function HistoryOrder() {
                 col={9}
             >
                 <Col style={{ borderRight: '2px solid #ececec' }} span={7}>
-                    <LeftProfile userId={userOrder[0]?.orderBy?.userId} />
+                    <LeftProfile />
                 </Col>
                 <Col className="p-5" span={17}>
                     <table className={styles.listOrder}>
@@ -56,10 +66,10 @@ export default function HistoryOrder() {
                             <tr>
                                 <th style={{ width: '13%' }}>NUMBER</th>
                                 <th style={{ width: '17%' }}>ORDER ITEMS</th>
-                                <th style={{ width: '22%' }}>CREATE AT</th>
-                                <th style={{ width: '13.5%' }}>STATE</th>
-                                <th style={{ width: '12%' }}>TOTAL</th>
-                                <th>ORDER OPTION</th>
+                                <th style={{ width: '20%' }}>CREATE AT</th>
+                                <th style={{ width: '10.5%', paddingLeft: '40px' }}>STATE</th>
+                                <th style={{ width: '14%', paddingLeft: '40px' }}>TOTAL</th>
+                                <th style={{ paddingRight: '30px' }}>ORDER OPTION</th>
                             </tr>
                         </tbody>
                     </table>
@@ -87,7 +97,7 @@ export default function HistoryOrder() {
                                                 <Link to={`${config.historydetail.replace(":oid", orderItem._id)}`} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                                     Detail&nbsp;<FaInfoCircle />
                                                 </Link>
-                                                <Link onClick={() => handleDelete(orderItem._id)} className={styles.btnCancel} style={{ paddingLeft: '20px', marginRight: '-10xp', color: 'red' }}>Cancel</Link>
+                                                <Link onClick={() => handleDelete(orderItem._id)} className={styles.btnCancel}>Cancel</Link>
                                             </td>
                                         </tr>
                                     ))}

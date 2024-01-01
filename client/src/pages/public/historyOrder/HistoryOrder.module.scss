@@ -11,9 +11,17 @@
         height: 55px;
         text-align: center;
     }
+
+    .btnCancel {
+        padding: 10px;
+        margin: 10px;
+        border-radius: 39px;
+        background-color: red;
+        color: white;
+        font-weight: bold;
+    }
     
     .btnCancel:hover {
-            opacity: 70%;  
-            color: #0cff20;
+        opacity: 85%;  
     }
 }

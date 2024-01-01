@@ -24,7 +24,7 @@ export default function Profile() {
                 </Col>
                 <Col className='p-5 pt-10 flex justify-center' span={17}>
                     <div className='w-2/4'>
-                        <InputInformation info={current} classTitle='font-bold text-center' base='mt-6 h-14' title='User Information' readOnly={readOnly} />
+                        <InputInformation info={current ? current : ''} classTitle='font-bold text-center' base='mt-6 h-14' title='User Information' readOnly={readOnly} />
                         <div className='flex'>
                             <Button onClick={handleEdit} content='Edit' classParent={styles.btnEdit} />
                             <Button onClick={handleSave} classParent={styles.btnUpdate} content='Save' />

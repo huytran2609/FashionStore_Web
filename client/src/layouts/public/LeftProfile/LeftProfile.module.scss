@@ -27,6 +27,7 @@
 
 .userInfo {
     display: flex;
+    align-items: center;
     height: 9%;
     border-top: 0.5px solid #aaadb0;
     border-bottom: 0.5px solid #aaadb0;
@@ -48,7 +49,6 @@
     .icon {
         font-size: 25px;
         padding-left: 20px;
-        margin-top: 12px;
         flex: 1;
     }
     .history {

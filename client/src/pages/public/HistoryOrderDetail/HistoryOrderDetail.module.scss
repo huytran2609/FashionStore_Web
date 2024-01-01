@@ -2,10 +2,18 @@
     width: 100%;
     min-height: 8%;
     height: 50px;
-    font-size: 16px;
+    font-size: 18px;
     border: 0.5px solid #d4d4d4;
     box-shadow: 1px 0.5px 0.5px 1px rgba(155, 155, 155, 0.25);
     overflow: auto;
+    tr
+    {   
+        height: 90px;
+        text-align: center;
+        td {
+            max-width: 200px;
+        }
+    }
 }
 
 .btnCancel {
