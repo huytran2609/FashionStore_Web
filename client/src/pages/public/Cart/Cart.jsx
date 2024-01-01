@@ -19,11 +19,11 @@ export default function Cart() {
     const dispatch = useDispatch();
     const formattedCount = (numberValue) => Number(numberValue).toFixed(2);
 
-    const estimatePrice = formattedCount(
-        currentCart?.reduce((acc, item) => {
-            return acc + item?.quantity * item?.product?.price;
-        }, 0),
-    );
+    // const estimatePrice = formattedCount(
+    //     currentCart?.reduce((acc, item) => {
+    //         return acc + item?.quantity * item?.product?.price;
+    //     }, 0),
+    // );
 
     const [nameValue, setNameValue] = useState(current?.name);
     const handleNameChange = (event) => {
@@ -230,7 +230,7 @@ export default function Cart() {
                                 <h1>Order Summary</h1>
                                 <div className={`${styles.subTotal} ${styles.baseSub}`}>
                                     <h1>Subtotal</h1>
-                                    <h3>$&nbsp;{totalPrice ? formattedCount(totalPrice) : estimatePrice}</h3>
+                                    <h3>$&nbsp;{totalPrice ? formattedCount(totalPrice) : 0}</h3>
                                     {/* <h3>$&nbsp;{estimatePrice}</h3> */}
                                 </div>
                                 <div className={`${styles.shipFee} ${styles.baseSub}`}>
@@ -240,10 +240,10 @@ export default function Cart() {
                                 <hr />
                                 <div className={`${styles.estimateTotal} ${styles.baseSub}`}>
                                     <h1>Estimate Total</h1>
-                                    <h3>$&nbsp;{totalPrice ? formattedCount(totalPrice) : estimatePrice}</h3>
+                                    <h3>$&nbsp;{totalPrice ? formattedCount(totalPrice) : 0}</h3>
                                     {/* <h3>$&nbsp;{estimatePrice}</h3> */}
                                 </div>
-                                <input type="hidden" value={totalPrice ? formattedCount(totalPrice) : estimatePrice} name="priceValue" />
+                                <input type="hidden" value={totalPrice ? formattedCount(totalPrice) : 0} name="priceValue" />
                                 <Button
                                     onClick={handleCheckOut}
                                     disabled={isDisabled}
