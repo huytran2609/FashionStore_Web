@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Swal from 'sweetalert2';
 
-const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{5,23}$/;
+const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9\s-_]{5,23}$/;
 const EMAIL_REGEX = /^\S+@\S+\.\S+$/;
 const PWD_REGEX = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 
