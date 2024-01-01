@@ -19,6 +19,7 @@ import Lifestyle from '~/pages/public/category/lifestyle';
 import Cart from '~/pages/public/Cart/Cart';
 import Profile from '~/pages/public/profile/Profile';
 import HistoryOrder from '~/pages/public/historyOrder/HistoryOrder';
+import Contact from '~/pages/public/Contact/Contact';
 const publicRoutes = [
     { path: config.home, page: Home },
     { path: config.login, page: Login, layout: null },
@@ -27,14 +28,15 @@ const publicRoutes = [
     { path: config.resetpassword, page: ForgotPassword, layout: null },
     { path: config.category, page: Category, layout: null },
     { path: config.productdetail, page: ProductDetail },
-    { path: config.women, page: Women },
-    { path: config.men, page: Men },
-    { path: config.beauty, page: Beauty },
-    { path: config.kids, page: Kids },
-    { path: config.lifestyle, page: Lifestyle },
+    { path: config.women, page: Women, layout: null },
+    { path: config.men, page: Men, layout: null },
+    { path: config.beauty, page: Beauty, layout: null },
+    { path: config.kids, page: Kids, layout: null },
+    { path: config.lifestyle, page: Lifestyle, layout: null },
     { path: config.cart, page: Cart },
     { path: config.profile, page: Profile },
     { path: config.history, page: HistoryOrder },
+    { path: config.contact, page: Contact },
 ];
 
 const privateRoutes = [

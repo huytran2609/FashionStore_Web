@@ -15,6 +15,7 @@ const config = {
     cart: '/cart',
     profile: '/profile',
     history: '/history',
+    contact: '/contact',
     //private
     admin: '/dashboard',
     manage_order: '/manage-order',

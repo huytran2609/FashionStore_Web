@@ -96,6 +96,7 @@ function Home() {
                     <img className={styles.rightFire} src={fire} alt="" />
                     <Button link='category' content='See More' classParent={styles.btnMore} />
                 </div>
+
                 <div className={`absolute top-[166px] w-[353px] h-[383px] text-2xl text-black ${styles.framePro2}`} data-aos="fade-right">
                     <div className="absolute top-[0px] rounded-xl bg-white shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] w-[323px] h-[383px]" >
                         <div className={styles.imgProduct2}>

@@ -3,7 +3,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from 'recharts';
 const data = [
     { name: 'Male', value: 540 },
     { name: 'Female', value: 620 },
-    { name: 'Other', value: 210 },
+    { name: 'Other', value: 48 },
 ];
 
 const RADIAN = Math.PI / 180;
@@ -27,7 +27,7 @@ function BuyerProfilePieChart() {
             <strong className="text-gray-700 font-medium">Buyer Profile</strong>
             <div className="mt-3 w-full flex-1 text-xs">
                 <ResponsiveContainer width="100%" height="100%">
-                    <PieChart width={400} height={300}> 
+                    <PieChart width={400} height={300}>
                         <Pie
                             data={data}
                             cx="50%"
