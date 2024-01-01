@@ -39,7 +39,7 @@ const updateStatusOrder = asyncHandler(async (req, res) => {
     const response = await Order.findByIdAndUpdate(oid, { status }, { new: true });
     return res.status(200).json({
         success: response ? true : false,
-        updatedOrder: response ? response : 'Fail to update status',
+        mes: response ? 'Update status successfully!' : 'Fail to update status',
     });
 });
 
