@@ -65,14 +65,6 @@ export default function HistoryOrder() {
                                             <td>{formatCreatedAt(orderItem.createdAt)}</td>
                                             <td style={{ color: 'darkorange' }}>{orderItem.status.toString()}</td>
                                             <td>{orderItem.totalPrice}</td>
-                                            <td>
-                                                <span
-                                                    
-                                                    className="bg-red-600 rounded-md border border-red-600 text-white text-[12px] w-12 p-1 hover:bg-red-700 hover:text-white cursor-pointer"
-                                                >
-                                                    Cancel
-                                                </span>
-                                            </td>
                                         </tr>
                                     ))}
                                     <tr style={{ visibility: 'hidden' }}>
@@ -81,7 +73,6 @@ export default function HistoryOrder() {
                                         <th>CREATE AT</th>
                                         <th>STATE</th>
                                         <th>TOTAL</th>
-                                        <th>Action</th>
                                     </tr>
                                 </tbody>
                             </table>
