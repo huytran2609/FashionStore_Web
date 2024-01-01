@@ -8,6 +8,10 @@ export const apiGetCurrent = () => {
     return axios.get('/user/current');
 };
 
+export const apiUpdateCurrent = (data) => {
+    return axios.put('/user/current', data);
+};
+
 export const apiRegister = (data) => {
     return axios.post('/user/register', data, {withCredentials: true});
 };

@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { useCallback, useEffect, useState } from 'react';
 import { Pagination } from '~/components/Pagination';
 import { useDebounce } from '~/hooks';
@@ -13,7 +12,7 @@ import categoryApi from '~/apis/categoryAPI/categoryApi';
 import Select from '~/components/Select';
 import { getAllProducts } from '~/apis/products';
 import TextArea from '~/components/TextArea';
-import { getBase64 } from '~/utils/helpers';
+import { formatCreatedAt, getBase64 } from '~/utils/helpers';
 import { apiCreateProduct } from '~/apis/admin/product';
 
 function Product() {
@@ -154,9 +153,13 @@ function Product() {
             reset();
             setPreview({ thumnail: '', images: [] });
         } else {
-            toast.error(response.mes);
+            toast.error('Create new product failed!');
         }
     };
+
+    const handleDelete = async (uid) => {
+        
+    }
 
     return (
         <div>
@@ -275,7 +278,7 @@ function Product() {
                                     </td>
 
                                     <td className="whitespace-nowrap  px-4 py-2">
-                                        {moment(product?.updatedAt).format('MM/DD/YYYY')}
+                                        {formatCreatedAt(product?.updatedAt)}
                                     </td>
                                     <td className="whitespace-nowrap  px-4 py-2">
                                         {editProduct?._id === product._id ? (
@@ -302,7 +305,7 @@ function Product() {
                                                     Edit
                                                 </span>
                                                 <span
-                                                    // onClick={() => handleDelete(product._id)}
+                                                    onClick={() => handleDelete(product._id)}
                                                     className="bg-red-600 rounded-md border border-red-600 text-white text-[12px] w-12 p-1 hover:bg-red-700 hover:text-white cursor-pointer"
                                                 >
                                                     Delete
@@ -384,6 +387,15 @@ function Product() {
                                 register={register}
                                 errors={errors}
                                 validate={{ required: 'Required' }}
+                            />
+                            <InputForm
+                                label="Brand"
+                                register={register}
+                                errors={errors}
+                                id="brand"
+                                validate={{ required: 'Required' }}
+                                style="pl-[10px]"
+                                placeholder="Brand"
                             />
                             <TextArea
                                 label="Description"
@@ -498,7 +510,7 @@ function Product() {
                                     type="file"
                                     className="hidden relative"
                                     multiple
-                                    {...register('images', { required: 'Required' })}
+                                    {...register('images')}
                                     // onChange={(event) => setPreview({images: event.target.files[0]})}
                                 />
                                 {errors['images'] && (
