@@ -70,7 +70,11 @@ export default function ProductDetail() {
             <Row style={{ margin: '0px 50px 10px 50px', backgroundColor: '#fff', boxShadow: '0.49px 0.958px 3.958px rgba(0, 0, 0, 0.25)', borderRadius: '20px' }} col={9}>
                 <Col span={10}>
                     <section className={styles.imgDetail}>
-                        <img src={productData.thumbnail} alt="IMG Detail" />
+                        <img style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                        }} src={productData.thumbnail} alt="IMG Detail" />
                     </section>
                     <section className={styles.listImgDetail}>
                         {productData?.images?.slice(1, 6)?.map((title, index) => {

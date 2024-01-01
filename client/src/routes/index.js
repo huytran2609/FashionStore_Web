@@ -20,6 +20,7 @@ import Cart from '~/pages/public/Cart/Cart';
 import Profile from '~/pages/public/profile/Profile';
 import HistoryOrder from '~/pages/public/historyOrder/HistoryOrder';
 import Contact from '~/pages/public/Contact/Contact';
+import HistoryOrderDetail from '~/pages/public/HistoryOrderDetail/HistoryOrderDetail';
 const publicRoutes = [
     { path: config.home, page: Home },
     { path: config.login, page: Login, layout: null },
@@ -36,6 +37,7 @@ const publicRoutes = [
     { path: config.cart, page: Cart },
     { path: config.profile, page: Profile },
     { path: config.history, page: HistoryOrder },
+    { path: config.historydetail, page: HistoryOrderDetail },
     { path: config.contact, page: Contact },
 ];
 

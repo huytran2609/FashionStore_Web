@@ -66,8 +66,8 @@ export default function Header({ handleInputChange, query }) {
                 <Col span={11} className={styles.category}>
                     <ul className={styles.categoryList}>
                         {categories.map((data) => (
-                            <Link key={data._id} to={config[data.title.toLowerCase()]}>
-                                <li>{data.title}</li>
+                            <Link key={data?._id} to={config[data.title.toLowerCase()]}>
+                                <li>{data?.title}</li>
                             </Link>
                         ))}
                     </ul>

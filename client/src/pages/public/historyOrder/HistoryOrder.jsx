@@ -5,6 +5,10 @@ import { useEffect, useState } from 'react';
 import { apiGetUserOrder } from '~/apis/order';
 import orderEmpty from '~/assets/Cart/emptyOrder.jpeg';
 import { formatCreatedAt } from '~/utils/helpers';
+import { FaInfoCircle } from "react-icons/fa";
+import Button from '~/components/Button/Button';
+import { Link } from 'react-router-dom';
+import config from '~/config';
 
 export default function HistoryOrder() {
     const [userOrder, setUserOrder] = useState([]);
@@ -37,11 +41,12 @@ export default function HistoryOrder() {
                     <table className={styles.listOrder}>
                         <tbody>
                             <tr>
-                                <th style={{ width: '16%' }}>NUMBER</th>
-                                <th style={{ width: '24%' }}>ORDER ITEMS</th>
-                                <th style={{ width: '27%' }}>CREATE AT</th>
-                                <th style={{ width: '19.5%' }}>STATE</th>
-                                <th>TOTAL</th>
+                                <th style={{ width: '13%' }}>NUMBER</th>
+                                <th style={{ width: '17%' }}>ORDER ITEMS</th>
+                                <th style={{ width: '22%' }}>CREATE AT</th>
+                                <th style={{ width: '13.5%' }}>STATE</th>
+                                <th style={{ width: '12%' }}>TOTAL</th>
+                                <th>ORDER OPTION</th>
                             </tr>
                         </tbody>
                     </table>
@@ -65,6 +70,12 @@ export default function HistoryOrder() {
                                             <td>{formatCreatedAt(orderItem.createdAt)}</td>
                                             <td style={{ color: 'darkorange' }}>{orderItem.status.toString()}</td>
                                             <td>{orderItem.totalPrice}</td>
+                                            <td style={{ display: 'flex', alignItems: 'center', height: '100%', justifyContent: 'center' }}>
+                                                <Link to={config.historydetail} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                                    Detail&nbsp;<FaInfoCircle />
+                                                </Link>
+                                                <Link className={styles.btnCancel} style={{ paddingLeft: '20px', marginRight: '-10xp', color: 'red' }}>Cancel</Link>
+                                            </td>
                                         </tr>
                                     ))}
                                     <tr style={{ visibility: 'hidden' }}>
@@ -73,6 +84,7 @@ export default function HistoryOrder() {
                                         <th>CREATE AT</th>
                                         <th>STATE</th>
                                         <th>TOTAL</th>
+                                        <th>OPTION</th>
                                     </tr>
                                 </tbody>
                             </table>
