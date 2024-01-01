@@ -54,6 +54,7 @@ export default function HistoryOrder() {
                     backgroundColor: '#fff',
                     boxShadow: '0.49px 0.958px 3.958px rgba(0, 0, 0, 0.25)',
                     borderRadius: '20px',
+                    overflow: 'hidden',
                 }}
                 col={9}
             >
