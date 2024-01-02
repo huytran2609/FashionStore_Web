@@ -62,10 +62,11 @@ export default function HistoryOrderDetail() {
                 <Col className='p-5' span={17}>
                     <section style={{ display: 'flex', alignItems: 'center' }}>
                         <h1 style={{ fontSize: '40px' }} >Order Detail</h1>
-                        <div style={{ fontSize: '16px', marginLeft: '40px', borderRadius: '30px', color: '#fff', backgroundColor: 'orange', padding: '5px 20px' }} >
+                        <div style={(orderDetail?.status==='Processing')?{ fontSize: '16px', marginLeft: '40px', borderRadius: '30px', color: '#fff', backgroundColor: 'orange', padding: '5px 20px' }:
+                    { fontSize: '16px', marginLeft: '40px', borderRadius: '30px', color: '#fff', backgroundColor: 'green', padding: '5px 20px' }} >
                             {orderDetail?.status}
                         </div>
-                        <Button onClick={handleDelete} classParent={styles.btnCancel} content='Cancel Order' />
+                        <Button onClick={(orderDetail?.status==='Processing')?handleDelete:''} classChild={(orderDetail?.status==='Processing')?'':styles.btnCancelChild} classParent={(orderDetail?.status==='Processing')?styles.btnCancel:styles.btnCancelDisable} content='Cancel Order' />
                     </section>
                     <section className={styles.infoOrder}>
                         <h1>Customer Name: <span>{orderDetail?.orderBy?.name}</span></h1>

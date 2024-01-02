@@ -11,6 +11,22 @@
         height: 55px;
         text-align: center;
     }
+    .btnCancelChild {
+        padding: 10px;
+        margin: 10px;
+        font-weight: bold;
+        background-color: grey;
+        color: #fff;
+        cursor: not-allowed;
+        border-radius: 30px;
+    
+        &:hover {
+            cursor: not-allowed;
+            opacity: 100%;
+            background-color: grey;
+            color: #fff;
+        }
+    }
 
     .btnCancel {
         padding: 10px;
@@ -19,6 +35,22 @@
         background-color: red;
         color: white;
         font-weight: bold;
+    }
+    .btnCancelDisable {
+        font-weight: bold;
+        padding: 10px;
+        margin: 10px;
+        background-color: grey;
+        color: #fff;
+        cursor: not-allowed;
+        border-radius: 39px;
+
+        &:hover {
+            cursor: not-allowed;
+            opacity: 100%;
+            background-color: grey;
+            color: #fff;
+        }
     }
     
     .btnCancel:hover {

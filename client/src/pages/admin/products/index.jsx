@@ -13,7 +13,7 @@ import Select from '~/components/Select';
 import { getAllProducts } from '~/apis/products';
 import TextArea from '~/components/TextArea';
 import { formatCreatedAt, getBase64 } from '~/utils/helpers';
-import { apiCreateProduct } from '~/apis/admin/product';
+import { apiCreateProduct, apiDeleteProduct } from '~/apis/admin/product';
 
 function Product() {
     const [isOpen, setIsOpen] = useState(false);
@@ -43,7 +43,7 @@ function Product() {
     });
 
     const [editProduct, setEditProduct] = useState(null);
-    // const [updated, setUpdated] = useState(false);
+    const [updated, setUpdated] = useState(false);
 
     const [products, setProducts] = useState([]);
     const [query, setQuery] = useState({ q: '' });
@@ -65,7 +65,7 @@ function Product() {
             queries.q = debounced;
         }
         fetchApiProducts(queries);
-    }, [debounced, params]);
+    }, [debounced, params, updated]);
 
     // useEffect(() => {
     //     // Khi editProduct thay đổi, cập nhật giá trị mặc định của các trường
@@ -78,9 +78,9 @@ function Product() {
     //     console.log(editProduct);
     // }, [editProduct, setValue]);
 
-    // const render = useCallback(() => {
-    //     setUpdated(!updated);
-    // }, [updated]);
+    const render = useCallback(() => {
+        setUpdated(!updated);
+    }, [updated]);
 
     // const handleUpdate = async (data) => {
     //     const response = await apiUpdateproduct(data, editProduct._id);
@@ -126,6 +126,10 @@ function Product() {
     const handlePreviewImages = async (files) => {
         const imagesPreview = [];
         for (let file of files) {
+            // if(file.type !== 'image/png' || file.type !== 'image/jpeg' || file.type != 'image/jpg') {
+            //     toast.warning('File is not supported!')
+            //     return;
+            // }
             const base64Images = await getBase64(file);
             imagesPreview.push(base64Images);
         }
@@ -153,12 +157,26 @@ function Product() {
             reset();
             setPreview({ thumnail: '', images: [] });
         } else {
-            toast.error('Create new product failed!');
+            toast.success('Create new product successfully!');
         }
     };
 
-    const handleDelete = async (uid) => {
-        
+    const handleDelete = async (pid) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            showCancelButton: true,
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const response = await apiDeleteProduct(pid);
+                if (response.success) {
+                    render()
+                    toast.success(response.mes);
+                } else {
+                    toast.error(response.mes);
+                }
+            }
+        });
     }
 
     return (

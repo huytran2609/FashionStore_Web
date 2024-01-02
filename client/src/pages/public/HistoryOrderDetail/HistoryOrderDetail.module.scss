@@ -26,6 +26,33 @@
     }
 }
 
+.btnCancelDisable {
+    margin-left: 40px;
+    background-color: grey;
+    color: #fff;
+    cursor: not-allowed;
+    &:hover {
+        cursor: not-allowed;
+        opacity: 100%;
+        background-color: grey;
+        color: #fff;
+    }
+}
+
+.btnCancelChild {
+    background-color: grey;
+    color: #fff;
+    cursor: not-allowed;
+    border-radius: 30px;
+
+    &:hover {
+        cursor: not-allowed;
+        opacity: 100%;
+        background-color: grey;
+        color: #fff;
+    }
+}
+
 .infoOrder {
     font-size: 20px;
     h1 {

@@ -92,13 +92,13 @@ export default function HistoryOrder() {
                                             <td>&#35;{userOrder.length - index}</td>
                                             <td>Order&nbsp;{userOrder.length - index}</td>
                                             <td>{formatCreatedAt(orderItem.createdAt)}</td>
-                                            <td style={{ color: 'darkorange' }}>{orderItem.status.toString()}</td>
+                                            <td style={(orderItem.status.toString()==='Processing')?{ color: 'darkorange' }:{color: 'green'}}>{orderItem.status.toString()}</td>
                                             <td>{orderItem.totalPrice}</td>
                                             <td style={{ display: 'flex', alignItems: 'center', height: '100%', justifyContent: 'center' }}>
                                                 <Link to={`${config.historydetail.replace(":oid", orderItem._id)}`} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                                     Detail&nbsp;<FaInfoCircle />
                                                 </Link>
-                                                <Link onClick={() => handleDelete(orderItem._id)} className={styles.btnCancel}>Cancel</Link>
+                                                <Link onClick={orderItem.status==='Processing'?(() => handleDelete(orderItem._id)):''} classChild={(orderItem.status==='Processing')?'':styles.btnCancelChild} className={(orderItem.status==='Processing')?styles.btnCancel:styles.btnCancelDisable}>Cancel</Link>
                                             </td>
                                         </tr>
                                     ))}

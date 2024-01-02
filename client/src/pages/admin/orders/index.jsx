@@ -62,7 +62,8 @@ function Order() {
                 <h3 className="font-semibold text-xl">Order Management</h3>
                 <InputSearch type="text" placeholder="Search..." value={query.q} setValue={setQuery} />
             </div>
-            <div className="max-w-screen-xl mt-3 rounded-lg">
+            <div style={{display: 'flex', justifyContent: 'center'}}>
+            <div className="max-w-screen-xl w-[1500px] mt-3 rounded-lg">
                 <form onSubmit={handleSubmit(handleUpdateStatus)}>
                     <table className="w-full table-auto mb-6 text-left bg-white">
                         <thead className="text-[13px] border-b bg-neutral-200 font-medium dark:border-neutral-500 dark:text-neutral-800">
@@ -157,6 +158,7 @@ function Order() {
                         </tbody>
                     </table>
                 </form>
+            </div>
             </div>
             <Pagination totalCount={orders.counts} pageSize={5} />
         </div>

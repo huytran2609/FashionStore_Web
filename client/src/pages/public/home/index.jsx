@@ -16,7 +16,7 @@ import { getAllProducts } from '~/apis/products'
 import { useEffect, useState, memo } from 'react'
 import Card from '~/components/Card/Card'
 import config from '~/config'
-
+import bestPro from '~/assets/bestPro.jpg'
 function Home() {
     const randomRate = Math.ceil(Math.random() * 5);
     const randomSale = Math.ceil(Math.random() * 80);
@@ -100,15 +100,15 @@ function Home() {
                 <div className={`absolute top-[166px] w-[353px] h-[383px] text-2xl text-black ${styles.framePro2}`} data-aos="fade-right">
                     <div className="absolute top-[0px] rounded-xl bg-white shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] w-[323px] h-[383px]" >
                         <div className={styles.imgProduct2}>
-                            <img src={imgBest} alt="imgProduct" />
+                            <img style={{objectFit: 'cover'}} src={bestPro} alt="imgProduct" />
                         </div>
                         <div className={styles.productBest2}>
                             <h1 className={`${styles.productName2} ${styles.limitText2}`}>
-                                Unisex Big Ball Chunky Embo Shoes NY Yankees Cream Unisex Big Ball Chunky Embo Shoes NY Yankees Cream
+                            Crack Fake Leather Short Mustang Black
                             </h1>
                             <div className={styles.productInfo2}>
-                                <div className={styles.newPrice2}>800$</div>
-                                <div className={styles.prevPrice2}>1000$</div>
+                                <div className={styles.newPrice2}>50$</div>
+                                <div className={styles.prevPrice2}>400$</div>
                                 <div className={styles.rateStar2}>
                                     <Star rate={randomRate} />
                                 </div>
