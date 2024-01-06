@@ -8,7 +8,7 @@ const cors = require('cors');
 const app = express();
 app.use(
     cors({
-        origin: [process.env.ORIGIN_1, process.env.ORIGIN_2],
+        origin: ["https://4best-fashion-store-web-seven.vercel.app/", "https://4best-fashion-store-web.vercel.app/"],
         // origin: '*',
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         credentials: true,
