@@ -8,8 +8,8 @@ const cors = require('cors');
 const app = express();
 app.use(
     cors({
-        origin: process.env.CLIENT_URL,
-        // origin: '*',
+        // origin: [process.env.CLIENT_URL, process.env.CLIENT_URL2],
+        origin: '*',
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         credentials: true,
     }),
