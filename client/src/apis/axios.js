@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const instance = axios.create({
     // baseURL: "http://localhost:5001/api",
-    baseURL: "https://backend-fashionstore.onrender.com/api",
-    // baseURL: import.meta.env.REACT_APP_API_URI,
+    // baseURL: "https://backend-fashionstore.onrender.com/api",
+    baseURL: import.meta.env.REACT_APP_API_URI,
 });
 // Add a request interceptor
 instance.interceptors.request.use(
