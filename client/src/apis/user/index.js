@@ -13,7 +13,7 @@ export const apiUpdateCurrent = (data) => {
 };
 
 export const apiRegister = (data) => {
-    return axios.post('/user/register', data, {withCredentials: true});
+    return axios.post('/user/register', data);
 };
 
 export const apiFinalRegister = (token) => {

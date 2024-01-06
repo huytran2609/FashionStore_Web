@@ -10,10 +10,12 @@ app.use(
     cors({
         // origin: ["https://4best-fashion-store-web-seven.vercel.app/", "https://4best-fashion-store-web.vercel.app/"],
         origin: '*',
+        // headers: ["Content-Type"],
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         credentials: true,
     }),
 );
+// app.options('*', cors())
 app.use(cookieParser());
 const port = process.env.PORT || 8888;
 app.use(express.json());
