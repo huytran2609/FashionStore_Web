@@ -8,8 +8,9 @@ const cors = require('cors');
 const app = express();
 app.use(
     cors({
-        origin: ["https://4best-fashion-store-web-seven.vercel.app/", "https://4best-fashion-store-web.vercel.app/"],
-        // origin: '*',
+        // origin: ["https://4best-fashion-store-web-seven.vercel.app/", "https://4best-fashion-store-web.vercel.app/"],
+        origin: '*',
+        headers: ["Content-Type"],
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         credentials: true,
     }),
