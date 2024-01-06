@@ -348,7 +348,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
     console.log(user);
     const resetToken = user.createPasswordChangedToken();
     user.save({ validateBeforeSave: false });
-    const html = `Click <a href="${process.env.CLIENT_URL}/reset-password/${resetToken}">here</a> to reset your password. This link will be expired in 10 minutes`;
+    const html = `Click <a href="${process.env.ORIGIN_1}/reset-password/${resetToken}">here</a> to reset your password. This link will be expired in 10 minutes`;
     const data = {
         email,
         html,
