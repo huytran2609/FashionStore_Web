@@ -43,6 +43,5 @@
     "sass": "^1.69.5",
     "tailwindcss": "^3.3.5",
     "vite": "^4.4.5"
-  },
-  "proxy": "https://backend-fashionstore.onrender.com/api"
+  }
 }
