@@ -1,17 +1,17 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: "http://localhost:5001/api",
-    // baseURL: import.meta.env.REACT_APP_API_URI,
+    // baseURL: "http://localhost:5001/api",
+    baseURL: import.meta.env.REACT_APP_API_URI,
 });
 // Add a request interceptor
 instance.interceptors.request.use(
     function (config) {
         // Do something before request is sent
-        let localStorage = window.localStorage.getItem('persist:store/user')
+        let localStorage = window.localStorage.getItem('persist:store/user');
         if (localStorage && typeof localStorage === 'string') {
-            localStorage = JSON.parse(localStorage)
-            const accessToken = JSON.parse(localStorage?.token)
+            localStorage = JSON.parse(localStorage);
+            const accessToken = JSON.parse(localStorage?.token);
             config.headers.Authorization = accessToken ? `Bearer ${accessToken}` : '';
         }
 

@@ -7,6 +7,33 @@ const sendMail = require('../utils/sendMail');
 const crypto = require('crypto');
 const { response } = require('express');
 
+// const register = asyncHandler(async (req, res) => {
+//     const { name, email, password } = req.body;
+//     if (!name || !email || !password) {
+//         return res.status(400).json({
+//             success: false,
+//             mes: 'Missing inputs',
+//         });
+//     }
+//     const user = await User.findOne({ email });
+//     if (user) throw new Error('User has existed');
+//     else {
+//         const token = crypto.randomBytes(20).toString('hex');
+//         res.cookie('dataRegister', { ...req.body, token }, { maxAge: 1000 * 60 * 5, httpOnly: true });
+//         const html = `Click <a href="http://localhost:5001/api/user/verifyEmail/${token}">here</a> to verify your email. This link will be expired in 5 minutes`;
+//         const data = {
+//             email,
+//             html,
+//             subject: 'Verify email',
+//         };
+//         await sendMail(data);
+//         return res.status(200).json({
+//             success: true,
+//             mes: 'Please check your email to verify your account',
+//         });
+//     }
+// });
+
 const register = asyncHandler(async (req, res) => {
     const { name, email, password } = req.body;
     if (!name || !email || !password) {
@@ -19,40 +46,60 @@ const register = asyncHandler(async (req, res) => {
     if (user) throw new Error('User has existed');
     else {
         const token = crypto.randomBytes(20).toString('hex');
-        res.cookie('dataRegister', { ...req.body, token }, { maxAge: 1000 * 60 * 5, httpOnly: true });
-        const html = `Click <a href="http://localhost:5001/api/user/verifyEmail/${token}">here</a> to verify your email. This link will be expired in 5 minutes`;
-        const data = {
-            email,
-            html,
-            subject: 'Verify email',
-        };
-        await sendMail(data);
+        const emailEdited = btoa(email) + '@' + token;
+        const newUser = User.create({ email: emailEdited, password, name });
+        if (newUser) {
+            const html = `<h2> Register code:  </h2> <blockquote> ${token} </blockquote>`;
+            const data = {
+                email,
+                html,
+                subject: 'Verify email',
+            };
+            await sendMail(data);
+        }
+        setTimeout(async () => {
+            await User.deleteOne({ email: emailEdited });
+        }, [1000 * 60 * 5]);
         return res.status(200).json({
-            success: true,
-            mes: 'Please check your email to verify your account',
+            success: newUser ? true : false,
+            mes: newUser ? 'Please check your email to verify your account' : ' Register failed ',
         });
     }
 });
 
+// const verifyEmail = asyncHandler(async (req, res) => {
+//     const cookie = req.cookies;
+//     const { token } = req.params;
+//     if (!cookie || cookie?.dataRegister?.token !== token) {
+//         res.clearCookie('dataRegister');
+//         return res.redirect(`${process.env.CLIENT_URL}/verifyEmail/failed`);
+//     }
+//     const newUser = await User.create({
+//         email: cookie?.dataRegister.email,
+//         name: cookie?.dataRegister.name,
+//         password: cookie?.dataRegister.password,
+//     });
+//     res.clearCookie('dataRegister');
+//     if (newUser) {
+//         return res.redirect(`${process.env.CLIENT_URL}/verifyEmail/success`);
+//     } else {
+//         return res.redirect(`${process.env.CLIENT_URL}/verifyEmail/failed`);
+//     }
+// });
+
 const verifyEmail = asyncHandler(async (req, res) => {
-    const cookie = req.cookies;
     const { token } = req.params;
-    if (!cookie || cookie?.dataRegister?.token !== token){
-        res.clearCookie('dataRegister');
-        return res.redirect(`${process.env.CLIENT_URL}/verifyEmail/failed`)
-    };
-    const newUser = await User.create({
-        email: cookie?.dataRegister.email,
-        name: cookie?.dataRegister.name,
-        password: cookie?.dataRegister.password,
-    });
-    res.clearCookie('dataRegister');
-    if(newUser) {
-        return res.redirect(`${process.env.CLIENT_URL}/verifyEmail/success`)
+    const activeEmail = await User.findOne({email: new RegExp(token)});
+    if(activeEmail) {
+        activeEmail.email = atob(activeEmail?.email?.split('@')[0]);
+        activeEmail.save();
     }
-    else {
-        return res.redirect(`${process.env.CLIENT_URL}/verifyEmail/failed`)
-    }
+   
+    return res.status(200).json({
+        success: activeEmail ? true : false,
+        mes: activeEmail ? 'Register is successfully!' : 'User not found ',
+    })
+    
 });
 
 const login = asyncHandler(async (req, res) => {
@@ -309,8 +356,10 @@ const forgotPassword = asyncHandler(async (req, res) => {
     };
     const result = await sendMail(data);
     return res.status(200).json({
-        success:  result?.response?.includes('OK') ? true : false,
-        mes: result?.response?.includes('OK') ? 'Please check your email to reset your password' : 'Failed to send email',
+        success: result?.response?.includes('OK') ? true : false,
+        mes: result?.response?.includes('OK')
+            ? 'Please check your email to reset your password'
+            : 'Failed to send email',
     });
 });
 

@@ -16,6 +16,10 @@ export const apiRegister = (data) => {
     return axios.post('/user/register', data, {withCredentials: true});
 };
 
+export const apiFinalRegister = (token) => {
+    return axios.put(`/user/verifyEmail/${token}`);
+};
+
 export const apiForgotPassword = (data) => {
     return axios.post('/user/forgotPassword', data);
 };

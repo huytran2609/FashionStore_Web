@@ -4,16 +4,22 @@ import { IoMdMail } from 'react-icons/io';
 import { FaUser, FaLock, FaInfoCircle, FaRegTimesCircle, FaCheckCircle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
-import { apiRegister } from '~/apis/user';
+import { apiFinalRegister, apiRegister } from '~/apis/user';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Swal from 'sweetalert2';
+import Modal from '~/components/Modal';
+import { useNavigate } from 'react-router-dom';
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9\s-_]{5,23}$/;
 const EMAIL_REGEX = /^\S+@\S+\.\S+$/;
 const PWD_REGEX = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 
 export default function Register() {
+    const [isOpen, setIsOpen] = useState(false);
+    const [code, setCode] = useState('');
+    const navigate = useNavigate();
+
     const userRef = useRef();
     const errRef = useRef();
 
@@ -115,7 +121,9 @@ export default function Register() {
                 //     Swal.fire('Success', response.mes, 'success').then(() => {
                 //     handleSuccess();
                 // });
-                toast.success(response.mes, { onClose: handleSuccess });
+                // toast.success(response.mes, { onClose: handleSuccess });
+                toast.success(response.mes);
+                setIsOpen(true);
             } else {
                 toast.error(response.mes);
             }
@@ -132,6 +140,20 @@ export default function Register() {
             password: '',
         });
         setMatchPwd('');
+    };
+
+    const handleSubmitCode = async () => {
+        const response = await apiFinalRegister(code);
+        if (response.success) {
+            Swal.fire('Success', response.mes, 'success').then(() => {
+                handleSuccess();
+                navigate(config.login);
+            });
+        } else {
+            Swal.fire('Failure', response.mes, 'error');
+        }
+        setIsOpen(false);
+        setCode('');
     };
 
     return (
@@ -303,6 +325,37 @@ export default function Register() {
                     </div>
                 </div>
             </section>
+            <Modal
+                isOpen={isOpen}
+                handleClose={() => {
+                    setIsOpen(false);
+                }}
+                title="Verify your email"
+                size="lg"
+            >
+                <div className="flex flex-col gap-4">
+                    <label htmlFor="code" className="pl-1">
+                        We send a code to your email. Please check your email and enter the code below:
+                    </label>
+                    <input
+                        type="text"
+                        id="code"
+                        value={code}
+                        onChange={(e) => setCode(e.target.value)}
+                        placeholder="Enter code..."
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                    />
+                    <div className="flex items-center justify-end w-30">
+                        <button
+                            onClick={handleSubmitCode}
+                            type="submit"
+                            className="bg-blue-600 rounded-md border border-blue-600 text-white text-[14px] w-25 p-2 hover:bg-blue-700 hover:text-white"
+                        >
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </Modal>
         </>
     );
 }
