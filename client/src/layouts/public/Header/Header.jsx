@@ -74,11 +74,11 @@ export default function Header({ handleInputChange, query }) {
                     </ul>
                 </Col>
                 <Col className={styles.cpnHeader3} span={10}>
-                    <div className={styles.headerSearch}>
+                    {/* <div className={styles.headerSearch}>
                         <FaSearch className={styles.searchIcon} />
                         <input onChange={handleInputChange}
                             value={query} type="text" placeholder="Enter to Search ..." className={styles.searchInput} />
-                    </div>
+                    </div> */}
 
                     <Link to={config.cart} className={styles.cart}>
                         <FaShoppingCart className={styles.cartIcon} />
