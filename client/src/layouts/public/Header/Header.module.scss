@@ -55,9 +55,11 @@
 }
 
 .cpnHeader3 {
+    position: relative;
     display: flex;
-    justify-content: left;
+    justify-content: right;
     align-items: center;
+    gap: 35px;
 }
 
 .headerSearch {
@@ -87,11 +89,11 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    position: relative;
     &::before {
         content: "";
-        width: 13%;
-        height: 37%;
-        top: 2%;
+        width: 22px;
+        height: 45px;
         position: absolute;
         z-index: 3;
     }
@@ -99,21 +101,21 @@
         opacity: 0.8;
     }
     .cartIcon {
+        position: relative;
         color: #FFF;
         font-size: 25px;
-        margin: 0 10px;
         &:hover {
             cursor: pointer;
             opacity: 80%;
         }
     }
     .bgNumCart {
+        position: absolute;
         color: #fff;
         z-index: 2;
         text-align: center;
-        position: fixed;
-        top: 5px;
-        right: 18.5%;
+        top: -10px;
+        right: -10px;
         background-color: red;
         border-radius: 20px;
         box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
@@ -212,6 +214,37 @@
         img{
             height: 100%;
             
+        }
+    }
+}
+
+.buttonActionWrapper {
+    display: flex;
+    gap: 10px;
+    & div {
+        border-radius: 8px;
+    }
+    & .buttonRegister {
+        & a {
+            color: #db4a81;
+        }
+        &:hover {
+            opacity: 0.93;
+            background-color: rgb(249, 247, 248);
+            transition: opacity 0.3s ease-in;
+        }
+    }
+    & .buttonLogin {
+        background-color: transparent;
+        box-shadow: none;
+        & a {
+            color: #FFF;
+            width: fit-content;
+            text-shadow: 1px 1px 1px #ccc;
+        }
+        &:hover {
+            opacity: 0.8;
+            background-color: rgb(255 255 255 / 0.2);
         }
     }
 }

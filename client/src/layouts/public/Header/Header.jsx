@@ -44,6 +44,7 @@ export default function Header({ handleInputChange, query }) {
 
     const displayName = current?.name;
     const firstName = displayName ? displayName.split(' ')[0] : '';
+    const isHasCurrent = !!current;
 
     useEffect(() => {
         const fetchApiCategories = async () => {
@@ -73,11 +74,11 @@ export default function Header({ handleInputChange, query }) {
                     </ul>
                 </Col>
                 <Col className={styles.cpnHeader3} span={10}>
-                    <div className={styles.headerSearch}>
+                    {/* <div className={styles.headerSearch}>
                         <FaSearch className={styles.searchIcon} />
                         <input onChange={handleInputChange}
                             value={query} type="text" placeholder="Enter to Search ..." className={styles.searchInput} />
-                    </div>
+                    </div> */}
 
                     <Link to={config.cart} className={styles.cart}>
                         <FaShoppingCart className={styles.cartIcon} />
@@ -86,13 +87,13 @@ export default function Header({ handleInputChange, query }) {
                         </div>
                     </Link>
 
-                    {!isLoggedIn ? (
-                        <>
-                            <Button link={config.login} content="Login" />
-
-                            <Button link={config.register} content="Register" />
-                        </>
-                    ) : (
+                    {(!isLoggedIn || !isHasCurrent) &&
+                        <div className={styles.buttonActionWrapper}>
+                            <Button classParent={styles.buttonLogin} link={config.login} content="Login" />
+                            <Button classParent={styles.buttonRegister} link={config.register} content="Register" />
+                        </div>
+                    }
+                    {isLoggedIn && isHasCurrent &&
                         <div className={styles.userInfo}>
                             <h3>Hi,&nbsp;{firstName}</h3>
                             <Link to={config.profile} className={styles.imgAvatar}>
@@ -149,7 +150,7 @@ export default function Header({ handleInputChange, query }) {
                                 </Link>
                             </div>
                         </div>
-                    )}
+                    }
                 </Col>
             </Row>
         </>
