@@ -4,6 +4,7 @@ const categoryRouter = require('./category');
 const couponRouter = require('./coupon');
 const orderRouter = require('./order');
 const insertRouter = require('./insertData');
+const pingRouter = require('./ping');
 const { notFound, errHandler } = require('../middlewares/errHandler');
 
 const initRoutes = (app) => {
@@ -13,6 +14,7 @@ const initRoutes = (app) => {
     app.use('/api/coupon', couponRouter);
     app.use('/api/order', orderRouter);
     app.use('/api/insert', insertRouter);
+    app.use('/api/ping', pingRouter);
 
     app.use(notFound);
     app.use(errHandler);
