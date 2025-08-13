@@ -16,16 +16,43 @@
             href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap"
             rel="stylesheet"
         />
+        <!-- Allow Google use large size image -->
+        <meta name="robots" content="index,follow,max-image-preview:large" />
+        <meta name="googlebot" content="index,follow,max-image-preview:large" />
+
+        <!-- Canonical tag to unify URL and avoid duplicate content -->
+        <link rel="canonical" href="https://4best-fashion-store-web-seven.vercel.app/" />
+
         <!-- Confirm Authentication Google Console -->
         <meta name="google-site-verification" content="un7qUf-jyeQ2ed1KGxLLT90GU1u8ef5I4ATfFhENkUE" />
         
-        <!-- Google -->
-        <meta itemprop="image" content="https://4best-fashion-store-web-seven.vercel.app/assets/Thumb/thumbnail4bestshop.webp" />
+        <!-- itemprop (hint for Google) -->
+        <meta itemprop="image" content="https://4best-fashion-store-web-seven.vercel.app/assets/Thumb/thumbnail4bestshop-main.jpg" />
+
+        <!-- Defined some thumbnail options image for Google select -->
+        <meta property="og:image" content="https://4best-fashion-store-web-seven.vercel.app/assets/Thumb/thumbnail4bestshop-main.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+
+        <meta property="og:image" content="https://4best-fashion-store-web-seven.vercel.app/assets/Thumb/thumbnail4bestshop.jpg" />
+        <meta property="og:image:width" content="1465" />
+        <meta property="og:image:height" content="745" />
+
+        <meta property="og:image" content="https://4best-fashion-store-web-seven.vercel.app/assets/Thumb/thumbnail4bestshop.png" />
+        <meta property="og:image:width" content="3578" />
+        <meta property="og:image:height" content="1820" />
+
+        <meta property="og:image" content="https://4best-fashion-store-web-seven.vercel.app/assets/Thumb/thumbnail4bestshop.webp" />
+        <meta property="og:image:width" content="895" />
+        <meta property="og:image:height" content="455" />
 
         <!-- Open Graph (Facebook, Zalo, Discord, etc.) -->
         <meta property="og:title" content="4BEST - Welcome to 4BEST SHOP" />
         <meta property="og:description" content="Welcome to 4Best SHOP, where your shopping experience is elevated to a whole new level! Dive into a world of unparalleled variety and quality, curated just for you. Discover the latest trends, must-have essentials, and exclusive deals that redefine your shopping journey. Join us in exploring a realm of style, convenience, and exceptional value. Happy shopping at 4Best SHOP – where excellence meets your every need!" />
-        <meta property="og:image" content="https://4best-fashion-store-web-seven.vercel.app/assets/Thumb/thumbnail4bestshop.webp" />
+        <meta property="og:image" content="https://4best-fashion-store-web-seven.vercel.app/assets/Thumb/thumbnail4bestshop.jpg" />
+        <meta property="og:image:secure_url" content="https://4best-fashion-store-web-seven.vercel.app/assets/Thumb/thumbnail4bestshop.jpg" />
+        <meta property="og:image:width" content="1465" />
+        <meta property="og:image:height" content="745" />
         <meta property="og:url" content="https://4best-fashion-store-web-seven.vercel.app/" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="4BEST" />
@@ -35,36 +62,44 @@
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="4BEST - Welcome to 4BEST SHOP" />
         <meta name="twitter:description" content="Welcome to 4Best SHOP, where your shopping experience is elevated to a whole new level! Dive into a world of unparalleled variety and quality, curated just for you. Discover the latest trends, must-have essentials, and exclusive deals that redefine your shopping journey. Join us in exploring a realm of style, convenience, and exceptional value. Happy shopping at 4Best SHOP – where excellence meets your every need!" />
-        <meta name="twitter:image" content="https://4best-fashion-store-web-seven.vercel.app/assets/Thumb/thumbnail4bestshop.webp" />
+        <meta name="twitter:image" content="https://4best-fashion-store-web-seven.vercel.app/assets/Thumb/thumbnail4bestshop.jpg" />
 
         <!-- AOS Animation -->
         <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
         <title>FOUR BEST</title>
         <script type="application/ld+json">
-        [
-            {
-                "@context": "https://schema.org",
-                "@type": "WebSite",
-                "name": "4Best SHOP",
-                "url": "https://4best-fashion-store-web-seven.vercel.app/",
-                "image": "https://4best-fashion-store-web-seven.vercel.app/assets/Thumb/thumbnail4bestshop.webp",
-                "description": "Welcome to 4Best SHOP, where your shopping experience is elevated to a whole new level!"
-            },
-            {
-                "@context": "https://schema.org",
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "url": "https://4best-fashion-store-web-seven.vercel.app/",
+            "name": "4Best SHOP",
+            "publisher": {
                 "@type": "Organization",
                 "name": "4BEST SHOP",
-                "url": "https://4best-fashion-store-web-seven.vercel.app/",
-                "logo": "https://4best-fashion-store-web-seven.vercel.app/assets/Logo/Logo.png"
-            },
-            {
-            "@context": "https://schema.org",
-            "@type": "ImageObject",
-            "contentUrl": "https://4best-fashion-store-web-seven.vercel.app/assets/Thumb/thumbnail4bestshop.webp",
-            "url": "https://4best-fashion-store-web-seven.vercel.app/assets/Thumb/thumbnail4bestshop.webp",
-            "name": "4BEST SHOP Thumbnail"
+                "logo": {
+                "@type": "ImageObject",
+                "url": "https://4best-fashion-store-web-seven.vercel.app/assets/Logo/Logo.png",
+                "width": 201,
+                "height": 64
+                }
             }
-        ]
+        }
+        </script>
+
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "url": "https://4best-fashion-store-web-seven.vercel.app/",
+            "name": "4Best SHOP",
+            "primaryImageOfPage": {
+                "@type": "ImageObject",
+                "url": "https://4best-fashion-store-web-seven.vercel.app/assets/Thumb/thumbnail4bestshop-main.jpg",
+                "width": 1200,
+                "height": 630
+            },
+            "thumbnailUrl": "https://4best-fashion-store-web-seven.vercel.app/assets/Thumb/thumbnail4bestshop.jpg"
+        }
         </script>
     </head>
     <body>
