@@ -1,5 +1,6 @@
 import styles from './Home.module.scss'
 import bgWelcome from '../assets/BackgroundWelcome/Group2.jpg'
+import bgThumb from '../../../../public/assets/Thumb/thumbnail4bestshop-main.jpg'
 import proWelcome from '../assets/BackgroundWelcome/giay.png'
 import Button from '~/components/Button/Button'
 import imgVec from '../assets/BackgroundWelcome/leftVecto.svg'
@@ -65,6 +66,11 @@ function Home() {
         <>
             <div className={styles.homeBgColor}>
                 <div className={styles.imgContainer}>
+                    <img 
+                        className={styles.hiddenThumbnailImg}
+                        alt="thumbnailImage"
+                        src={bgThumb}
+                    />
                     <img
                         className={styles.img1}
                         alt="backgroundImage"
