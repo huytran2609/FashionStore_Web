@@ -4,7 +4,7 @@ import bgThumb from '../../../../public/assets/Thumb/thumbnail4bestshop-main.jpg
 import proWelcome from '../assets/BackgroundWelcome/giay.png'
 import Button from '~/components/Button/Button'
 import imgVec from '../assets/BackgroundWelcome/leftVecto.svg'
-import targetVecto from '../assets/ImgSaving/leftSave.png'
+import targetVector from '../assets/ImgSaving/leftSave.png'
 import fastIcon from '../assets/ImgDelivery/fastdelivery.png'
 import fire from '../assets/BackgroundWelcome/fire.gif'
 import imgBest from '../assets/ImgBestSeller/Shoe.jpeg'
@@ -29,15 +29,12 @@ function Home() {
             try {
                 const productsData = await getAllProducts();
                 setProductData(productsData.products)
-                // console.log(productData)
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         };
         fetchData();
     }, []);
-    // console.log(productData);
-    // console.log(productData.length);
 
     const MemoizedCard = memo(({ id, img, title, newPrice, color }) => (
         <Card
@@ -50,7 +47,6 @@ function Home() {
             color={color}
         />
     ));
-    // { console.log(productData) }
     const result = productData.slice(0, 10).map(({ _id, thumbnail, title, price, color }) => (
         <MemoizedCard
             key={_id}
@@ -162,8 +158,6 @@ function Home() {
                     </div>
                     <div className={styles.rightPopFrame}>
                         <h1 className={styles.rightTitle}>NEW STYLE SPORT</h1>
-                        {/* <h3 className={styles.rightPrice}>$1000</h3>
-                        <Button classParent={styles.rightButton} content='BUY NOW' /> */}
                     </div>
                     <div className={styles.centerPopFrame}>
                         <img src={setSport2} alt="Set Sport IMG" data-aos='fade-in' />
@@ -174,16 +168,6 @@ function Home() {
             <div className={styles.latestProduct} data-aos='fade-up'>
                 <h1 className={styles.latestTitle}>LATEST PRODUCT</h1>
                 <div className='grid grid-cols-5 gap-4'>
-                    {/* {productData.slice(0, 10).map(({ thumb, title, price }) => ( */}
-                    {/* {productData.map(({ thumb, title, price }) => (
-                        <Product
-                            key={Math.random()}
-                            img={thumb}
-                            title={title}
-                            prevPrice={Number(price * 3)}
-                            newPrice={price}
-                        />
-                    ))} */}
                     <Product result={result} />
                 </div>
                 <div className={styles.frameBtnAll}>
@@ -193,7 +177,7 @@ function Home() {
 
             <div className={styles.encourageBuy} data-aos='fade-up'>
                 <div className={styles.leftEncourage}>
-                    <img src={targetVecto} alt="Target" />
+                    <img src={targetVector} alt="Target" />
                 </div>
 
                 <div className={styles.rightEncourage} data-aos='zoom-in'>

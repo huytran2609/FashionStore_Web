@@ -70,7 +70,6 @@ export default function Women() {
 
     return (
         <>
-            <Header query={query} handleInputChange={handleInputChange} />
             <div style={{ margin: '70px 50px 10px 50px' }}>
                 <div style={{ padding: '10px 0 20px 0', fontWeight: '600', fontSize: '30px', textAlign: 'center', color: '#d977a9', textShadow: '1px 2px 2px rgba(0, 0, 0, 0.20)' }}>
                     Women
@@ -82,7 +81,6 @@ export default function Women() {
                     <Pagination defaultCurrent={1} total={10} />
                 </div>
             </div>
-            <Footer />
         </>
     );
 }

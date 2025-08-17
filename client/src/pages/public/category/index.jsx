@@ -119,7 +119,6 @@ export default function Category() {
         <>
             <Row>
                 <Col span={4}>
-                    <Header query={query} handleInputChange={handleInputChange} />
                     <Sidebar handleChange={handleChange} productData={categories} />
                 </Col>
                 <Col span={20}>
@@ -141,7 +140,6 @@ export default function Category() {
                     </Row>
                 </Col>
             </Row>
-            <Footer />
         </>
     )
 }
