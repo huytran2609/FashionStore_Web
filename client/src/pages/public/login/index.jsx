@@ -88,6 +88,12 @@ export default function index() {
                         required
                         value={payload.email}
                         onChange={(e) => setPlayload((prev) => ({ ...prev, email: e.target.value }))}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                e.preventDefault();
+                                handleSubmit();
+                            }
+                        }}
                     />
                     <FaUser className={styles.icon} />
                 </div>
@@ -98,6 +104,12 @@ export default function index() {
                         required
                         value={payload.password}
                         onChange={(e) => setPlayload((prev) => ({ ...prev, password: e.target.value }))}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                e.preventDefault();
+                                handleSubmit();
+                            }
+                        }}
                     />
                     <FaLock className={styles.icon} />
                 </div>
