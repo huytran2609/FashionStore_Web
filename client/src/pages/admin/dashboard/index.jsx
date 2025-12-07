@@ -1,8 +1,8 @@
-import BuyerProfilePieChart from "~/layouts/admin/Components/BuyerProfilePieChart";
-import DashboardStatsGrid from "~/layouts/admin/Components/DashboardStatsGrid";
-import PopularProducts from "~/layouts/admin/Components/PopularProducts";
-import RecentOrders from "~/layouts/admin/Components/RecentOrders";
-import TransactionChart from "~/layouts/admin/Components/TransactionChart";
+import BuyerProfilePieChart from "~/layouts/admin/components/buyerProfilePieChart";
+import DashboardStatsGrid from "~/layouts/admin/components/dashboardStatsGrid";
+import PopularProducts from "~/layouts/admin/components/popularProducts";
+import RecentOrders from "~/layouts/admin/components/recentOrders";
+import TransactionChart from "~/layouts/admin/components/transactionChart";
 import { adminGetUserOrder } from '~/apis/order';
 import { useEffect } from 'react';
 import { useState } from 'react';

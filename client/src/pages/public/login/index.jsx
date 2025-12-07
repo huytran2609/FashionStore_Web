@@ -9,9 +9,9 @@ import { useDispatch } from 'react-redux';
 import { login } from '~/redux/features/slices/userSlice';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Modal from '~/components/Modal';
+import Modal from '~/components/modal';
 
-export default function index() {
+export default function Login() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation();

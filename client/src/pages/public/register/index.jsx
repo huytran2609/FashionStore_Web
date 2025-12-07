@@ -8,7 +8,7 @@ import { apiFinalRegister, apiRegister } from '~/apis/user';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Swal from 'sweetalert2';
-import Modal from '~/components/Modal';
+import Modal from '~/components/modal';
 import { useNavigate } from 'react-router-dom';
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9\s-_]{5,23}$/;

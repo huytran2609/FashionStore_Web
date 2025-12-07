@@ -2,10 +2,10 @@ import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
 import { apiGetOrders, apiUpdateStatusOrder } from '~/apis/admin/order';
-import { Pagination } from '~/components/Pagination';
-import Select from '~/components/Select';
+import { Pagination } from '~/components/pagination';
+import Select from '~/components/select';
 import { useDebounce } from '~/hooks';
-import InputSearch from '~/layouts/admin/Components/InputSearch';
+import InputSearch from '~/layouts/admin/components/inputSearch';
 import { formatCreatedAt } from '~/utils/helpers';
 import {toast} from 'react-toastify';
 

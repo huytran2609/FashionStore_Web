@@ -11,11 +11,11 @@ import VerifyEmail from '~/pages/public/verifyEmail';
 import ForgotPassword from '~/pages/public/forgotPassword';
 import Category from '~/pages/public/category';
 import ProductDetail from '~/pages/public/productdetail';
-import Cart from '~/pages/public/Cart/Cart';
-import Profile from '~/pages/public/profile/Profile';
-import HistoryOrder from '~/pages/public/historyOrder/HistoryOrder';
-import Contact from '~/pages/public/Contact/Contact';
-import HistoryOrderDetail from '~/pages/public/HistoryOrderDetail/HistoryOrderDetail';
+import Cart from '~/pages/public/cart';
+import Profile from '~/pages/public/profile';
+import HistoryOrder from '~/pages/public/historyOrder';
+import Contact from '~/pages/public/contact';
+import HistoryOrderDetail from '~/pages/public/historyOrderDetail';
 const publicRoutes = [
     { path: config.home, page: Home },
     { path: config.login, page: Login, layout: null },

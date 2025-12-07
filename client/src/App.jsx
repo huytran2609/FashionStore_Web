@@ -3,10 +3,10 @@
 import { Fragment } from 'react';
 import { privateRoutes, publicRoutes } from './routes';
 import { Routes, Route } from 'react-router-dom';
-import DefaultLayout from '~/layouts/public/DefaultLayout';
-import AdminLayout from '~/layouts/admin/AdminLayout';
+import DefaultLayout from '~/layouts/public/defaultLayout';
+import AdminLayout from '~/layouts/admin/adminLayout';
 import { ToastContainer } from 'react-toastify';
-import Scroll from './layouts/public/ScrollToTop/Scroll';
+import Scroll from './layouts/public/scrollToTop';
 
 function App() {
     return (

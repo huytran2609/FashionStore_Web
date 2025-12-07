@@ -1,17 +1,17 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Pagination } from '~/components/Pagination';
+import { Pagination } from '~/components/pagination';
 import { useDebounce } from '~/hooks';
-import InputSearch from '~/layouts/admin/Components/InputSearch';
+import InputSearch from '~/layouts/admin/components/inputSearch';
 import { useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
-import InputForm from '~/components/InputForm';
-import Modal from '~/components/Modal';
+import InputForm from '~/components/inputForm';
+import Modal from '~/components/modal';
 import categoryApi from '~/apis/categoryAPI/categoryApi';
-import Select from '~/components/Select';
+import Select from '~/components/select';
 import { getAllProducts } from '~/apis/products';
-import TextArea from '~/components/TextArea';
+import TextArea from '~/components/textArea';
 import { formatCreatedAt, getBase64 } from '~/utils/helpers';
 import { apiCreateProduct, apiDeleteProduct } from '~/apis/admin/product';
 

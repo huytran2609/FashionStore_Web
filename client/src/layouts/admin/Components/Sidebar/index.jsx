@@ -1,4 +1,4 @@
-import Logo from '~/assets/Logo/Logo_grey.svg';
+import Logo from '~/assets/logo/Logo_grey.svg';
 import { Link, useLocation } from 'react-router-dom';
 import { DASHBOARD_SIDEBAR_BOTTOM_LINKS, DASHBOARD_SIDEBAR_LINKS } from './constants';
 import classNames from 'classnames';

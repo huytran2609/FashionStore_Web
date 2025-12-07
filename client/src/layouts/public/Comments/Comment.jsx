@@ -1,6 +1,6 @@
 import CommentForm from "./CommentForm";
 import styles from './Comment.module.scss';
-import userIcon from '~/assets/User/user-icon.png'
+import userIcon from '~/assets/user/user-icon.png'
 
 const Comment = ({
   comment,

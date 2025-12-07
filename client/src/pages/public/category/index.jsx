@@ -1,16 +1,13 @@
 import styles from './Category.module.scss'
-import Product from '~/layouts/public/Products/Product'
+import Product from '~/layouts/public/products'
 import { getAllProducts } from '~/apis/products'
 import { useState, useEffect, memo, useMemo } from 'react';
-// import Navigation from '~/layouts/public/Navigation/Nav'
-import Recommended from '~/layouts/public/Recommended/Recommended';
-import Sidebar from '~/layouts/public/Sidebar/Sidebar';
-import Card from '~/components/Card/Card';
+import Recommended from '~/layouts/public/recommended';
+import Sidebar from '~/layouts/public/sidebar';
+import Card from '~/components/card';
 import { Row, Col } from 'antd';
 import categoryApi from '~/apis/categoryAPI/categoryApi';
-import Header from '~/layouts/public/Header';
-import Footer from '~/layouts/public/Footer';
-import { Pagination } from '~/components/Pagination';
+import { Pagination } from '~/components/pagination';
 import { useSearchParams, useLocation } from 'react-router-dom';
 
 export default function Category() {

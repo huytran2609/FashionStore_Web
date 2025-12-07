@@ -1,9 +1,9 @@
 import React from 'react'
 import styles from './ProductDetail.module.scss'
 import { Row, Col } from 'antd';
-import Star from '~/components/Star/Star';
-import Counter from '~/components/Counter/Counter';
-import Button from '~/components/Button/Button';
+import Star from '~/components/star';
+import Counter from '~/components/counter';
+import Button from '~/components/button';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getProductDetail } from '~/apis/products';
@@ -12,7 +12,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getCurrent } from '~/redux/features/slices/asyncActions'
 import { apiCart } from '~/apis/user'
 import { toast } from 'react-toastify'
-import Comments from '~/layouts/public/Comments/Comments';
+import Comments from '~/layouts/public/comments';
 import config from '~/config';
 import { Link } from 'react-router-dom';
 

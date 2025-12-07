@@ -1,14 +1,14 @@
 import moment from 'moment';
 import { useCallback, useEffect, useState } from 'react';
 import { apiDeleteUser, apiGetUsers, apiUpdateUser } from '~/apis/admin/user';
-import { Pagination } from '~/components/Pagination';
+import { Pagination } from '~/components/pagination';
 import { useDebounce } from '~/hooks';
-import InputSearch from '~/layouts/admin/Components/InputSearch';
+import InputSearch from '~/layouts/admin/components/inputSearch';
 import { useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
-import InputForm from '~/components/InputForm';
+import InputForm from '~/components/inputForm';
 
 function User() {
     const {
