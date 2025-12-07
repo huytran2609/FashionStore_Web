@@ -24,7 +24,6 @@ export default function ProductDetail() {
     useEffect(() => {
         const fetchProduct = async () => {
             const response = await getProductDetail(id);
-            // console.log(response)
             setProductData(response.productData);
         };
         fetchProduct(id);
@@ -36,7 +35,6 @@ export default function ProductDetail() {
 
     const { isLoggedIn, current } = useSelector((state) => state.user);
     const location = useLocation();
-    // console.log(location)
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const handleClick = async () => {
@@ -55,14 +53,10 @@ export default function ProductDetail() {
         setColorValue(event.target.value);
     }
 
-    // const colorString = current.cart.map((cart) => cart.color[0]).toString();
-    // console.log(productData.color);
-
     const [counter, setCounter] = useState(1);
     const handleCounter = (newCounter) => {
         setCounter(newCounter)
     }
-    // console.log(counter);
 
     return (
         <>

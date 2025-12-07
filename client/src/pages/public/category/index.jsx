@@ -1,7 +1,7 @@
 import styles from './Category.module.scss'
 import Product from '~/layouts/public/Products/Product'
 import { getAllProducts } from '~/apis/products'
-import { useState, useEffect, memo } from 'react';
+import { useState, useEffect, memo, useMemo } from 'react';
 // import Navigation from '~/layouts/public/Navigation/Nav'
 import Recommended from '~/layouts/public/Recommended/Recommended';
 import Sidebar from '~/layouts/public/Sidebar/Sidebar';
@@ -11,10 +11,11 @@ import categoryApi from '~/apis/categoryAPI/categoryApi';
 import Header from '~/layouts/public/Header';
 import Footer from '~/layouts/public/Footer';
 import { Pagination } from '~/components/Pagination';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useLocation } from 'react-router-dom';
 
 export default function Category() {
     const [categories, setCategories] = useState([]);
+    const location = useLocation();
 
     useEffect(() => {
         const fetchApiCategories = async () => {
@@ -26,15 +27,26 @@ export default function Category() {
 
     const [productData, setProductData] = useState([])
     const [count , setCount] = useState(0)
- 
-
     const [params] = useSearchParams();
 
+    const pathCategory = location.pathname.replace('/', '').toLowerCase();
+    const validCategories = ['women', 'men', 'beauty', 'kids', 'lifestyle'];
+    const categoryFromPath = validCategories.includes(pathCategory) && pathCategory !== 'category' ? pathCategory : null;
+
+    const categoryName = useMemo(() => {
+        if (!categoryFromPath || categories.length === 0) return null;
+        const category = categories.find(cat => cat.title.toLowerCase() === categoryFromPath);
+        return category ? category.title : null;
+    }, [categoryFromPath, categories]);
 
     useEffect(() => {
         const fetchData = async (params) => {
             try {
-                const productsData = await getAllProducts({ ...params, limit: 30 });
+                const queryParams = { ...params };
+                if (categoryName && !queryParams.category) {
+                    queryParams.category = categoryName;
+                }
+                const productsData = await getAllProducts({ ...queryParams, limit: 30 });
                 setProductData(productsData.products)
                 setCount(productsData.counts)
             } catch (error) {
@@ -43,7 +55,7 @@ export default function Category() {
         };
         const queries = Object.fromEntries([...params]);
         fetchData(queries);
-    }, [params]);
+    }, [params, categoryName]);
 
     const MemoizedCard = memo(({ id, img, title, newPrice, color }) => (
         <Card
