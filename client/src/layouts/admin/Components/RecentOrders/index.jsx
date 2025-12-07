@@ -5,7 +5,7 @@ function RecentOrders({ fullOrders }) {
     return (
         <div className="bg-white px-4 pt-3 pb-4 rounded-md border border-gray-200 flex-1">
             <strong className="text-gray-700 font-medium">Recent Orders</strong>
-            <div style={{ height: '500px', overflow: 'auto', border: '1px solid #666' }} className=" rounded-sm mt-3">
+            <div style={{ height: '31.25rem', overflow: 'auto', border: '0.0625rem solid #666' }} className=" rounded-sm mt-3">
                 <table className="w-full text-gray-700 border-separate border border-spacing-4">
                     <thead className='bg-gray-100 border-collapse'>
                         <tr>

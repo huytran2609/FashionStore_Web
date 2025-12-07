@@ -95,7 +95,7 @@ function User() {
             <div className="w-full mt-3 rounded-md overflow-hidden">
                 <form onSubmit={handleSubmit(handleUpdate)}>
                     <table className="w-full table-auto mb-6 text-left bg-white">
-                        <thead className="text-[13px] border-b bg-neutral-200 font-medium dark:border-neutral-500 dark:text-neutral-800">
+                        <thead className="text-[0.8125rem] border-b bg-neutral-200 font-medium dark:border-neutral-500 dark:text-neutral-800">
                             <tr>
                                 <th className="px-4 py-2">#</th>
                                 <th className="px-4 py-2">Name</th>
@@ -182,13 +182,13 @@ function User() {
                                             <>
                                                 <button
                                                     type="submit"
-                                                    className="rounded-md border border-blue-600 text-blue-600 text-[12px] w-13 p-1 mr-1 hover:bg-blue-500 hover:text-white"
+                                                    className="rounded-md border border-blue-600 text-blue-600 text-[0.75rem] w-13 p-1 mr-1 hover:bg-blue-500 hover:text-white"
                                                 >
                                                     Update
                                                 </button>
                                                 <span
                                                     onClick={() => setEditUser(null)}
-                                                    className="rounded-md border bg-blue-100 border-blue-600 text-blue-600 text-[12px] w-12 p-1 mr-1 hover:bg-blue-500 hover:text-white cursor-pointer"
+                                                    className="rounded-md border bg-blue-100 border-blue-600 text-blue-600 text-[0.75rem] w-12 p-1 mr-1 hover:bg-blue-500 hover:text-white cursor-pointer"
                                                 >
                                                     Back
                                                 </span>
@@ -197,13 +197,13 @@ function User() {
                                             <>
                                                 <span
                                                     onClick={() => setEditUser(user)}
-                                                    className="rounded-md border border-blue-600 text-blue-600 text-[12px] w-12 p-1 mr-1 hover:bg-blue-500 hover:text-white cursor-pointer"
+                                                    className="rounded-md border border-blue-600 text-blue-600 text-[0.75rem] w-12 p-1 mr-1 hover:bg-blue-500 hover:text-white cursor-pointer"
                                                 >
                                                     Edit
                                                 </span>
                                                 <span
                                                     onClick={() => handleDelete(user._id)}
-                                                    className="bg-red-600 rounded-md border border-red-600 text-white text-[12px] w-12 p-1 hover:bg-red-700 hover:text-white cursor-pointer"
+                                                    className="bg-red-600 rounded-md border border-red-600 text-white text-[0.75rem] w-12 p-1 hover:bg-red-700 hover:text-white cursor-pointer"
                                                 >
                                                     Delete
                                                 </span>

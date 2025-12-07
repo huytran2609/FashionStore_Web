@@ -63,10 +63,10 @@ function Order() {
                 <InputSearch type="text" placeholder="Search..." value={query.q} setValue={setQuery} />
             </div>
             <div style={{display: 'flex', justifyContent: 'center'}}>
-            <div className="max-w-screen-xl w-[1500px] mt-3 rounded-lg">
+            <div className="max-w-screen-xl w-[93.75rem] mt-3 rounded-lg">
                 <form onSubmit={handleSubmit(handleUpdateStatus)}>
                     <table className="w-full table-auto mb-6 text-left bg-white">
-                        <thead className="text-[13px] border-b bg-neutral-200 font-medium dark:border-neutral-500 dark:text-neutral-800">
+                        <thead className="text-[0.8125rem] border-b bg-neutral-200 font-medium dark:border-neutral-500 dark:text-neutral-800">
                             <tr>
                                 <th className="px-4 py-2">#</th>
                                 <th className="px-4 py-2">Products</th>
@@ -88,7 +88,7 @@ function Order() {
                                     {order?.products?.map((item, index) => (
                                         <td
                                             key={item._id}
-                                            className="flex flex-col whitespace-nowrap px-4 py-2 max-w-[300px] overflow-hidden overflow-ellipsis"
+                                            className="flex flex-col whitespace-nowrap px-4 py-2 max-w-[18.75rem] overflow-hidden overflow-ellipsis"
                                         >
                                             <span className="font-semibold">Product {index + 1}:</span>
                                             <span>Title: {item.product.title}</span>
@@ -97,7 +97,7 @@ function Order() {
                                         </td>
                                     ))}
 
-                                    <td className="whitespace-nowrap px-4 py-2 max-w-[400px] overflow-hidden overflow-ellipsis">
+                                    <td className="whitespace-nowrap px-4 py-2 max-w-[25rem] overflow-hidden overflow-ellipsis">
                                         {editOrder?._id === order._id ? (
                                             <Select
                                                 register={register}
@@ -114,32 +114,32 @@ function Order() {
                                             <span>{order?.status}</span>
                                         )}
                                     </td>
-                                    <td className="whitespace-nowrap px-4 py-2 max-w-[150px] overflow-hidden overflow-ellipsis">
+                                    <td className="whitespace-nowrap px-4 py-2 max-w-[9.375rem] overflow-hidden overflow-ellipsis">
                                         <span>{order?.orderBy?.name}</span>
                                     </td>
 
-                                    <td className="whitespace-nowrap px-4 py-2 max-w-[250px] overflow-hidden overflow-ellipsis">
+                                    <td className="whitespace-nowrap px-4 py-2 max-w-[15.625rem] overflow-hidden overflow-ellipsis">
                                         <span>{order?.orderBy?.address}</span>
                                     </td>
-                                    <td className="whitespace-nowrap px-4 py-2 max-w-[400px] overflow-hidden overflow-ellipsis">
+                                    <td className="whitespace-nowrap px-4 py-2 max-w-[25rem] overflow-hidden overflow-ellipsis">
                                         <span>$&nbsp;{order?.totalPrice}</span>
                                     </td>
-                                    <td className="whitespace-nowrap px-4 py-2 max-w-[400px] overflow-hidden overflow-ellipsis">
+                                    <td className="whitespace-nowrap px-4 py-2 max-w-[25rem] overflow-hidden overflow-ellipsis">
                                         {/* {moment(order?.createdAt).format('MM/DD/YYYY')} */}
                                         {formatCreatedAt(order?.createdAt)}
                                     </td>
-                                    <td className="whitespace-nowrap px-4 py-2 w-[50px] overflow-hidden overflow-ellipsis text-center">
+                                    <td className="whitespace-nowrap px-4 py-2 w-[3.125rem] overflow-hidden overflow-ellipsis text-center">
                                         {editOrder?._id === order._id ? (
                                             <>
                                                 <button
                                                     type="submit"
-                                                    className="rounded-md border border-blue-600 text-blue-600 text-[12px] w-13 p-1 mr-1 hover:bg-blue-500 hover:text-white cursor-pointer"
+                                                    className="rounded-md border border-blue-600 text-blue-600 text-[0.75rem] w-13 p-1 mr-1 hover:bg-blue-500 hover:text-white cursor-pointer"
                                                 >
                                                     Update
                                                 </button>
                                                 <span
                                                     onClick={() => setEditOrder(null)}
-                                                    className="rounded-md border bg-blue-100 border-blue-600 text-blue-600 text-[12px] w-12 p-1 mr-1 hover:bg-blue-500 hover:text-white cursor-pointer"
+                                                    className="rounded-md border bg-blue-100 border-blue-600 text-blue-600 text-[0.75rem] w-12 p-1 mr-1 hover:bg-blue-500 hover:text-white cursor-pointer"
                                                 >
                                                     Back
                                                 </span>
@@ -147,7 +147,7 @@ function Order() {
                                         ) : (
                                             <span
                                                 onClick={() => setEditOrder(order)}
-                                                className="rounded-md border border-blue-600 text-blue-600 text-[12px] w-12 p-1 mr-1 hover:bg-blue-500 hover:text-white cursor-pointer"
+                                                className="rounded-md border border-blue-600 text-blue-600 text-[0.75rem] w-12 p-1 mr-1 hover:bg-blue-500 hover:text-white cursor-pointer"
                                             >
                                                 Edit
                                             </span>

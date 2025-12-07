@@ -1,23 +1,23 @@
 .listOrder {
     width: 100%;
     min-height: 8%;
-    height: 50px;
-    font-size: 18px;
-    border: 0.5px solid #d4d4d4;
-    box-shadow: 1px 0.5px 0.5px 1px rgba(155, 155, 155, 0.25);
+    height: 3.125rem;
+    font-size: 1.125rem;
+    border: 0.0313rem solid #d4d4d4;
+    box-shadow: 0.0625rem 0.0313rem 0.0313rem 0.0625rem rgba(155, 155, 155, 0.25);
     overflow: auto;
     tr
     {   
-        height: 90px;
+        height: 5.625rem;
         text-align: center;
         td {
-            max-width: 200px;
+            max-width: 12.5rem;
         }
     }
 }
 
 .btnCancel {
-    margin-left: 40px;
+    margin-left: 2.5rem;
     background-color: red;
     color: #fff;
     &:hover {
@@ -27,7 +27,7 @@
 }
 
 .btnCancelDisable {
-    margin-left: 40px;
+    margin-left: 2.5rem;
     background-color: grey;
     color: #fff;
     cursor: not-allowed;
@@ -43,7 +43,7 @@
     background-color: grey;
     color: #fff;
     cursor: not-allowed;
-    border-radius: 30px;
+    border-radius: 1.875rem;
 
     &:hover {
         cursor: not-allowed;
@@ -54,9 +54,9 @@
 }
 
 .infoOrder {
-    font-size: 20px;
+    font-size: 1.25rem;
     h1 {
-        padding: 10px 0;
+        padding: 0.625rem 0;
         font-weight: bold;
         span {
             font-weight: normal;

@@ -24,7 +24,7 @@ function TextArea({ label, register, errors, id, validate, defaultValue, style, 
             {errors[id] && (
                 <small
                     className={classNames(
-                        'text-red-400 text-[10px] absolute bottom-0 translate-y-2 pl-1 pt-1',
+                        'text-red-400 text-[0.625rem] absolute bottom-0 translate-y-2 pl-1 pt-1',
                         style && style,
                     )}
                 >

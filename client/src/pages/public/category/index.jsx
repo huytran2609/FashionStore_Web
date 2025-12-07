@@ -132,17 +132,17 @@ export default function Category() {
                 </Col>
                 <Col span={20}>
                     <Row>
-                        <Col style={{ height: '60px' }} span={24}>
+                        <Col style={{ height: '3.75rem' }} span={24}>
 
                         </Col>
-                        <Col style={{ height: '90px' }} span={24}>
+                        <Col style={{ height: '5.625rem' }} span={24}>
                             <Recommended handleClick={handleClick} productData={categories} />
                         </Col>
                         <Col className={styles.productCategory} span={24}>
                             <div className='grid grid-cols-4 gap-4'>
                                 <Product result={result} />
                             </div>
-                            <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '30px' }}>
+                            <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '1.875rem' }}>
                                 <Pagination totalCount={count} pageSize={30}/>
                             </div>
                         </Col>

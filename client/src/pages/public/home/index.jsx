@@ -99,8 +99,8 @@ function Home() {
                     <Button link='category' content='See More' classParent={styles.btnMore} />
                 </div>
 
-                <div className={`absolute top-[166px] w-[353px] h-[383px] text-2xl text-black ${styles.framePro2}`} data-aos="fade-right">
-                    <div className="absolute top-[0px] rounded-xl bg-white shadow-[0px_0px_10px_rgba(0,_0,_0,_0.25)] w-[323px] h-[383px]" >
+                <div className={`absolute top-[10.375rem] w-[22.0625rem] h-[23.9375rem] text-2xl text-black ${styles.framePro2}`} data-aos="fade-right">
+                    <div className="absolute top-0 rounded-xl bg-white shadow-[0_0_0.625rem_rgba(0,_0,_0,_0.25)] w-[20.1875rem] h-[23.9375rem]" >
                         <div className={styles.imgProduct2}>
                             <img style={{objectFit: 'cover'}} src={bestPro} alt="imgProduct" />
                         </div>
@@ -120,8 +120,8 @@ function Home() {
                         <div className={styles.salePrice}><div>Sale {randomSale2}%</div></div>
                     </div>
                 </div>
-                <div className={`absolute top-[118px] left-[143px] w-[373px] h-[383px] text-base text-gray-100 ${styles.framePro}`} >
-                    <div className="absolute top-[0px] left-[50px] rounded-xl bg-white shadow-[0px_2px_10px_rgba(0,_0,_0,_0.25)] w-[323px] h-[383px]">
+                <div className={`absolute top-[7.375rem] left-[8.9375rem] w-[23.3125rem] h-[23.9375rem] text-base text-gray-100 ${styles.framePro}`} >
+                    <div className="absolute top-0 left-[3.125rem] rounded-xl bg-white shadow-[0_0.125rem_0.625rem_rgba(0,_0,_0,_0.25)] w-[20.1875rem] h-[23.9375rem]">
                         <div className={styles.imgProduct} data-aos="zoom-in">
                             <img src={imgBest} alt="imgProduct" />
                         </div>
@@ -145,7 +145,7 @@ function Home() {
                     </div>
                 </div>
             </div>
-            <div className='w-full' style={{ height: '541px' }}></div >
+            <div className='w-full' style={{ height: '33.8125rem' }}></div >
 
             {/* Behind Welcome */}
 

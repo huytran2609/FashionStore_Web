@@ -4,7 +4,7 @@ import Input from '~/components/input';
 
 export default function Colors({ handleChange }) {
     return (
-        <div style={{ marginLeft: '-70px' }}>
+        <div className={styles.colorsContainer}>
             <h2 className={`${styles.sidebarTitle} ${styles.colorTitle}`}>Colors</h2>
             <label className={styles.sidebarLabelContainer}>
                 <input onChange={handleChange} type="radio" value="" name="test3" />

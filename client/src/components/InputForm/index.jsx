@@ -4,7 +4,7 @@ import { memo } from 'react';
 function InputForm({ label, disabled, register, errors, id, validate, type = 'text', placeholder, width, defaultValue, style }) {
     
     return (
-        <div className="relative flex flex-col h-[60px]">
+        <div className="relative flex flex-col h-[3.75rem]">
             {label && (
                 <label className={classNames("block mb-1 text-sm font-medium text-gray-900 dark:text-white")} htmlFor={id}>
                     {label}
@@ -23,7 +23,7 @@ function InputForm({ label, disabled, register, errors, id, validate, type = 'te
                 )}
             />
             {errors[id] && (
-                <small className={classNames("text-red-400 text-[10px] absolute bottom-0 translate-y-2 pl-1 pt-1", style && style)}>
+                <small className={classNames("text-red-400 text-[0.625rem] absolute bottom-0 translate-y-2 pl-1 pt-1", style && style)}>
                     {errors[id]?.message}
                 </small>
             )}

@@ -4,7 +4,7 @@ import Input from '~/components/input';
 
 export default function Price({ handleChange }) {
     return (
-        <div style={{ marginLeft: '-30px' }} className={styles.ml}>
+        <div className={styles.priceContainer}>
             <h2 className={`${styles.sidebarTitle} ${styles.priceTitle}`}>Price</h2>
             <label className={styles.sidebarLabelContainer}>
                 <input onChange={handleChange} type="radio" value="" name="test2" />

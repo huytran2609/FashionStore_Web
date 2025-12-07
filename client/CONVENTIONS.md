@@ -227,6 +227,123 @@ componentName/
 
 ---
 
+## CSS and Styling
+
+### CSS Modules
+
+- **Always use CSS Modules** instead of inline styles
+- **File naming**: Use `ComponentName.module.scss` (PascalCase for component name)
+- **Import styles**: `import styles from './ComponentName.module.scss'`
+- **Class naming**: Use camelCase for class names in CSS modules
+
+```jsx
+// ✅ Correct: Using CSS Modules
+import styles from './ProductDetail.module.scss';
+
+<div className={styles.productContainer}>
+  <h1 className={styles.title}>Product</h1>
+</div>
+
+// ❌ Wrong: Inline styles
+<div style={{ margin: '20px', padding: '10px' }}>
+  <h1 style={{ fontSize: '18px' }}>Product</h1>
+</div>
+```
+
+### CSS Units
+
+- **Use `rem` for spacing, sizing, and layout properties**
+  - Base font size: 16px (1rem = 16px)
+  - Conversion: `px / 16 = rem`
+  - Examples:
+    - `10px` → `0.625rem`
+    - `20px` → `1.25rem`
+    - `40px` → `2.5rem`
+    - `100px` → `6.25rem`
+
+- **Use `em` for typography relative to parent element**
+  - Use when size should scale with parent font size
+  - Example: `font-size: 1.2em` (20% larger than parent)
+
+- **Avoid `px` for layout and spacing**
+  - Only use `px` for:
+    - Border widths (1px, 2px)
+    - Very small values (< 4px)
+    - Box shadows (can use px or rem)
+
+```scss
+// ✅ Correct: Using rem
+.container {
+  margin: 1.25rem;        // 20px
+  padding: 2.5rem;        // 40px
+  font-size: 1.125rem;    // 18px
+  border-radius: 0.625rem; // 10px
+}
+
+// ❌ Wrong: Using px
+.container {
+  margin: 20px;
+  padding: 40px;
+  font-size: 18px;
+  border-radius: 10px;
+}
+```
+
+### CSS Best Practices
+
+1. **Avoid inline styles**: Always use CSS Modules
+2. **Use semantic class names**: `.productContainer` not `.div1`
+3. **Keep styles scoped**: CSS Modules automatically scope classes
+4. **Use variables for colors**: Define in SCSS variables or CSS custom properties
+5. **Responsive design**: Use relative units (rem, em, %) for better scalability
+6. **Consistent spacing**: Use a spacing scale (e.g., 0.5rem, 1rem, 1.5rem, 2rem)
+
+### SCSS Features
+
+- Use SCSS nesting for component styles
+- Use mixins for repeated patterns
+- Use variables for colors, spacing, and breakpoints
+
+```scss
+// Variables
+$primary-color: #E280AD;
+$spacing-unit: 1rem;
+
+// Mixins
+@mixin button-base {
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+// Usage
+.button {
+  @include button-base;
+  background-color: $primary-color;
+  margin: $spacing-unit;
+}
+```
+
+### Dynamic Styles
+
+- For dynamic styles (e.g., colors from props), use CSS custom properties (CSS variables)
+- Avoid inline styles even for dynamic values
+
+```jsx
+// ✅ Correct: Using CSS custom properties
+<div style={{ '--color': color }} className={styles.colorSwatch} />
+
+// In SCSS
+.colorSwatch {
+  background-color: var(--color);
+}
+
+// ❌ Wrong: Inline styles
+<div style={{ backgroundColor: color }} />
+```
+
+---
+
 ## Code Style
 
 ### JavaScript/JSX

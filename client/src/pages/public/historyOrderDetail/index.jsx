@@ -55,15 +55,15 @@ export default function HistoryOrderDetail() {
 
     return (
         <>
-            <Row style={{ minHeight: '600px', margin: '90px 50px 10px 50px', backgroundColor: '#fff', boxShadow: '0.49px 0.958px 3.958px rgba(0, 0, 0, 0.25)', borderRadius: '20px', overflow: 'hidden', }} col={9}>
-                <Col style={{ borderRight: '2px solid #ececec' }} span={7}>
+            <Row style={{ minHeight: '37.5rem', margin: '5.625rem 3.125rem 0.625rem 3.125rem', backgroundColor: '#fff', boxShadow: '0.0306rem 0.0599rem 0.2474rem rgba(0, 0, 0, 0.25)', borderRadius: '1.25rem', overflow: 'hidden', }} col={9}>
+                <Col style={{ borderRight: '0.125rem solid #ececec' }} span={7}>
                     <LeftProfile />
                 </Col>
                 <Col className='p-5' span={17}>
                     <section style={{ display: 'flex', alignItems: 'center' }}>
-                        <h1 style={{ fontSize: '40px' }} >Order Detail</h1>
-                        <div style={(orderDetail?.status==='Processing')?{ fontSize: '16px', marginLeft: '40px', borderRadius: '30px', color: '#fff', backgroundColor: 'orange', padding: '5px 20px' }:
-                    { fontSize: '16px', marginLeft: '40px', borderRadius: '30px', color: '#fff', backgroundColor: 'green', padding: '5px 20px' }} >
+                        <h1 style={{ fontSize: '2.5rem' }} >Order Detail</h1>
+                        <div style={(orderDetail?.status==='Processing')?{ fontSize: '1rem', marginLeft: '2.5rem', borderRadius: '1.875rem', color: '#fff', backgroundColor: 'orange', padding: '0.3125rem 1.25rem' }:
+                    { fontSize: '1rem', marginLeft: '2.5rem', borderRadius: '1.875rem', color: '#fff', backgroundColor: 'green', padding: '0.3125rem 1.25rem' }} >
                             {orderDetail?.status}
                         </div>
                         <Button onClick={(orderDetail?.status==='Processing')?handleDelete:''} classChild={(orderDetail?.status==='Processing')?'':styles.btnCancelChild} classParent={(orderDetail?.status==='Processing')?styles.btnCancel:styles.btnCancelDisable} content='Cancel Order' />
@@ -72,9 +72,9 @@ export default function HistoryOrderDetail() {
                         <h1>Customer Name: <span>{orderDetail?.orderBy?.name}</span></h1>
                         <h1>Delivery Address: <span>{orderDetail?.orderBy?.address}</span></h1>
                         <h1>Create At: <span>{formatCreatedAt(orderDetail?.createdAt)}</span></h1>
-                        <h1>Total Order Price: <span style={{ color: 'red', fontSize: '30px', paddingLeft: '10px', fontWeight: 'bold' }}>{orderDetail?.totalPrice}&nbsp;$</span></h1>
+                        <h1>Total Order Price: <span style={{ color: 'red', fontSize: '1.875rem', paddingLeft: '0.625rem', fontWeight: 'bold' }}>{orderDetail?.totalPrice}&nbsp;$</span></h1>
                     </section>
-                    <table style={{ marginTop: '10px', fontSize: '18px' }} className={styles.listOrder}>
+                    <table style={{ marginTop: '0.625rem', fontSize: '1.125rem' }} className={styles.listOrder}>
                         <tbody>
                             <tr>
                                 <th style={{ width: '10%' }}>NUMBER</th>
@@ -82,18 +82,18 @@ export default function HistoryOrderDetail() {
                                 <th style={{ width: '7%' }}>QUANTITY</th>
                                 <th style={{ width: '9.5%' }}>COLOR</th>
                                 <th style={{ width: '30.5%' }}>PRICE</th>
-                                <th style={{ paddingRight: '39px' }}>SUB TOTAL PRICE</th>
+                                <th style={{ paddingRight: '2.4375rem' }}>SUB TOTAL PRICE</th>
                             </tr>
                         </tbody>
                     </table>
                     <div
                         style={{
-                            fontSize: '18px',
+                            fontSize: '1.125rem',
                             textAlign: 'center',
-                            maxHeight: '500px',
+                            maxHeight: '31.25rem',
                             overflow: 'auto',
-                            border: '0.5px solid #d4d4d4',
-                            boxShadow: '1px 2px 2px 1px rgba(155, 155, 155, 0.25)',
+                            border: '0.0313rem solid #d4d4d4',
+                            boxShadow: '0.0625rem 0.125rem 0.125rem 0.0625rem rgba(155, 155, 155, 0.25)',
                         }}
                     >
                         <table className={styles.listOrder}>
@@ -101,7 +101,7 @@ export default function HistoryOrderDetail() {
                                 {detailProduct && detailProduct.length > 0 && detailProduct.map((detail, index) =>
                                     <tr key={index}>
                                         <td>&#35;{index + 1}</td>
-                                        <td style={{ width: '200px' }}>{detail.product.title}</td>
+                                        <td style={{ width: '12.5rem' }}>{detail.product.title}</td>
                                         <td>{detail?.quantity}</td>
                                         <td>{detail?.color}</td>
                                         <td>{detail?.product?.price}</td>

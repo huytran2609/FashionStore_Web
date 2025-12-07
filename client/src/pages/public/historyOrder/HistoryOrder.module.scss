@@ -1,24 +1,24 @@
 .listOrder {
     width: 100%;
     min-height: 8%;
-    height: 50px;
-    font-size: 16px;
-    border: 0.5px solid #d4d4d4;
-    box-shadow: 1px 0.5px 0.5px 1px rgba(155, 155, 155, 0.25);
+    height: 3.125rem;
+    font-size: 1rem;
+    border: 0.0313rem solid #d4d4d4;
+    box-shadow: 0.0625rem 0.0313rem 0.0313rem 0.0625rem rgba(155, 155, 155, 0.25);
     overflow: auto;
     tr
     {   
-        height: 55px;
+        height: 3.4375rem;
         text-align: center;
     }
     .btnCancelChild {
-        padding: 10px;
-        margin: 10px;
+        padding: 0.625rem;
+        margin: 0.625rem;
         font-weight: bold;
         background-color: grey;
         color: #fff;
         cursor: not-allowed;
-        border-radius: 30px;
+        border-radius: 1.875rem;
     
         &:hover {
             cursor: not-allowed;
@@ -29,21 +29,21 @@
     }
 
     .btnCancel {
-        padding: 10px;
-        margin: 10px;
-        border-radius: 39px;
+        padding: 0.625rem;
+        margin: 0.625rem;
+        border-radius: 2.4375rem;
         background-color: red;
         color: white;
         font-weight: bold;
     }
     .btnCancelDisable {
         font-weight: bold;
-        padding: 10px;
-        margin: 10px;
+        padding: 0.625rem;
+        margin: 0.625rem;
         background-color: grey;
         color: #fff;
         cursor: not-allowed;
-        border-radius: 39px;
+        border-radius: 2.4375rem;
 
         &:hover {
             cursor: not-allowed;

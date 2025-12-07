@@ -1,16 +1,16 @@
 
 .counter {
-    width: 150px;
+    width: 9.375rem;
     margin-left: 5%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 .counter input {
-    width: 50px;
+    width: 3.125rem;
     border: 0;
-    line-height: 30px;
-    font-size: 18px;
+    line-height: 1.875rem;
+    font-size: 1.125rem;
     text-align: center;
     background: #E280AD;
     color: #fff;
@@ -19,8 +19,8 @@
 }
 .counter span {
     display: block;
-    font-size: 25px;
-    padding: 0 10px;
+    font-size: 1.5625rem;
+    padding: 0 0.625rem;
     cursor: pointer;
     color: #E280AD;
     user-select: none;

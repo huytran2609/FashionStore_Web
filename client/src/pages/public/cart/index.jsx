@@ -119,30 +119,11 @@ export default function Cart() {
 
     return (
         <>
-            <Row
-                style={{
-                    margin: '70px 0 10px 50px',
-                    color: '#000',
-                    fontWeight: 'bold',
-                    fontSize: '30px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                }}
-                col={3}
-            >
+            <Row className={styles.cartTitle} col={3}>
                 Cart
             </Row>
-            <Row
-                style={{
-                    minHeight: '550px',
-                    margin: '0px 50px 10px 50px',
-                    backgroundColor: '#fff',
-                    boxShadow: '0.49px 0.958px 3.958px rgba(0, 0, 0, 0.25)',
-                    borderRadius: '20px',
-                }}
-                col={9}
-            >
-                <div style={{ width: '100%' }}>
+            <Row className={styles.cartContainer} col={9}>
+                <div className={styles.cartContent}>
                     <section className={styles.titleType}>
                         <h3>Product Details</h3>
                         <div className={styles.titleOrder}>
@@ -152,7 +133,7 @@ export default function Cart() {
                         </div>
                     </section>
                     {/* <hr /> */}
-                    <div style={{ display: 'flex' }}>
+                    <div className={styles.cartFlex}>
                         <Col span={16}>
                             <section className="p-5">
                                 {haveOrder > 0 ? (
@@ -173,15 +154,7 @@ export default function Cart() {
                                     </>
                                 ) : (
                                     <>
-                                        <div
-                                            style={{
-                                                display: 'block',
-                                                height: '450px',
-                                                margin: 'auto',
-                                                fontSize: '18px',
-                                                textAlign: 'center',
-                                            }}
-                                        >
+                                        <div className={styles.emptyCartContainer}>
                                             <img src={emptyCart} alt="Empty Cart" />
                                         </div>
                                     </>
@@ -235,7 +208,7 @@ export default function Cart() {
                                 </div>
                                 <div className={`${styles.shipFee} ${styles.baseSub}`}>
                                     <h1>Shipping Fee</h1>
-                                    <h3 style={{ color: 'green', fontWeight: 'bold' }}>Free</h3>
+                                    <h3 className={styles.shippingFree}>Free</h3>
                                 </div>
                                 <hr />
                                 <div className={`${styles.estimateTotal} ${styles.baseSub}`}>

@@ -27,15 +27,7 @@ export default function CartProduct({ pid, title, color, quantity, size, price, 
     };
     const formattedCount = (numberValue) => Number(numberValue).toFixed(2);
     return (
-        <div
-            style={{
-                display: 'flex',
-                height: '120px',
-                borderRadius: '20px',
-                boxShadow: 'rgba(0, 0, 0, 0.25) 0.49px 0.458px 2.958px',
-                marginBottom: '20px',
-            }}
-        >
+        <div className={styles.cartProductContainer}>
             <div className={styles.imgCartPro}>
                 <img src={thumbnail} alt="IMG" />
             </div>

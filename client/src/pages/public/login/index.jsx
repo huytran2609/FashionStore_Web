@@ -154,7 +154,7 @@ export default function Login() {
                         <button
                             onClick={handleForgotPassword}
                             type="submit"
-                            className="bg-blue-600 rounded-md border border-blue-600 text-white text-[14px] w-25 p-2 hover:bg-blue-700 hover:text-white"
+                            className="bg-blue-600 rounded-md border border-blue-600 text-white text-[0.875rem] w-25 p-2 hover:bg-blue-700 hover:text-white"
                         >
                             Send OTP
                         </button>

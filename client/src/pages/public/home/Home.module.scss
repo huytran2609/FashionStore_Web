@@ -37,22 +37,22 @@
         }
         .hiddenThumbnailImg {
             position: absolute;
-            left: -9999px;
-            width: 1px;
-            height: 1px;
+            left: -624.9375rem;
+            width: 0.0625rem;
+            height: 0.0625rem;
         }
     }
 }
 
 .titleWelcome, .contentWelcome {
-    margin-left: 100px;
+    margin-left: 6.25rem;
 }
 
 .titleWelcome {
-    margin-top: 101px;
+    margin-top: 6.3125rem;
     color: #F2BED1;
-    text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
-    font-size: 50px;
+    text-shadow: 0.0625rem 0.125rem 0.125rem rgba(0, 0, 0, 0.25);
+    font-size: 3.125rem;
     font-style: normal;
     font-weight: bold;
     line-height: normal;
@@ -60,8 +60,8 @@
 }
 
 .contentWelcome {
-    width: 660px;
-    font-size: 20px;
+    width: 41.25rem;
+    font-size: 1.25rem;
     @include limitText4;
 }
 
@@ -70,7 +70,7 @@
     top: 0;
     
     .contactWelcome {
-        margin: 15px 0 0 43%;
+        margin: 0.9375rem 0 0 43%;
         .btnWelcome {
             background-color: #ec8bc2;
             color: #fff;
@@ -85,7 +85,7 @@
         top: 102%;
         left: 30%;
         img{
-            height: 325px;
+            height: 20.3125rem;
         }
     }
 }
@@ -106,7 +106,7 @@
     width: 100%;
     background-color: #be226b;
     color: #fff;
-    font-size: 16px;
+    font-size: 1rem;
     &:hover {
         opacity: 80%;
     }
@@ -114,36 +114,36 @@
 
 .bestSellerFrame {
     width: 69%;
-    height: 566.7px;
+    height: 35.41875rem;
     position: absolute;
     top: 50vw;
     left: 15.1%;
-    border-radius: 30px;
+    border-radius: 1.875rem;
     background-color: #F4FBFC;
-    box-shadow: 1px 4px 36px 5px rgba(0, 0, 0, 0.25);
+    box-shadow: 0.0625rem 0.25rem 2.25rem 0.3125rem rgba(0, 0, 0, 0.25);
     .titleBestSell {
         display: flex;
         align-items: flex-end;
         justify-content: center;
-        padding-top: 20px;
+        padding-top: 1.25rem;
         h1 {
             color: #EF471E;
-            font-size: 40px;
+            font-size: 2.5rem;
             font-style: normal;
             font-weight: bold;
-            line-height: 33px;
-            padding-left: 10px;
-            padding-right: 10px;
-            text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
+            line-height: 2.0625rem;
+            padding-left: 0.625rem;
+            padding-right: 0.625rem;
+            text-shadow: 0.0625rem 0.125rem 0.125rem rgba(0, 0, 0, 0.25);
         }
         img {
-            height: 50px;
+            height: 3.125rem;
         }
         .leftFire {
-            margin-left: 290px;
+            margin-left: 18.125rem;
         }
         .rightFire {
-            margin-right: 150px;
+            margin-right: 9.375rem;
         }
         .btnMore {
             background-color: #EF471E;
@@ -155,7 +155,7 @@
     }
     .imgProduct, .imgProduct2 {
         display: flex;
-        height: 230px;
+        height: 14.375rem;
         justify-content: center;
         overflow: hidden;
         img {
@@ -171,10 +171,10 @@
     .framePro {
         .salePrice2 {
             position: absolute;
-            top: 23px;
-            width: 80px;
-            left: -40px;
-            font-size: 14px;
+            top: 1.4375rem;
+            width: 5rem;
+            left: -2.5rem;
+            font-size: 0.875rem;
             color: #fff;
             z-index: 2;
             div {
@@ -186,20 +186,20 @@
     }
 
     .framePro > div, .framePro2 > div {
-        height: 390px;
+        height: 24.375rem;
     }
 
     .framePro::after {
         content: "";
-        width: 80px;
-        height: 40px;
+        width: 5rem;
+        height: 2.5rem;
         background-color: #EF471E;
         position: absolute;
-        top: 15px;
-        left: 10px;
+        top: 0.9375rem;
+        left: 0.625rem;
         z-index: 1;
-        border-radius: 20px;
-        box-shadow: 0.49px 1.958px 1.958px rgba(0, 0, 0, 0.25);
+        border-radius: 1.25rem;
+        box-shadow: 0.0306rem 0.1224rem 0.1224rem rgba(0, 0, 0, 0.25);
     }
 
     .framePro2 {
@@ -213,10 +213,10 @@
         -o-transform: translateY(-50%);
         .salePrice {
             position: absolute;
-            width: 80px;
-            top: 20px;
-            right: -35px;
-            font-size: 14px;
+            width: 5rem;
+            top: 1.25rem;
+            right: -2.1875rem;
+            font-size: 0.875rem;
             color: #fff;
             z-index: 2;
             div {
@@ -229,20 +229,20 @@
 
     .framePro2::before {
         content: "";
-        width: 80px;
-        height: 40px;
+        width: 5rem;
+        height: 2.5rem;
         background-color: #EF471E;
         position: absolute;
-        top: 15px;
-        right: -5px;
+        top: 0.9375rem;
+        right: -0.3125rem;
         z-index: 1;
-        border-radius: 20px;
-        box-shadow: 0.49px 1.958px 1.958px rgba(0, 0, 0, 0.25);
+        border-radius: 1.25rem;
+        box-shadow: 0.0306rem 0.1224rem 0.1224rem rgba(0, 0, 0, 0.25);
     }
 
     .productBest {
         color: #000;
-        padding: 15px 15px 0;
+        padding: 0.9375rem 0.9375rem 0;
         .productName, .productInfo {
             width: 96%;
         }
@@ -254,18 +254,18 @@
         .productInfo {
             display: flex;
             justify-content: space-between;
-            padding-bottom: 10px;
+            padding-bottom: 0.625rem;
 
             .prevPrice {
                 color: #999;
                 text-decoration: line-through;
-                margin-right: 80px;
+                margin-right: 5rem;
             }
 
             .newPrice {
                 font-weight: bold;
                 color: #E280AD;
-                text-shadow: 1px 1px 1px rgba(103, 0, 76, 0.13);
+                text-shadow: 0.0625rem 0.0625rem 0.0625rem rgba(103, 0, 76, 0.13);
             }
 
             .rateStar {
@@ -280,11 +280,11 @@
 
     .productBest2 {
         color: #000;
-        padding: 15px 15px 0;
-        line-height: 25px;
+        padding: 0.9375rem 0.9375rem 0;
+        line-height: 1.5625rem;
         .productName2, .productInfo2 {
             width: 96%;
-            font-size: 16px;
+            font-size: 1rem;
         }
     
         .productName2 {
@@ -294,17 +294,17 @@
         .productInfo2 {
             display: flex;
             justify-content: space-between;
-            padding-bottom: 10px;
+            padding-bottom: 0.625rem;
             .prevPrice2 {
                 color: #999;
                 text-decoration: line-through;
-                margin-right: 80px;
+                margin-right: 5rem;
             }
     
             .newPrice2 {
                 font-weight: bold;
                 color: #E280AD;
-                text-shadow: 1px 1px 1px rgba(103, 0, 76, 0.13);
+                text-shadow: 0.0625rem 0.0625rem 0.0625rem rgba(103, 0, 76, 0.13);
             }
     
             .rateStar2 {
@@ -326,34 +326,34 @@
 
 .popularProduct {
     width: 100%;
-    padding: 20px 50px;
+    padding: 1.25rem 3.125rem;
     .popularTitle {
         width: 100%;
         text-align: center;
         font-weight: bold;
-        font-size: 35px;
-        padding-bottom: 10px;
+        font-size: 2.1875rem;
+        padding-bottom: 0.625rem;
         color: #19b1ff;
-        text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
+        text-shadow: 0.0625rem 0.125rem 0.125rem rgba(0, 0, 0, 0.25);
     }
 
     .popularDes {
-        font-size: 18px;
+        font-size: 1.125rem;
         color: #000;
-        margin-bottom: 15px;
+        margin-bottom: 0.9375rem;
         @include limitText3;
     }
 
     .popularFrame {
         display: flex;
-        height: 520px;
-        box-shadow: 1px 3px 20px 3px rgb(74 74 74 / 25%);
+        height: 32.5rem;
+        box-shadow: 0.0625rem 0.1875rem 1.25rem 0.1875rem rgb(74 74 74 / 25%);
         background-image: linear-gradient(45deg, #a7cadb, #CAEDFF);
-        border-radius: 30px;
-        -webkit-border-radius: 30px;
-        -moz-border-radius: 30px;
-        -ms-border-radius: 30px;
-        -o-border-radius: 30px;
+        border-radius: 1.875rem;
+        -webkit-border-radius: 1.875rem;
+        -moz-border-radius: 1.875rem;
+        -ms-border-radius: 1.875rem;
+        -o-border-radius: 1.875rem;
         
         .leftPopFrame{
             flex: 1;
@@ -377,21 +377,21 @@
 
         .rightPopFrame {
             flex: 1;
-            padding: 50px;
+            padding: 3.125rem;
             .rightTitle {
                 position: absolute;
                 // left: -1%;
                 color: #47c0ff;
-                font-size: 70px;
+                font-size: 4.375rem;
                 font-weight: bold;
-                text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
+                text-shadow: 0.0625rem 0.125rem 0.125rem rgba(0, 0, 0, 0.25);
             }
 
             .rightPrice {
                 color: #19b1ff;
-                font-size: 45px;
+                font-size: 2.8125rem;
                 font-weight: bold;
-                padding-bottom: 20px;
+                padding-bottom: 1.25rem;
             }
 
             .rightButton {
@@ -403,24 +403,24 @@
 }
 
 .latestProduct {
-    padding: 10px 50px 20px 50px;
+    padding: 0.625rem 3.125rem 1.25rem 3.125rem;
     .latestTitle {
         text-align: center;
         font-weight: bold;
-        font-size: 35px;
-        padding-bottom: 20px;
+        font-size: 2.1875rem;
+        padding-bottom: 1.25rem;
         color: #d977a9;
-        text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
+        text-shadow: 0.0625rem 0.125rem 0.125rem rgba(0, 0, 0, 0.25);
     }
     .frameBtnAll {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 35px;
+        margin-top: 2.1875rem;
         .btnAll {
             color: #fff;
             background-color: #be226b;
-            border-radius: 30px;
+            border-radius: 1.875rem;
             &:hover {
                 background-color: #ee1f6b;
                 opacity: 95%;
@@ -430,15 +430,15 @@
 }
 
 .encourageBuy {
-    margin: 40px 50px 15px 50px;
+    margin: 2.5rem 3.125rem 0.9375rem 3.125rem;
     display: flex;
-    border-radius: 30px;
-    -webkit-border-radius: 30px;
-    -moz-border-radius: 30px;
-    -ms-border-radius: 30px;
-    -o-border-radius: 30px;
+    border-radius: 1.875rem;
+    -webkit-border-radius: 1.875rem;
+    -moz-border-radius: 1.875rem;
+    -ms-border-radius: 1.875rem;
+    -o-border-radius: 1.875rem;
     background-color: #B0D3FF;
-    box-shadow: 1px 4px 36px 5px rgba(0, 0, 0, 0.25);
+    box-shadow: 0.0625rem 0.25rem 2.25rem 0.3125rem rgba(0, 0, 0, 0.25);
     .leftEncourage{
         display: flex;
         justify-content: center;
@@ -449,20 +449,20 @@
     }
     
     .rightEncourage {
-        padding: 50px 60px 75px 0;
+        padding: 3.125rem 3.75rem 4.6875rem 0;
         h1 {
             color: #fff;
-            font-size: 50px;
+            font-size: 3.125rem;
             font-weight: bold;
-            text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
+            text-shadow: 0.0625rem 0.125rem 0.125rem rgba(0, 0, 0, 0.25);
             line-height: 1.2;
         }
     
         p {
-            margin: 20px 0;
+            margin: 1.25rem 0;
             color: #fff;
             @include limitText5;
-            text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
+            text-shadow: 0.0625rem 0.125rem 0.125rem rgba(0, 0, 0, 0.25);
         }
     
         .frameBtnEncourage {
@@ -482,49 +482,49 @@
 }
 
 .whyShop {
-    margin: 40px 50px;
+    margin: 2.5rem 3.125rem;
     .whyTitle {
         display: flex;
         justify-content: center;
         h1 {
             text-align: center;
             font-weight: bold;
-            font-size: 35px;
-            padding-bottom: 35px;
+            font-size: 2.1875rem;
+            padding-bottom: 2.1875rem;
             color: #000;
-            text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.25);
+            text-shadow: 0.0625rem 0.125rem 0.125rem rgba(0, 0, 0, 0.25);
         }
     }
     .methodDelivery {
         display: flex;
         justify-content: space-between;
-        padding-bottom: 35px;
+        padding-bottom: 2.1875rem;
         .method {
-            padding: 20px;
-            border-radius: 30px;
-            box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
-            margin: 0 10px;
-            -webkit-border-radius: 30px;
-            -moz-border-radius: 30px;
-            -ms-border-radius: 30px;
-            -o-border-radius: 30px;
+            padding: 1.25rem;
+            border-radius: 1.875rem;
+            box-shadow: 0 0.0625rem 0.3125rem rgba(0, 0, 0, 0.25);
+            margin: 0 0.625rem;
+            -webkit-border-radius: 1.875rem;
+            -moz-border-radius: 1.875rem;
+            -ms-border-radius: 1.875rem;
+            -o-border-radius: 1.875rem;
             .iconDelivery {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                height: 85px;
+                height: 5.3125rem;
                 img {
                     height: 100%;
                 }
             }
             h3 {
-                padding-top: 5px;
-                padding-bottom: 5px;
+                padding-top: 0.3125rem;
+                padding-bottom: 0.3125rem;
                 color: #ef5d30;
                 text-align: center;
-                font-size: 25px;
+                font-size: 1.5625rem;
                 font-weight: bold;
-                text-shadow: 1px 2px 2px rgba(97, 97, 97, 0.25);
+                text-shadow: 0.0625rem 0.125rem 0.125rem rgba(97, 97, 97, 0.25);
             }
             p {
                 @include limitText3;

@@ -49,16 +49,16 @@ export default function HistoryOrder() {
         <>
             <Row
                 style={{
-                    minHeight: '600px',
-                    margin: '90px 50px 10px 50px',
+                    minHeight: '37.5rem',
+                    margin: '5.625rem 3.125rem 0.625rem 3.125rem',
                     backgroundColor: '#fff',
-                    boxShadow: '0.49px 0.958px 3.958px rgba(0, 0, 0, 0.25)',
-                    borderRadius: '20px',
+                    boxShadow: '0.0306rem 0.0599rem 0.2474rem rgba(0, 0, 0, 0.25)',
+                    borderRadius: '1.25rem',
                     overflow: 'hidden',
                 }}
                 col={9}
             >
-                <Col style={{ borderRight: '2px solid #ececec' }} span={7}>
+                <Col style={{ borderRight: '0.125rem solid #ececec' }} span={7}>
                     <LeftProfile />
                 </Col>
                 <Col className="p-5" span={17}>
@@ -68,21 +68,21 @@ export default function HistoryOrder() {
                                 <th style={{ width: '13%' }}>NUMBER</th>
                                 <th style={{ width: '17%' }}>ORDER ITEMS</th>
                                 <th style={{ width: '20%' }}>CREATE AT</th>
-                                <th style={{ width: '10.5%', paddingLeft: '40px' }}>STATE</th>
-                                <th style={{ width: '14%', paddingLeft: '40px' }}>TOTAL</th>
-                                <th style={{ paddingRight: '30px' }}>ORDER OPTION</th>
+                                <th style={{ width: '10.5%', paddingLeft: '2.5rem' }}>STATE</th>
+                                <th style={{ width: '14%', paddingLeft: '2.5rem' }}>TOTAL</th>
+                                <th style={{ paddingRight: '1.875rem' }}>ORDER OPTION</th>
                             </tr>
                         </tbody>
                     </table>
                     {userOrder.length > 0 ? (
                         <div
                             style={{
-                                fontSize: '18px',
+                                fontSize: '1.125rem',
                                 textAlign: 'center',
-                                maxHeight: '500px',
+                                maxHeight: '31.25rem',
                                 overflow: 'auto',
-                                border: '0.5px solid #d4d4d4',
-                                boxShadow: '1px 2px 2px 1px rgba(155, 155, 155, 0.25)',
+                                border: '0.0313rem solid #d4d4d4',
+                                boxShadow: '0.0625rem 0.125rem 0.125rem 0.0625rem rgba(155, 155, 155, 0.25)',
                             }}
                         >
                             <table className={styles.listOrder}>

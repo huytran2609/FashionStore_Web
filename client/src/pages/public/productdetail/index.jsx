@@ -60,17 +60,13 @@ export default function ProductDetail() {
 
     return (
         <>
-            <Row style={{ margin: '70px 0 10px 50px', color: '#999', fontWeight: '500', fontSize: '18px' }} col={3}>
+            <Row className={styles.breadcrumb} col={3}>
                 <Link to={config.home}>Home</Link> &nbsp;&gt;&nbsp; <Link to={config.category}>Category</Link> &nbsp;&gt;&nbsp; Product Detail &nbsp;&gt;&nbsp; {title}
             </Row>
-            <Row style={{ margin: '0px 50px 10px 50px', backgroundColor: '#fff', boxShadow: '0.49px 0.958px 3.958px rgba(0, 0, 0, 0.25)', borderRadius: '20px' }} col={9}>
+            <Row className={styles.productContainer} col={9}>
                 <Col span={10}>
                     <section className={styles.imgDetail}>
-                        <img style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover',
-                        }} src={productData.thumbnail} alt="IMG Detail" />
+                        <img className={styles.productImage} src={productData.thumbnail} alt="IMG Detail" />
                     </section>
                     <section className={styles.listImgDetail}>
                         {productData?.images?.slice(1, 6)?.map((title, index) => {
@@ -99,7 +95,7 @@ export default function ProductDetail() {
                         </div>
                     </section>
                     <section className={styles.productInfo}>
-                        <h3>Availability: <p className={styles.firstP}>In Stock</p> <span style={{ fontWeight: '400' }}>&nbsp;({productData.quantity})</span></h3>
+                        <h3>Availability: <p className={styles.firstP}>In Stock</p> <span className={styles.availabilityText}>&nbsp;({productData.quantity})</span></h3>
                         <h3>Brand: <p>{productData.brand}</p></h3>
                         <h3>Category: <p>{productData.category}</p></h3>
                         <p className={styles.productDescription}>{productData.description}</p>
@@ -113,7 +109,7 @@ export default function ProductDetail() {
                                     <label key={color} className={styles.container}>
                                         <input onClick={handleColor} value={color ? color : 'Pink'} type="radio" name='color' />
                                         {/* {console.log(color)} */}
-                                        <span style={{ backgroundColor: `${color ? color : '#E280AD'}`, border: '0.5px solid rgba(0, 0, 0, 0.25)', boxShadow: '0.49px 1.958px 4.958px rgba(0, 0, 0, 0.25)' }} className={`${styles.firstColor} ${styles.checkmark2}`}></span>
+                                        <span style={{ '--color': color ? color : '#E280AD' }} className={`${styles.firstColor} ${styles.checkmark2} ${styles.colorSwatch}`}></span>
                                     </label>
                                 ))
                                 :
@@ -121,15 +117,15 @@ export default function ProductDetail() {
                                     <>
                                         <label className={styles.container}>
                                             <input onClick={handleColor} value='Pink' type="radio" name='color' />
-                                            <span style={{ border: '1px solid transparent', boxShadow: '0.49px 1.958px 4.958px rgba(0, 0, 0, 0.25)' }} className={`${styles.firstColor} ${styles.checkmark}`}></span>
+                                            <span className={`${styles.firstColor} ${styles.checkmark} ${styles.colorSwatchDefault}`}></span>
                                         </label>
                                         <label className={styles.container}>
                                             <input onClick={handleColor} value='Black' type="radio" name='color' />
-                                            <span style={{ border: '1px solid transparent', boxShadow: '0.49px 1.958px 4.958px rgba(0, 0, 0, 0.25)' }} className={`${styles.secondColor} ${styles.checkmark}`}></span>
+                                            <span className={`${styles.secondColor} ${styles.checkmark} ${styles.colorSwatchDefault}`}></span>
                                         </label>
                                         <label className={styles.container}>
                                             <input onClick={handleColor} value='Red' type="radio" name='color' />
-                                            <span style={{ border: '1px solid transparent', boxShadow: '0.49px 1.958px 4.958px rgba(0, 0, 0, 0.25)' }} className={`${styles.thirdColor} ${styles.checkmark}`}></span>
+                                            <span className={`${styles.thirdColor} ${styles.checkmark} ${styles.colorSwatchDefault}`}></span>
                                         </label>
                                     </>
                                 )

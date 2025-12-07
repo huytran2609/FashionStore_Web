@@ -52,18 +52,8 @@ export default function Profile() {
 
     return (
         <>
-            <Row
-                style={{
-                    overflow: 'hidden',
-                    height: '600px',
-                    margin: '90px 50px 10px 50px',
-                    backgroundColor: '#fff',
-                    boxShadow: '0.49px 0.958px 3.958px rgba(0, 0, 0, 0.25)',
-                    borderRadius: '20px',
-                }}
-                col={9}
-            >
-                <Col style={{ borderRight: '2px solid #ececec' }} span={7}>
+            <Row className={styles.profileContainer} col={9}>
+                <Col className={styles.profileBorder} span={7}>
                     <LeftProfile />
                 </Col>
                 <Col className="p-5 pt-10 flex justify-center" span={17}>

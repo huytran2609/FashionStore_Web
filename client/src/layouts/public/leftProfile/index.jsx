@@ -62,7 +62,7 @@ export default function LeftProfile() {
                 <h1>Order History</h1>
             </Link>
 
-            <Link style={{ color: 'red' }} className={styles.userInfo} onClick={() => handleDelete()}>
+            <Link className={`${styles.userInfo} ${styles.deleteLink}`} onClick={() => handleDelete()}>
                 <FaTrash className={`${styles.history} ${styles.icon}`} />
                 <h1>Delete Account</h1>
             </Link>

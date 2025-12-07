@@ -147,52 +147,16 @@ export default function Header({ handleInputChange, query }) {
                                 <img src={avatar} alt="UserImg" />
                             </Link>
                             <div className={styles.dropdownContent}>
-                                <Link
-                                    style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'space-between',
-                                        color: 'black',
-                                        fontSize: '15px',
-                                    }}
-                                    to={config.profile}
-                                >
+                                <Link className={styles.dropdownLink} to={config.profile}>
                                     Profile <ImProfile />
                                 </Link>
-                                <Link
-                                    style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'space-between',
-                                        color: 'black',
-                                        fontSize: '15px',
-                                    }}
-                                    to={config.history}
-                                >
+                                <Link className={styles.dropdownLink} to={config.history}>
                                     My Order <HiClipboardDocumentList />
                                 </Link>
-                                <Link
-                                    style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'space-between',
-                                        color: 'black',
-                                        fontSize: '15px',
-                                    }}
-                                    to={config.category}
-                                >
+                                <Link className={styles.dropdownLink} to={config.category}>
                                     Category <BiSolidCategoryAlt />
                                 </Link>
-                                <Link
-                                    onClick={() => dispatch(logout())}
-                                    style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'space-between',
-                                        color: 'red',
-                                        fontSize: '15px',
-                                    }}
-                                >
+                                <Link onClick={() => dispatch(logout())} className={styles.dropdownLinkLogout}>
                                     Logout <FaSignOutAlt />
                                 </Link>
                             </div>

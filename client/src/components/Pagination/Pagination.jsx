@@ -19,7 +19,7 @@ function Pagination({ totalCount, pageSize = 10 }) {
         <div className="flex items-center justify-center font-semibold">
             <button
                 className={classNames(
-                    'flex cursor-pointer justify-center items-center rounded-md font-bold text-sm bg-neutral-50 hover:bg-neutral-200 disabled:bg-transparent min-w-[40px] h-10',
+                    'flex cursor-pointer justify-center items-center rounded-md font-bold text-sm bg-neutral-50 hover:bg-neutral-200 disabled:bg-transparent min-w-[2.5rem] h-10',
                     {
                         'opacity-25': +params.get('page') - 1 < 1,
                     },
@@ -36,7 +36,7 @@ function Pagination({ totalCount, pageSize = 10 }) {
 
             <button
                 className={classNames(
-                    'flex cursor-pointer justify-center items-center rounded-md font-bold text-sm bg-neutral-50 hover:bg-neutral-200 disabled:bg-transparent min-w-[40px] h-10',
+                    'flex cursor-pointer justify-center items-center rounded-md font-bold text-sm bg-neutral-50 hover:bg-neutral-200 disabled:bg-transparent min-w-[2.5rem] h-10',
                     {
                         'opacity-25': +params.get('page') + 1 > Math.ceil(totalCount/pageSize),
                     },

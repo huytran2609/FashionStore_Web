@@ -1,39 +1,39 @@
 .imgDetail {
-    height: 500px;
+    height: 31.25rem;
     display: flex;
     justify-content: center;
-    margin: 20px;
-    box-shadow: 0.49px 1.958px 4.958px rgba(0, 0, 0, 0.25);
+    margin: 1.25rem;
+    box-shadow: 0.0306rem 0.1224rem 0.3099rem rgba(0, 0, 0, 0.25);
     overflow: hidden;
-    border-radius: 20px;
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
-    -ms-border-radius: 20px;
-    -o-border-radius: 20px;
+    border-radius: 1.25rem;
+    -webkit-border-radius: 1.25rem;
+    -moz-border-radius: 1.25rem;
+    -ms-border-radius: 1.25rem;
+    -o-border-radius: 1.25rem;
     img{
         height: 100%;
     }
 }
 
 .listImgDetail {
-    margin: 0 10px 20px;
+    margin: 0 0.625rem 1.25rem;
     display: flex;
     justify-content: space-around;
-    height: 100px;
+    height: 6.25rem;
     overflow: hidden;
     .imgDetail1 {
-        width: 90px;
+        width: 5.625rem;
         height: 90%;
         display: flex;
         justify-content: center;
         align-items: center;
-        border-radius: 10px;
+        border-radius: 0.625rem;
         overflow: hidden;
-        -webkit-border-radius: 10px;
-        -moz-border-radius: 10px;
-        -ms-border-radius: 10px;
-        -o-border-radius: 10px;
-        box-shadow: 0.49px 1.858px 4.958px rgba(0, 0, 0, 0.25);
+        -webkit-border-radius: 0.625rem;
+        -moz-border-radius: 0.625rem;
+        -ms-border-radius: 0.625rem;
+        -o-border-radius: 0.625rem;
+        box-shadow: 0.0306rem 0.1161rem 0.3099rem rgba(0, 0, 0, 0.25);
         img{
             height: 100%;
         }
@@ -42,27 +42,27 @@
 }
 
 .productName {
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: 600;
-    padding-bottom: 5px;
+    padding-bottom: 0.3125rem;
 }
 
 .rateStar {
     display: flex;
-    padding-bottom: 5px;
-    font-size: 16px;
+    padding-bottom: 0.3125rem;
+    font-size: 1rem;
     .star {
-        padding-right: 20px;
-        font-size: 18px;
+        padding-right: 1.25rem;
+        font-size: 1.125rem;
     }
 }
 
 .productPrice {
     display: flex;
     align-items: center;
-    font-size: 24px;
+    font-size: 1.5rem;
     .newPrice {
-        padding-right: 20px;
+        padding-right: 1.25rem;
         font-weight: bold;
         color: #E280AD;
     }
@@ -71,22 +71,22 @@
         text-decoration: line-through;
         color: #9e9e9e;
         font-weight: 300;
-}
+    }
 }
 
 .productInfo {
-    font-size: 16px;
-    padding-bottom: 20px;
+    font-size: 1rem;
+    padding-bottom: 1.25rem;
     h3 {
         display: flex;
-        padding: 5px 0;
+        padding: 0.3125rem 0;
         font-weight: bold;
         .firstP {
             color: green;
             font-weight: bold;
         }
         p {
-            padding-left: 5px;
+            padding-left: 0.3125rem;
             font-weight: normal;
         }
     }
@@ -99,18 +99,18 @@
     display: flex;
     align-items: center;
     h1 {
-        font-size: 18px;
+        font-size: 1.125rem;
         font-weight: bold;
         color: lightcoral;
-        padding-right: 20px;
+        padding-right: 1.25rem;
     }
     .listColor {
         .container {
             position: relative;
-            padding-left: 35px;
-            margin-bottom: 12px;
+            padding-left: 2.1875rem;
+            margin-bottom: 0.75rem;
             cursor: pointer;
-            font-size: 22px;
+            font-size: 1.375rem;
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -130,8 +130,8 @@
                 position: absolute;
                 top: 0;
                 left: 0;
-                height: 25px;
-                width: 25px;
+                height: 1.5625rem;
+                width: 1.5625rem;
                 background-color: #eee;
                 border-radius: 50%;
             }
@@ -139,8 +139,8 @@
                 position: absolute;
                 top: 0;
                 left: 0;
-                height: 25px;
-                width: 25px;
+                height: 1.5625rem;
+                width: 1.5625rem;
                 background-color: #eee;
                 border-radius: 50%;
             }
@@ -161,18 +161,18 @@
                 display: block;
             }
             .checkmark:after {
-                top: 7.5px;
-               left: 7.5px;
-               width: 8px;
-               height: 8px;
+                top: 0.4688rem;
+               left: 0.4688rem;
+               width: 0.5rem;
+               height: 0.5rem;
                border-radius: 50%;
                background: white;
             }
             .checkmark2:after {
-                top: 8px;
-               left: 8px;
-               width: 8px;
-               height: 8px;
+                top: 0.5rem;
+               left: 0.5rem;
+               width: 0.5rem;
+               height: 0.5rem;
                border-radius: 50%;
                background: black;
             }
@@ -190,25 +190,60 @@
 }
 
 .quantity {
-    font-size: 18px;
+    font-size: 1.125rem;
     font-weight: bold;
     color: lightcoral;
     display: flex;
     align-items: center;
-    padding-top: 20px;
+    padding-top: 1.25rem;
 }
 
 .btnAdd {
-    padding-top: 20px;
+    padding-top: 1.25rem;
     .customBtn {
         width: 50%;
         margin: 0;
         background-color: #E280AD;
-        font-size: 18px;
+        font-size: 1.125rem;
         color: #fff;
         &:hover {
             opacity: 85%;
 
         }
     }
+}
+
+.breadcrumb {
+    margin: 4.375rem 0 0.625rem 3.125rem;
+    color: #999;
+    font-weight: 500;
+    font-size: 1.125rem;
+}
+
+.productContainer {
+    margin: 0 3.125rem 0.625rem 3.125rem;
+    background-color: #fff;
+    box-shadow: 0.0306rem 0.0599rem 0.2474rem rgba(0, 0, 0, 0.25);
+    border-radius: 1.25rem;
+}
+
+.productImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.availabilityText {
+    font-weight: 400;
+}
+
+.colorSwatch {
+    background-color: var(--color);
+    border: 0.0313rem solid rgba(0, 0, 0, 0.25);
+    box-shadow: 0.0306rem 0.1224rem 0.3099rem rgba(0, 0, 0, 0.25);
+}
+
+.colorSwatchDefault {
+    border: 0.0625rem solid transparent;
+    box-shadow: 0.0306rem 0.1224rem 0.3099rem rgba(0, 0, 0, 0.25);
 }

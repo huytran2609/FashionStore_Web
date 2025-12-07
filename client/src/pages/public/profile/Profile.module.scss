@@ -1,14 +1,14 @@
 @mixin btn {
     width: 50%;
     margin: auto;
-    margin-top: 20px;
+    margin-top: 1.25rem;
     height: 3.5rem;
-    font-size: 16px;
-    border-radius: 40px;
-    -webkit-border-radius: 40px;
-    -moz-border-radius: 40px;
-    -ms-border-radius: 40px;
-    -o-border-radius: 40px;
+    font-size: 1rem;
+    border-radius: 2.5rem;
+    -webkit-border-radius: 2.5rem;
+    -moz-border-radius: 2.5rem;
+    -ms-border-radius: 2.5rem;
+    -o-border-radius: 2.5rem;
     color: #fff;
 }
 
@@ -28,4 +28,17 @@
     {
         background-color: rgb(77, 176, 77);
     }
+}
+
+.profileContainer {
+    overflow: hidden;
+    height: 37.5rem;
+    margin: 5.625rem 3.125rem 0.625rem 3.125rem;
+    background-color: #fff;
+    box-shadow: 0.0306rem 0.0599rem 0.2474rem rgba(0, 0, 0, 0.25);
+    border-radius: 1.25rem;
+}
+
+.profileBorder {
+    border-right: 0.125rem solid #ececec;
 }

@@ -5,7 +5,7 @@ import Input from '~/components/input';
 export default function Category({ handleChange, productData }) {
 
     return (
-        <div style={{ marginLeft: '-45px' }}>
+        <div className={styles.categoryContainer}>
             <h2 className={styles.sidebarTitle}>Category</h2>
 
             <div>

@@ -35,32 +35,28 @@ export default function InputInformation({ info, base, title, classTitle, classF
         <>
             <h1 className={`${classTitle} ${styles.title}`}>{title}</h1>
             <input
-                style={readOnly ? { backgroundColor: '#e5e5e5', color: '#000', userSelect: 'none' } : {}}
-                className={`${classFullName} ${base} ${styles.baseInput}`}
+                className={`${classFullName} ${base} ${styles.baseInput} ${readOnly ? styles.readOnlyInput : ''}`}
                 onChange={handleChangeName}
                 value={nameValue}
                 type="text"
                 placeholder='FullName...'
                 readOnly={readOnly} />
             <input
-                style={readOnly ? { backgroundColor: '#e5e5e5', color: '#000', userSelect: 'none' } : {}}
-                className={`${classPhone} ${base} ${styles.baseInput}`}
+                className={`${classPhone} ${base} ${styles.baseInput} ${readOnly ? styles.readOnlyInput : ''}`}
                 onChange={handleChangePhone}
                 value={phoneValue}
                 type="tel"
                 placeholder='Phone number...'
                 readOnly={readOnly} />
             <input
-                style={readOnly ? { backgroundColor: '#e5e5e5', color: '#000', userSelect: 'none' } : {}}
-                className={`${classEmail} ${base} ${styles.baseInput}`}
+                className={`${classEmail} ${base} ${styles.baseInput} ${readOnly ? styles.readOnlyInput : ''}`}
                 onChange={handleChangeEmail}
                 value={emailValue}
                 type="email"
                 placeholder='Email...'
                 readOnly={readOnly} />
             <input
-                style={readOnly ? { backgroundColor: '#e5e5e5', color: '#000', userSelect: 'none' } : {}}
-                className={`${classAddress} ${base} ${styles.baseInput}`}
+                className={`${classAddress} ${base} ${styles.baseInput} ${readOnly ? styles.readOnlyInput : ''}`}
                 onChange={handleChangeAddress}
                 value={addressValue}
                 type="text"

@@ -188,7 +188,7 @@ function Product() {
                     onClick={() => {
                         setIsOpen(true);
                     }}
-                    className="bg-blue-600 rounded-md border border-blue-600 text-white text-[14px] w-25 p-2 hover:bg-blue-700 hover:text-white"
+                    className="bg-blue-600 rounded-md border border-blue-600 text-white text-[0.875rem] w-25 p-2 hover:bg-blue-700 hover:text-white"
                 >
                     Add new product
                 </button>
@@ -196,7 +196,7 @@ function Product() {
             <div className="max-w-screen-xl mt-3 rounded-lg">
                 <form>
                     <table className="w-full table-auto mb-6 text-left bg-white">
-                        <thead className="text-[13px] border-b bg-neutral-200 font-medium dark:border-neutral-500 dark:text-neutral-800">
+                        <thead className="text-[0.8125rem] border-b bg-neutral-200 font-medium dark:border-neutral-500 dark:text-neutral-800">
                             <tr>
                                 <th className="px-4 py-2">#</th>
                                 <th className="px-4 py-2">Thumbnail</th>
@@ -226,7 +226,7 @@ function Product() {
                                             className="w-12 h-12 object-cover rounded-md"
                                         />
                                     </td>
-                                    <td className="whitespace-nowrap px-4 py-2 max-w-[400px] overflow-hidden overflow-ellipsis">
+                                    <td className="whitespace-nowrap px-4 py-2 max-w-[25rem] overflow-hidden overflow-ellipsis">
                                         {editProduct?._id === product._id ? (
                                             <InputForm
                                                 key={editProduct?._id}
@@ -288,7 +288,7 @@ function Product() {
                                     <td className="whitespace-nowrap px-4 py-2">
                                         <span>{product?.sold}</span>
                                     </td>
-                                    <td className="whitespace-nowrap px-4 py-2 max-w-[200px] overflow-hidden overflow-ellipsis">
+                                    <td className="whitespace-nowrap px-4 py-2 max-w-[12.5rem] overflow-hidden overflow-ellipsis">
                                         <span>{product?.color}</span>
                                     </td>
                                     <td className="whitespace-nowrap px-4 py-2 text-center">
@@ -303,13 +303,13 @@ function Product() {
                                             <>
                                                 <button
                                                     type="submit"
-                                                    className="rounded-md border border-blue-600 text-blue-600 text-[12px] w-13 p-1 mr-1 hover:bg-blue-500 hover:text-white"
+                                                    className="rounded-md border border-blue-600 text-blue-600 text-[0.75rem] w-13 p-1 mr-1 hover:bg-blue-500 hover:text-white"
                                                 >
                                                     Update
                                                 </button>
                                                 <span
                                                     // onClick={() => setEditProduct(null)}
-                                                    className="rounded-md border bg-blue-100 border-blue-600 text-blue-600 text-[12px] w-12 p-1 mr-1 hover:bg-blue-500 hover:text-white cursor-pointer"
+                                                    className="rounded-md border bg-blue-100 border-blue-600 text-blue-600 text-[0.75rem] w-12 p-1 mr-1 hover:bg-blue-500 hover:text-white cursor-pointer"
                                                 >
                                                     Back
                                                 </span>
@@ -318,13 +318,13 @@ function Product() {
                                             <>
                                                 <span
                                                     onClick={() => setEditProduct(product)}
-                                                    className="rounded-md border border-blue-600 text-blue-600 text-[12px] w-12 p-1 mr-1 hover:bg-blue-500 hover:text-white cursor-pointer"
+                                                    className="rounded-md border border-blue-600 text-blue-600 text-[0.75rem] w-12 p-1 mr-1 hover:bg-blue-500 hover:text-white cursor-pointer"
                                                 >
                                                     Edit
                                                 </span>
                                                 <span
                                                     onClick={() => handleDelete(product._id)}
-                                                    className="bg-red-600 rounded-md border border-red-600 text-white text-[12px] w-12 p-1 hover:bg-red-700 hover:text-white cursor-pointer"
+                                                    className="bg-red-600 rounded-md border border-red-600 text-white text-[0.75rem] w-12 p-1 hover:bg-red-700 hover:text-white cursor-pointer"
                                                 >
                                                     Delete
                                                 </span>
@@ -356,7 +356,7 @@ function Product() {
                                 errors={errors}
                                 id="title"
                                 validate={{ required: 'Required' }}
-                                style="pl-[10px]"
+                                style="pl-[0.625rem]"
                                 placeholder="Name of new product"
                             />
                             <InputForm
@@ -366,7 +366,7 @@ function Product() {
                                 errors={errors}
                                 id="price"
                                 validate={{ required: 'Required' }}
-                                style="pl-[10px]"
+                                style="pl-[0.625rem]"
                                 placeholder="Price"
                             />
                             <InputForm
@@ -376,7 +376,7 @@ function Product() {
                                 errors={errors}
                                 id="quantity"
                                 validate={{ required: 'Required' }}
-                                style="pl-[10px]"
+                                style="pl-[0.625rem]"
                                 placeholder="Quantity"
                             />
                             <InputForm
@@ -385,7 +385,7 @@ function Product() {
                                 errors={errors}
                                 id="color"
                                 validate={{ required: 'Required' }}
-                                style="pl-[10px]"
+                                style="pl-[0.625rem]"
                                 placeholder="Color"
                             />
                             <Select
@@ -412,7 +412,7 @@ function Product() {
                                 errors={errors}
                                 id="brand"
                                 validate={{ required: 'Required' }}
-                                style="pl-[10px]"
+                                style="pl-[0.625rem]"
                                 placeholder="Brand"
                             />
                             <TextArea
@@ -422,7 +422,7 @@ function Product() {
                                 errors={errors}
                                 validate={{ required: 'Required' }}
                                 rows={4}
-                                style="pl-[10px] pb-2"
+                                style="pl-[0.625rem] pb-2"
                             />
                         </div>
                         <div className="flex flex-1 flex-col gap-3">
@@ -473,7 +473,7 @@ function Product() {
                                     // onChange={(event) => setPreview({thumbnail: event.target.files[0]})}
                                 />
                                 {errors['thumbnail'] && (
-                                    <small className="text-red-400 text-[10px] absolute bottom-0 translate-y-[-3] pl-1 pt-1">
+                                    <small className="text-red-400 text-[0.625rem] absolute bottom-0 translate-y-[-3] pl-1 pt-1">
                                         {errors['thumbnail']?.message}
                                     </small>
                                 )}
@@ -493,7 +493,7 @@ function Product() {
                                                     width={10}
                                                     height={100}
                                                     alt="Images"
-                                                    className="w-[170px] object-contain rounded-md"
+                                                    className="w-[10.625rem] object-contain rounded-md"
                                                 />
                                             ))}
                                         </div>
@@ -532,7 +532,7 @@ function Product() {
                                     // onChange={(event) => setPreview({images: event.target.files[0]})}
                                 />
                                 {errors['images'] && (
-                                    <small className="text-red-400 text-[10px] absolute bottom-0 translate-y-[-3] pl-1 pt-1">
+                                    <small className="text-red-400 text-[0.625rem] absolute bottom-0 translate-y-[-3] pl-1 pt-1">
                                         {errors['images']?.message}
                                     </small>
                                 )}
