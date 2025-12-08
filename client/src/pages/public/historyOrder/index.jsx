@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { apiDeleteUserOrder, apiGetUserOrder } from '~/apis/order';
 import { useFetch } from '~/hooks';
 import orderEmpty from '~/assets/cart/emptyOrder.jpeg';
+import EmptyState from '~/components/emptyState';
 import { formatCreatedAt } from '~/utils/helpers';
 import { FaInfoCircle } from "react-icons/fa";
 import Button from '~/components/button';
@@ -104,11 +105,11 @@ export default function HistoryOrder() {
                             </table>
                         </div>
                     ) : (
-                        <div
-                            style={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-                        >
-                            <img style={{ height: '55%' }} src={orderEmpty} alt="" />
-                        </div>
+                        <EmptyState 
+                            image={orderEmpty}
+                            title="No orders yet"
+                            message="Your order history will appear here"
+                        />
                     )}
                 </Col>
             </Row>

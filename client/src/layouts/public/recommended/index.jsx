@@ -1,15 +1,28 @@
 import React from 'react';
 import styles from './Recommended.module.scss';
-import Buttons from '~/components/buttons';
+import Button from '~/components/button';
 
 export default function Recommended({ handleClick, productData }) {
     return (
         <>
             <h2 className={styles.recommendedTitle}>Recommended</h2>
             <div className={styles.recommendedFlex}>
-                <Buttons className={styles.btns} onClickHandler={handleClick} value="" title="All Products" />
+                <Button 
+                    className={styles.btns} 
+                    onClick={handleClick} 
+                    value="" 
+                    content="All Products"
+                    type="button"
+                />
                 {productData.map((data) =>
-                    <Buttons key={data._id} className={styles.btns} onClickHandler={handleClick} value={data.title} title={data.title} />
+                    <Button 
+                        key={data._id} 
+                        className={styles.btns} 
+                        onClick={handleClick} 
+                        value={data.title} 
+                        content={data.title}
+                        type="button"
+                    />
                 )}
             </div>
         </>

@@ -2,6 +2,7 @@ import styles from './Cart.module.scss';
 import { Row, Col } from 'antd';
 import emptyCart from '~/assets/cart/emptyCart.png';
 import Button from '~/components/button';
+import EmptyState from '~/components/emptyState';
 import CartProduct from '../../../layouts/public/cartProduct';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
@@ -118,11 +119,12 @@ export default function Cart() {
                                         ))}
                                     </>
                                 ) : (
-                                    <>
-                                        <div className={styles.emptyCartContainer}>
-                                            <img src={emptyCart} alt="Empty Cart" />
-                                        </div>
-                                    </>
+                                    <EmptyState 
+                                        image={emptyCart}
+                                        title="Your cart is empty"
+                                        message="Add some products to get started!"
+                                        className={styles.emptyCartContainer}
+                                    />
                                 )}
                             </section>
                         </Col>
