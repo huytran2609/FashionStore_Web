@@ -4,51 +4,37 @@ import styles from './HistoryOrderDetail.module.scss'
 import Button from '~/components/button';
 import { useParams, useNavigate } from 'react-router-dom';
 import { apigetOrderDetail } from '~/apis/order';
-import { useEffect, useState } from 'react';
-import { formatCreatedAt } from '~/utils/helpers';
-import Swal from 'sweetalert2';
+import { useState } from 'react';
+import { formatCreatedAt, formattedCount } from '~/utils/helpers';
+import { useFetch } from '~/hooks';
+import { confirmAndExecute } from '~/utils/confirmDialog';
 import { apiDeleteUserOrder } from '~/apis/order';
 import config from '~/config';
 import { toast } from 'react-toastify';
 
 export default function HistoryOrderDetail() {
-
-    const [orderDetail, setOrderDetail] = useState(null)
-    const [detailProduct, setDetailProduct] = useState(null)
     const [update, setUpdate] = useState(false);
-
-    const { oid } = useParams()
-    // console.log(oid);
-    useEffect(() => {
-        const fetchOrderDetail = async () => {
-            const response = await apigetOrderDetail(oid)
-            if (response.success) {
-                setOrderDetail(response.orderDetail);
-                setDetailProduct(response.orderDetail.products);
-            }
-        }
-        fetchOrderDetail()
-    }, [])
+    const { oid } = useParams();
+    
+    const { data: orderResponse } = useFetch(() => apigetOrderDetail(oid), {
+        dependencies: [oid, update],
+    });
+    
+    const orderDetail = orderResponse?.orderDetail || null;
+    const detailProduct = orderDetail?.products || null;
     console.log(orderDetail);
     // console.log(detailProduct);
     const navigate = useNavigate();
 
-    const formattedCount = (numberValue) => Number(numberValue).toFixed(2);
     const handleDelete = async () => {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            showCancelButton: true,
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                const response = await apiDeleteUserOrder(orderDetail._id);
+        await confirmAndExecute(async () => {
+            const response = await apiDeleteUserOrder(orderDetail._id);
+            if (response.success) {
                 toast.success('Cancel Order Successfully!');
-                if (response.success) {
-                    setUpdate(!update);
-                    navigate(config.history)
-                } else {
-                    toast.error(response.mes);
-                }
+                setUpdate(!update);
+                navigate(config.history);
+            } else {
+                toast.error(response.mes);
             }
         });
     };

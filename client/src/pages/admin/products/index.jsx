@@ -13,21 +13,13 @@ import Select from '~/components/select';
 import TextArea from '~/components/textArea';
 import { formatCreatedAt, getBase64 } from '~/utils/helpers';
 import { apiCreateProduct, apiDeleteProduct } from '~/apis/admin/product';
-import { useProducts } from '~/hooks';
+import { useProducts, useCategories } from '~/hooks';
 import { getEmailValidation, getPhoneValidation } from '~/utils/validators';
 
 function Product() {
     const [isOpen, setIsOpen] = useState(false);
 
-    const [categories, setCategories] = useState([]);
-
-    useEffect(() => {
-        const fetchCategories = async () => {
-            const response = await categoryApi.getAll();
-            setCategories(response.dataCategories);
-        };
-        fetchCategories();
-    }, []);
+    const { categories } = useCategories();
 
     const {
         handleSubmit,
@@ -61,7 +53,6 @@ function Product() {
     const { products: productsResponse, refetch } = useProducts({
         defaultParams: queries,
         limit: 8,
-        autoFetch: true,
         dependencies: [JSON.stringify(queries), updated],
     });
 

@@ -1,8 +1,9 @@
 import LeftProfile from '~/layouts/public/leftProfile';
 import styles from './HistoryOrder.module.scss';
 import { Row, Col } from 'antd';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { apiDeleteUserOrder, apiGetUserOrder } from '~/apis/order';
+import { useFetch } from '~/hooks';
 import orderEmpty from '~/assets/cart/emptyOrder.jpeg';
 import { formatCreatedAt } from '~/utils/helpers';
 import { FaInfoCircle } from "react-icons/fa";
@@ -10,40 +11,29 @@ import Button from '~/components/button';
 import { Link } from 'react-router-dom';
 import config from '~/config';
 import { toast } from 'react-toastify';
-import Swal from 'sweetalert2';
+import { confirmAndExecute } from '~/utils/confirmDialog';
 
 export default function HistoryOrder() {
-    const [userOrder, setUserOrder] = useState([]);
     const [update, setUpdate] = useState(false);
-    useEffect(() => {
-        const fetchUserOrder = async () => {
-            const response = await apiGetUserOrder();
-            // console.log(response);
-            if (response.success) {
-                setUserOrder(response.userOrder);
-            }
-        };
-        fetchUserOrder();
-    }, [update]);
+    
+    const { data: orderResponse, refetch } = useFetch(apiGetUserOrder, {
+        dependencies: [update],
+    });
+    
+    const userOrder = orderResponse?.userOrder || [];
 
     const handleDelete = async (orderId) => {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            showCancelButton: true,
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                const response = await apiDeleteUserOrder(orderId);
-                if (response.success) {
-                    setUpdate(!update);
-                    toast.success('Cancel Order Successfully!');
-                } else {
-                    toast.error(response.mes);
-                }
+        await confirmAndExecute(async () => {
+            const response = await apiDeleteUserOrder(orderId);
+            if (response.success) {
+                setUpdate(!update);
+                refetch();
+                toast.success('Cancel Order Successfully!');
+            } else {
+                toast.error(response.mes);
             }
         });
     };
-    console.log(userOrder)
 
     return (
         <>
@@ -117,7 +107,6 @@ export default function HistoryOrder() {
                         <div
                             style={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                         >
-                            {console.log(userOrder.length)}
                             <img style={{ height: '55%' }} src={orderEmpty} alt="" />
                         </div>
                     )}

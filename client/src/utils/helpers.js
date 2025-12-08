@@ -20,3 +20,12 @@ export const formatCreatedAt = (createdAt) => {
     const year = createdAtDate.getFullYear();
     return `${hours}:${minutes} ${day}/${month}/${year}`;
 }
+
+/**
+ * Format number to 2 decimal places
+ * @param {number|string} numberValue - Number to format
+ * @returns {string} - Formatted number string
+ */
+export const formattedCount = (numberValue) => {
+    return Number(numberValue).toFixed(2);
+};

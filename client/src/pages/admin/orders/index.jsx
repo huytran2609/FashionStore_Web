@@ -18,8 +18,6 @@ function Order() {
         watch,
         formState: { errors },
     } = useForm();
-    const [orders, setOrders] = useState([]);
-
     const [query, setQuery] = useState({ q: '' });
     const debounced = useDebounce(query.q, 600);
 
@@ -27,19 +25,17 @@ function Order() {
     const [editOrder, setEditOrder] = useState(null);
     const [updated, setUpdated] = useState(false);
 
-    useEffect(() => {
-        const fetchOrders = async (params) => {
-            const response = await apiGetOrders({ ...params, limit: 5, sort: '-createdAt' });
-            if (response.success) {
-                setOrders(response);
-            }
-        };
-        const queries = Object.fromEntries([...params]);
+    const queries = useMemo(() => {
+        const queryParams = Object.fromEntries([...params]);
         if (debounced) {
-            queries.q = debounced;
+            queryParams.q = debounced;
         }
-        fetchOrders(queries);
-    }, [debounced, params, updated]);
+        return { ...queryParams, limit: 5, sort: '-createdAt' };
+    }, [debounced, params]);
+
+    const { data: orders = {} } = useFetch(() => apiGetOrders(queries), {
+        dependencies: [JSON.stringify(queries), updated],
+    });
 
     const render = useCallback(() => {
         setUpdated(!updated);

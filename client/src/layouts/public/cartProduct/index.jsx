@@ -6,6 +6,7 @@ import { getCurrent } from '~/redux/features/slices/asyncActions';
 import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import { updateCart } from '~/redux/features/slices/userSlice';
+import { formattedCount } from '~/utils/helpers';
 
 export default function CartProduct({ pid, title, color, quantity, size, price, thumbnail, dispatch }) {
 
@@ -25,7 +26,6 @@ export default function CartProduct({ pid, title, color, quantity, size, price, 
             toast.error(response.mes);
         }
     };
-    const formattedCount = (numberValue) => Number(numberValue).toFixed(2);
     return (
         <div className={styles.cartProductContainer}>
             <div className={styles.imgCartPro}>

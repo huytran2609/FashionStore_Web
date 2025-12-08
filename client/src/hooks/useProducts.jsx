@@ -3,10 +3,11 @@ import { getAllProducts } from '~/apis/products';
 
 /**
  * Custom hook for fetching products
+ * Automatically fetches products on mount and when dependencies change
+ * Use refetch() to manually trigger a fetch
  * @param {object} options - Configuration options
  * @param {object} options.defaultParams - Default query parameters
  * @param {number} options.limit - Number of products per page (default: 20)
- * @param {boolean} options.autoFetch - Whether to fetch automatically on mount (default: true)
  * @param {array} options.dependencies - Additional dependencies for useEffect
  * @returns {object} - { products, count, loading, error, refetch }
  */
@@ -14,7 +15,6 @@ function useProducts(options = {}) {
     const {
         defaultParams = {},
         limit = 20,
-        autoFetch = true,
         dependencies = [],
     } = options;
 
@@ -49,11 +49,9 @@ function useProducts(options = {}) {
     }, [defaultParams, limit]);
 
     useEffect(() => {
-        if (autoFetch) {
-            fetchProducts();
-        }
+        fetchProducts();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [autoFetch, fetchProducts, ...dependencies]);
+    }, [fetchProducts, ...dependencies]);
 
     const refetch = useCallback((params) => {
         return fetchProducts(params);

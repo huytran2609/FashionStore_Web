@@ -8,19 +8,11 @@ import { Row, Col } from 'antd';
 import categoryApi from '~/apis/categoryAPI/categoryApi';
 import { Pagination } from '~/components/pagination';
 import { useSearchParams, useLocation } from 'react-router-dom';
-import { useProducts, useProductFilter } from '~/hooks';
+import { useProducts, useProductFilter, useCategories } from '~/hooks';
 
 export default function Category() {
-    const [categories, setCategories] = useState([]);
     const location = useLocation();
-
-    useEffect(() => {
-        const fetchApiCategories = async () => {
-            const response = await categoryApi.getAll();
-            setCategories(response.dataCategories);
-        };
-        fetchApiCategories();
-    }, []);
+    const { categories } = useCategories();
 
     const [params] = useSearchParams();
 
@@ -45,7 +37,6 @@ export default function Category() {
     const { products: productData, count } = useProducts({
         defaultParams: queries,
         limit: 30,
-        autoFetch: true,
         dependencies: [queries],
     });
 

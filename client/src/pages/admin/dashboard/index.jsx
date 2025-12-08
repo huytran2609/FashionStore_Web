@@ -4,32 +4,12 @@ import PopularProducts from "~/layouts/admin/components/popularProducts";
 import RecentOrders from "~/layouts/admin/components/recentOrders";
 import TransactionChart from "~/layouts/admin/components/transactionChart";
 import { adminGetUserOrder } from '~/apis/order';
-import { useEffect } from 'react';
-import { useState } from 'react';
 import { getAllUser } from "~/apis/user";
-function Dashboard() {
-	const [adminOrder, setAdminOrder] = useState([]);
-	useEffect(() => {
-		const fetchAdminOrder = async () => {
-			const response = await adminGetUserOrder();
-			if (response.success) {
-				setAdminOrder(response)
-			}
-		}
-		fetchAdminOrder();
-	}, [])
-	console.log(adminOrder)
+import { useFetch } from '~/hooks';
 
-	const [allUser, setAllUser] = useState([]);
-	useEffect(() => {
-		const fetchAdminOrder = async () => {
-			const response = await getAllUser();
-			if (response.success) {
-				setAllUser(response)
-			}
-		}
-		fetchAdminOrder();
-	}, [])
+function Dashboard() {
+	const { data: adminOrder = {} } = useFetch(adminGetUserOrder);
+	const { data: allUser = {} } = useFetch(getAllUser);
 
 	return (
 		<div className="flex flex-col gap-4">

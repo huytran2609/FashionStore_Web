@@ -5,8 +5,9 @@ import Star from '~/components/star';
 import Counter from '~/components/counter';
 import Button from '~/components/button';
 import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { getProductDetail } from '~/apis/products';
+import { useFetch } from '~/hooks';
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { getCurrent } from '~/redux/features/slices/asyncActions'
@@ -19,15 +20,12 @@ import { Link } from 'react-router-dom';
 
 export default function ProductDetail() {
     const { id, title } = useParams();
-    const [productData, setProductData] = useState({});
-
-    useEffect(() => {
-        const fetchProduct = async () => {
-            const response = await getProductDetail(id);
-            setProductData(response.productData);
-        };
-        fetchProduct(id);
-    }, []);
+    
+    const { data: productResponse } = useFetch(() => getProductDetail(id), {
+        dependencies: [id],
+    });
+    
+    const productData = productResponse?.productData || {};
     const [colorValue, setColorValue] = useState('DefaultColor');
 
     // Code 1 random comment rate tu 1k cmt -> 5k

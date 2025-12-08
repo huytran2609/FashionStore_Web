@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import { validateEmail, validatePhone } from '~/utils/validators';
+import { formattedCount } from '~/utils/helpers';
 
 export default function Cart() {
     const { current, currentCart, totalPrice } = useSelector((state) => state.user);
@@ -18,7 +19,6 @@ export default function Cart() {
     // console.log(current);
     const haveOrder = currentCart?.length;
     const dispatch = useDispatch();
-    const formattedCount = (numberValue) => Number(numberValue).toFixed(2);
 
     // const estimatePrice = formattedCount(
     //     currentCart?.reduce((acc, item) => {

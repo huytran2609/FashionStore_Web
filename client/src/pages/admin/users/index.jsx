@@ -1,8 +1,8 @@
 import moment from 'moment';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useMemo } from 'react';
 import { apiDeleteUser, apiGetUsers, apiUpdateUser } from '~/apis/admin/user';
 import { Pagination } from '~/components/pagination';
-import { useDebounce } from '~/hooks';
+import { useDebounce, useFetch } from '~/hooks';
 import InputSearch from '~/layouts/admin/components/inputSearch';
 import { useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import InputForm from '~/components/inputForm';
 import { getEmailValidation, getPhoneValidation } from '~/utils/validators';
+import { confirmAndExecute } from '~/utils/confirmDialog';
 
 function User() {
     const {
@@ -23,25 +24,21 @@ function User() {
     const [editUser, setEditUser] = useState(null);
     const [updated, setUpdated] = useState(false);
 
-    const [users, setUsers] = useState([]);
     const [query, setQuery] = useState({ q: '' });
-
     const [params] = useSearchParams();
-
     const debounced = useDebounce(query.q, 600);
 
-    const fetchApiUsers = async (params) => {
-        const response = await apiGetUsers({ ...params });
-        setUsers(response);
-    };
-
-    useEffect(() => {
-        const queries = Object.fromEntries([...params]);
+    const queries = useMemo(() => {
+        const queryParams = Object.fromEntries([...params]);
         if (debounced) {
-            queries.q = debounced;
+            queryParams.q = debounced;
         }
-        fetchApiUsers(queries);
-    }, [debounced, params, updated]);
+        return queryParams;
+    }, [debounced, params]);
+
+    const { data: users = {} } = useFetch(() => apiGetUsers(queries), {
+        dependencies: [JSON.stringify(queries), updated],
+    });
 
     useEffect(() => {
         // Khi editUser thay đổi, cập nhật giá trị mặc định của các trường
@@ -51,7 +48,6 @@ function User() {
             setValue('phone', editUser.phone);
             setValue('status', editUser.isBlocked ? 'Block' : 'Active');
         }
-        console.log(editUser);
     }, [editUser, setValue]);
 
     const render = useCallback(() => {
@@ -70,19 +66,13 @@ function User() {
     };
 
     const handleDelete = async (uid) => {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            showCancelButton: true,
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                const response = await apiDeleteUser(uid);
-                if (response.success) {
-                    render()
-                    toast.success(response.mes);
-                } else {
-                    toast.error(response.mes);
-                }
+        await confirmAndExecute(async () => {
+            const response = await apiDeleteUser(uid);
+            if (response.success) {
+                render();
+                toast.success(response.mes);
+            } else {
+                toast.error(response.mes);
             }
         });
     };

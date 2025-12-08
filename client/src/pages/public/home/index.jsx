@@ -25,7 +25,6 @@ function Home() {
     
     const { products: productData } = useProducts({
         limit: 100,
-        autoFetch: true,
     });
 
     const MemoizedCard = memo(({ id, img, title, newPrice, color }) => (

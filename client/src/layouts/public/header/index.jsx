@@ -6,8 +6,8 @@ import { BiSolidCategoryAlt } from 'react-icons/bi';
 import { ImProfile } from 'react-icons/im';
 import Button from '~/components/button';
 import config from '~/config';
-import categoryApi from '~/apis/categoryAPI/categoryApi';
 import { useState, useEffect } from 'react';
+import { useCategories } from '~/hooks';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import avatar from '~/assets/avatar/avatarUser.jpg';
@@ -55,7 +55,11 @@ export default function Header({ handleInputChange, query }) {
             emoji: "🌿",
         },
     ]
-    const [categories, setCategories] = useState([]);
+    
+    const { categories } = useCategories({
+        categories_emoji,
+    });
+
     useEffect(() => {
         let timeoutId;
         if (isLoggedIn) {
@@ -78,18 +82,6 @@ export default function Header({ handleInputChange, query }) {
     const displayName = current?.name;
     const firstName = displayName ? displayName.split(' ')[0] : '';
     const hasCurrent = !!current;
-
-    useEffect(() => {
-        const fetchApiCategories = async () => {
-            const response = await categoryApi.getAll();
-            const merged = response.dataCategories.map((category, index) => ({
-                ...category,
-                ...categories_emoji[index % categories_emoji.length],
-            }));
-            setCategories(merged);
-        };
-        fetchApiCategories();
-    }, []);
 
     return (
         <>
