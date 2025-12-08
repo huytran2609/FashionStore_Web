@@ -1,6 +1,5 @@
 import React from 'react'
 import styles from './Card.module.scss'
-// import img from '~/pages/public/assets/imgBestSeller/Shoe.jpeg'
 import Star from '~/components/star'
 import Button from '~/components/button'
 import { Link } from 'react-router-dom'

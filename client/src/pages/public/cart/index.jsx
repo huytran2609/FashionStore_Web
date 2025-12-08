@@ -16,15 +16,8 @@ import { formattedCount } from '~/utils/helpers';
 export default function Cart() {
     const { current, currentCart, totalPrice } = useSelector((state) => state.user);
 
-    // console.log(current);
     const haveOrder = currentCart?.length;
     const dispatch = useDispatch();
-
-    // const estimatePrice = formattedCount(
-    //     currentCart?.reduce((acc, item) => {
-    //         return acc + item?.quantity * item?.product?.price;
-    //     }, 0),
-    // );
 
     const [nameValue, setNameValue] = useState(current?.name);
     const handleNameChange = (event) => {
@@ -43,12 +36,10 @@ export default function Cart() {
     const [addressDefault, setAddressDefault] = useState('');
     const [addressValue, setAddressValue] = useState('');
     const isDisabled = currentCart?.length <= 0 ? true : false;
-    // console.log(isDisabled)
     const handleAddressChange = (event) => {
         setAddressValue(event.target.value);
     };
 
-    // console.log(addressDefault);
     const form = useRef();
 
     const handleCheckOut = async (e) => {
@@ -72,42 +63,19 @@ export default function Cart() {
             address: `${addressValue}, ${addressDefault}`,
         });
 
-
-        // console.log(response);
-        // if (totalPrice === 0 || estimatePrice === 0) {
-        //     toast.error("Please add some products to your cart");
-        //     return;
-        // }
         if (response.success) {
-
             emailjs.sendForm('service_0hirvyh', 'template_ypt2vbd', form.current, 'Zuy7iE_yJXzm4f2rZ')
-                .then((result) => {
+                .then(() => {
                     window.location.reload();
-                    console.log(result.text);
                 }, (error) => {
-                    console.log(error.text);
+                    console.error('EmailJS error:', error);
                 });
-            // form.current.reset()
             toast.success('Create Order Successfully!');
             dispatch(current);
         } else {
             toast.error(response.mes);
         }
     };
-
-
-
-    // const sendEmail = (e) => {
-    //     e.preventDefault();
-
-    //     emailjs.sendForm('service_0hirvyh', 'template_ypt2vbd', form.current, 'Zuy7iE_yJXzm4f2rZ')
-    //         .then((result) => {
-    //             console.log(result.text);
-    //         }, (error) => {
-    //             console.log(error.text);
-    //         });
-    //     e.target.reset()
-    // };
 
     return (
         <>
@@ -124,7 +92,6 @@ export default function Cart() {
                             <h3>Total</h3>
                         </div>
                     </section>
-                    {/* <hr /> */}
                     <div className={styles.cartFlex}>
                         <Col span={16}>
                             <section className="p-5">
@@ -196,7 +163,6 @@ export default function Cart() {
                                 <div className={`${styles.subTotal} ${styles.baseSub}`}>
                                     <h1>Subtotal</h1>
                                     <h3>$&nbsp;{totalPrice ? formattedCount(totalPrice) : 0}</h3>
-                                    {/* <h3>$&nbsp;{estimatePrice}</h3> */}
                                 </div>
                                 <div className={`${styles.shipFee} ${styles.baseSub}`}>
                                     <h1>Shipping Fee</h1>
@@ -206,7 +172,6 @@ export default function Cart() {
                                 <div className={`${styles.estimateTotal} ${styles.baseSub}`}>
                                     <h1>Estimate Total</h1>
                                     <h3>$&nbsp;{totalPrice ? formattedCount(totalPrice) : 0}</h3>
-                                    {/* <h3>$&nbsp;{estimatePrice}</h3> */}
                                 </div>
                                 <input type="hidden" value={totalPrice ? formattedCount(totalPrice) : 0} name="priceValue" />
                                 <Button

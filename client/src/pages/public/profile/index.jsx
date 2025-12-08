@@ -12,7 +12,6 @@ import { getCurrent } from '~/redux/features/slices/asyncActions';
 export default function Profile() {
     const { current } = useSelector((state) => state.user);
     const dispatch = useDispatch();
-    // console.log(current);
     const [readOnly, setReadOnly] = useState(true);
 
     // State để lưu trữ giá trị từ InputInformation
@@ -37,12 +36,8 @@ export default function Profile() {
             toast.error(response.mes);
         }
         setReadOnly(true);
-
-        // formData chứa giá trị mới từ InputInformation
-        console.log('Data from InputInformation:', formData);
     };
 
-    // Callback function để cập nhật formData từ InputInformation
     const handleInputChange = (name, value) => {
         setFormData((prevData) => ({
             ...prevData,

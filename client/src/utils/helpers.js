@@ -3,7 +3,6 @@ export function getBase64 (file) {
         if (!file) {
             return '';
         }
-        console.log(file);
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => resolve(reader.result);

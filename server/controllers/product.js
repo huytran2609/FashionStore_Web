@@ -40,7 +40,6 @@ const getProducts = asyncHandler(async (req, res) => {
     //Filtering
     if (queries?.title) formatedQueries.title = { $regex: queries.title, $options: 'i' };
 
-    // let queryObject = {}
     if(queries?.q) {
         delete formatedQueries.q
         const regex = { $regex: queries?.q, $options: 'i' };
@@ -80,8 +79,6 @@ const getProducts = asyncHandler(async (req, res) => {
     queryCommand
         .then(async (result) => {
             const counts = await Product.find(formatedQueries).countDocuments();
-            // Lọc và lộn xộn mảng result
-            // const shuffledResult = result.filter(() => true).sort(() => Math.random() - 0.5);
             return res.status(200).json({
                 success: result ? true : false,
                 counts,

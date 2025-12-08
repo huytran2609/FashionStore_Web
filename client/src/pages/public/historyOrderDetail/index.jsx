@@ -22,8 +22,6 @@ export default function HistoryOrderDetail() {
     
     const orderDetail = orderResponse?.orderDetail || null;
     const detailProduct = orderDetail?.products || null;
-    console.log(orderDetail);
-    // console.log(detailProduct);
     const navigate = useNavigate();
 
     const handleDelete = async () => {

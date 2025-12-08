@@ -1,9 +1,5 @@
 import axios from '../axios';
 
-// export const getAllCategory = () => {
-//     return axios.get('/category/');
-// };
-
 const categoryApi = {
     getAll() {
         const url = '/category/';

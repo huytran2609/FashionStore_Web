@@ -33,7 +33,6 @@ export const userSlice = createSlice({
         },
         updateCart: (state, action) => {
             const {pid, quantity, color} = action.payload;
-            // console.log({pid, quantity, color});
             const updatingCart = JSON.parse(JSON.stringify(state.currentCart));
             const updatedCart = updatingCart.map(item => {
                 if (item.product._id === pid && item.color[0] === color[0]) {
@@ -44,7 +43,6 @@ export const userSlice = createSlice({
             });
             state.totalPrice = updatedCart.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
             state.currentCart = updatedCart;
-            // console.log(updatedCart);
         }
     },
     extraReducers: (builder) => {

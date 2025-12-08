@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-// h-[calc(100%-1rem)]
 
 const Modal = ({ isOpen, handleClose, children, title, size = '3xl' }) => {
   return (

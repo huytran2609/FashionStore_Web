@@ -2,8 +2,6 @@ const Product = require('../models/product');
 const Category = require('../models/category');
 const asyncHandler = require('express-async-handler');
 const slugify = require('slugify');
-// const data = require('../data/FashionStoreData5.json');
-// const dataCate = require('../data/Categories');
 
 const fn = async (product) => {
     await Product.create({

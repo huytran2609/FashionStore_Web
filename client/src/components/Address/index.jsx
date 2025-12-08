@@ -43,14 +43,6 @@ function Address({ placeHolder, setAddressDefault, name }) {
     useEffect(() => {
         setAddressDefault(`${dis}, ${pro}`)
     }, [pro, dis])
-    // useEffect(() => {
-    //     setPayload(prev => ({
-    //         ...prev,
-    //         address: `${district ? `${districts?.find(item => item.district_id === district)?.district_name},` : ''} ${province ? provinces?.find(item => item.province_id === province)?.province_name : ''}`,
-    //         province: province ? provinces?.find(item => item.province_id === province)?.province_name : ''
-    //     }))
-
-    // }, [province, district])
     return (
         <div>
             <div className='flex flex-col gap-4'>

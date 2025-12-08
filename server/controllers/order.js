@@ -11,17 +11,6 @@ const createOrder = asyncHandler(async (req, res) => {
     }
     const user = await User.findById(_id).select('name');
     const createdData = { products, totalPrice, orderBy: { userId: _id, name: user.name, address } };
-    // const userCart = await User.findById(_id).select('cart').populate('cart.product', 'title price');
-    // const products = userCart?.cart?.map((item) => ({
-    //     product: item.product._id,
-    //     quantity: item.quantity,
-    //     color: item.color[0],
-    // }));
-    // let total = userCart?.cart?.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
-    // const createdData = { products, totalPrice: total, orderBy: _id };
-    // if (coupon) {
-    //     const selectedCoupon = await Coupon.findById(coupon);
-    //     total = Math.round((total * (1 - selectedCoupon?.discount / 100)) / 1000) * 1000;
     //     createdData.totalPrice = total;
     //     createdData.coupon = coupon;
     // }
@@ -126,8 +115,6 @@ const getOrders = asyncHandler(async (req, res) => {
     queryCommand
         .then(async (result) => {
             const counts = await Order.find(formatedQueries).countDocuments();
-            // Lọc và lộn xộn mảng result
-            // const shuffledResult = result.filter(() => true).sort(() => Math.random() - 0.5);
             return res.status(200).json({
                 success: result ? true : false,
                 counts,

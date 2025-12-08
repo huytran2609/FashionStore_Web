@@ -35,13 +35,6 @@ export default function Login() {
             toast.error('Please enter all fields');
             return;
         }
-        // const response = await apiLogin(payload);
-        // if (response.success) {
-        //     dispatch(login({ isLoggedIn: true, userData: response.userData, token: response.accessToken }));
-        //     navigate(config.home);
-        // } else {
-        //     toast.error('Failure', response.mes, 'error');
-        // }
 
         try {
             const response = await apiLogin(payload);

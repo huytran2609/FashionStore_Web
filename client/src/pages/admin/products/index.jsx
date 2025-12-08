@@ -63,50 +63,10 @@ function Product() {
         return productsResponse;
     }, [productsResponse]);
 
-    // useEffect(() => {
-    //     // Khi editProduct thay đổi, cập nhật giá trị mặc định của các trường
-    //     if (editProduct) {
-    //         setValue('name', editProduct.name);
-    //         setValue('email', editProduct.email);
-    //         setValue('phone', editProduct.phone);
-    //         setValue('status', editProduct.isBlocked ? 'Block' : 'Active');
-    //     }
-    //     console.log(editProduct);
-    // }, [editProduct, setValue]);
-
     const render = useCallback(() => {
         setUpdated(!updated);
         refetch(queries);
     }, [updated, refetch, queries]);
-
-    // const handleUpdate = async (data) => {
-    //     const response = await apiUpdateproduct(data, editProduct._id);
-    //     if (response.success) {
-    //         setEditProduct(null);
-    //         render();
-    //         toast.success(response.mes);
-    //     } else {
-    //         toast.error(response.mes);
-    //     }
-    // };
-
-    // const handleDelete = async (uid) => {
-    //     Swal.fire({
-    //         title: 'Are you sure?',
-    //         text: "You won't be able to revert this!",
-    //         showCancelButton: true,
-    //     }).then(async (result) => {
-    //         if (result.isConfirmed) {
-    //             const response = await apiDeleteproduct(uid);
-    //             if (response.success) {
-    //                 render();
-    //                 toast.success(response.mes);
-    //             } else {
-    //                 toast.error(response.mes);
-    //             }
-    //         }
-    //     });
-    // };
 
     const handlePreviewThumb = async (file) => {
         const base64Thumb = await getBase64(file);
@@ -123,10 +83,6 @@ function Product() {
     const handlePreviewImages = async (files) => {
         const imagesPreview = [];
         for (let file of files) {
-            // if(file.type !== 'image/png' || file.type !== 'image/jpeg' || file.type != 'image/jpg') {
-            //     toast.warning('File is not supported!')
-            //     return;
-            // }
             const base64Images = await getBase64(file);
             imagesPreview.push(base64Images);
         }
@@ -142,10 +98,8 @@ function Product() {
 
     const handleCreateProduct = (data) => {
         if (data.category) data.category = categories.find((item) => item._id === data.category)?.title;
-        // console.log(data);
         const formData = new FormData();
         for (let i of Object.entries(data)) formData.append(i[0], i[1]);
-        for (let pair of formData.entries()) console.log(pair[0] + ', ' + pair[1]);
         if (data.thumbnail) formData.append('thumbnail', data.thumbnail[0]);
         if (data.images) for (let image of data.images) formData.append('images', image);
         const response = apiCreateProduct(formData);
@@ -293,7 +247,6 @@ function Product() {
                                                     Update
                                                 </button>
                                                 <span
-                                                    // onClick={() => setEditProduct(null)}
                                                     className="rounded-md border bg-blue-100 border-blue-600 text-blue-600 text-[0.75rem] w-12 p-1 mr-1 hover:bg-blue-500 hover:text-white cursor-pointer"
                                                 >
                                                     Back
@@ -455,7 +408,6 @@ function Product() {
                                     type="file"
                                     className="hidden"
                                     {...register('thumbnail', { required: 'Required' })}
-                                    // onChange={(event) => setPreview({thumbnail: event.target.files[0]})}
                                 />
                                 {errors['thumbnail'] && (
                                     <small className="text-red-400 text-[0.625rem] absolute bottom-0 translate-y-[-3] pl-1 pt-1">
@@ -514,7 +466,6 @@ function Product() {
                                     className="hidden relative"
                                     multiple
                                     {...register('images')}
-                                    // onChange={(event) => setPreview({images: event.target.files[0]})}
                                 />
                                 {errors['images'] && (
                                     <small className="text-red-400 text-[0.625rem] absolute bottom-0 translate-y-[-3] pl-1 pt-1">

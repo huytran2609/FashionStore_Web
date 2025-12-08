@@ -106,7 +106,6 @@ export default function ProductDetail() {
                                 (productData?.color || []).map((color) => (
                                     <label key={color} className={styles.container}>
                                         <input onClick={handleColor} value={color ? color : 'Pink'} type="radio" name='color' />
-                                        {/* {console.log(color)} */}
                                         <span style={{ '--color': color ? color : '#E280AD' }} className={`${styles.firstColor} ${styles.checkmark2} ${styles.colorSwatch}`}></span>
                                     </label>
                                 ))

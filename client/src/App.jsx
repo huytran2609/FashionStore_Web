@@ -1,5 +1,3 @@
-// import { useState } from 'react';
-
 import { Fragment } from 'react';
 import { privateRoutes, publicRoutes } from './routes';
 import { Routes, Route } from 'react-router-dom';

@@ -47,8 +47,6 @@ export default function Register() {
 
     useEffect(() => {
         const result = USER_REGEX.test(payload.name);
-        // console.log(result);
-        // console.log(payload.name);
         setValidName(result);
     }, [payload.name]);
 
@@ -59,8 +57,6 @@ export default function Register() {
 
     useEffect(() => {
         const result = PWD_REGEX.test(payload.password);
-        // console.log(result);
-        // console.log(pwd);
         setValidPwd(result);
         const match = payload.password === matchPwd;
         setValidMatch(match);
@@ -70,43 +66,15 @@ export default function Register() {
         setErrMsg('');
     }, [payload.name, payload.email, payload.password, matchPwd]);
 
-    // const handleSubmit = async () => {
-    //     const { name, email, password } = payload;
-    //     if (!name || !email || !password) {
-    //         setErrMsg('Please enter all fields');
-    //         return;
-    //     }
-    //     if (!validName || !validPwd || !validMatch || !validEmail ? true : false) {
-    //         setErrMsg('Please enter the correct information');
-    //         return;
-    //     }
-    //     const response = await apiRegister(payload);
-    //     if (response.success) {
-    //         Swal.fire('Congratulation', response.mes, 'success').then(() => {
-    //             //logic
-    //             setPayload({
-    //                 email: '',
-    //                 name: '',
-    //                 password: '',
-    //             });
-    //         });
-    //     }
-    //     else {
-    //         Swal.fire('Failure', response.mes, 'error');
-    //     }
-    // };
-
     const handleSubmit = async () => {
         const { name, email, password } = payload;
 
         if (!name || !email || !password) {
-            // setErrMsg('Please enter all fields');
             toast.error('Please enter all fields');
             return;
         }
 
         if (!validName || !validPwd || !validMatch || !validEmail) {
-            // setErrMsg('Please enter the correct information');
             toast.error('Please enter the correct information');
             return;
         }
@@ -115,10 +83,6 @@ export default function Register() {
             const response = await apiRegister(payload);
 
             if (response.success) {
-                //     Swal.fire('Success', response.mes, 'success').then(() => {
-                //     handleSuccess();
-                // });
-                // toast.success(response.mes, { onClose: handleSuccess });
                 toast.success(response.mes);
                 setIsOpen(true);
             } else {
@@ -130,7 +94,6 @@ export default function Register() {
     };
 
     const handleSuccess = () => {
-        // Thêm logic sau khi đăng ký thành công
         setPayload({
             email: '',
             name: '',
@@ -315,10 +278,7 @@ export default function Register() {
                         <a href="#">Forgot password?</a>
                     </div>
 
-                    <button
-                        // disabled={!validName || !validPwd || !validMatch || !validEmail ? true : false}
-                        onClick={handleSubmit}
-                    >
+                    <button onClick={handleSubmit}>
                         Create Account
                     </button>
                     <div className={styles.loginLink}>
