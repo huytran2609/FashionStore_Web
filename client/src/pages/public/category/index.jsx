@@ -1,17 +1,18 @@
 import styles from './Category.module.scss'
 import Product from '~/layouts/public/products'
-import { useState, useEffect, memo, useMemo } from 'react';
+import { useState, useEffect, memo, useMemo, useRef } from 'react';
 import Recommended from '~/layouts/public/recommended';
 import Sidebar from '~/layouts/public/sidebar';
 import Card from '~/components/card';
 import { Row, Col } from 'antd';
 import categoryApi from '~/apis/categoryAPI/categoryApi';
 import { Pagination } from '~/components/pagination';
-import { useSearchParams, useLocation } from 'react-router-dom';
+import { useSearchParams, useLocation, useNavigate } from 'react-router-dom';
 import { useProducts, useProductFilter, useCategories } from '~/hooks';
 
 export default function Category() {
     const location = useLocation();
+    const navigate = useNavigate();
     const { categories } = useCategories();
 
     const [params] = useSearchParams();
@@ -22,7 +23,11 @@ export default function Category() {
 
     const categoryName = useMemo(() => {
         if (!categoryFromPath || categories.length === 0) return null;
-        const category = categories.find(cat => cat.title.toLowerCase() === categoryFromPath);
+        // Find category by matching lowercase title with path category
+        const category = categories.find(cat => {
+            const catTitleLower = cat.title?.toLowerCase() || '';
+            return catTitleLower === categoryFromPath;
+        });
         return category ? category.title : null;
     }, [categoryFromPath, categories]);
 
@@ -38,6 +43,14 @@ export default function Category() {
         defaultParams: queries,
         limit: 30,
     });
+
+    // Ensure productData is always an array
+    const productsArray = useMemo(() => {
+        if (!productData || !Array.isArray(productData)) {
+            return [];
+        }
+        return productData;
+    }, [productData]);
 
     const MemoizedCard = memo(({ id, img, title, newPrice, color }) => (
         <Card
@@ -59,10 +72,20 @@ export default function Category() {
         setSelectedFilter,
         handleInputChange,
         handleFilterChange,
-    } = useProductFilter(productData, {
+        clearFilters,
+    } = useProductFilter(productsArray, {
         searchFields: ['title'],
         filterFields: ['category', 'color', 'company', 'newPrice', 'title'],
     });
+
+    // Clear filters when category changes
+    const prevCategoryNameRef = useRef(categoryName);
+    useEffect(() => {
+        if (categoryName !== prevCategoryNameRef.current) {
+            prevCategoryNameRef.current = categoryName;
+            clearFilters();
+        }
+    }, [categoryName, clearFilters]);
 
     //---------- Radio Filter ------------
     const handleChange = (event) => {
@@ -71,7 +94,30 @@ export default function Category() {
 
     //---------- Buttons Filter ------------
     const handleClick = (event) => {
-        handleFilterChange(event.target.value);
+        // Get value from button - can be from event.target.value or event.currentTarget.value
+        const categoryValue = event.target?.value || event.currentTarget?.value || '';
+        
+        // If "All Products" is clicked (empty value), navigate to category page without specific category
+        if (!categoryValue || categoryValue === '') {
+            navigate('/category');
+            return;
+        }
+        
+        // Find the category by title (case-insensitive comparison)
+        const clickedCategory = categories.find(cat => {
+            const catTitle = cat.title?.toLowerCase() || '';
+            const value = categoryValue.toLowerCase();
+            return catTitle === value;
+        });
+        
+        if (clickedCategory) {
+            const categoryPath = clickedCategory.title.toLowerCase();
+            // Navigate to the category page
+            navigate(`/${categoryPath}`);
+        } else {
+            // Fallback: just filter if category not found
+            handleFilterChange(categoryValue);
+        }
     };
 
     const result = useMemo(() => {

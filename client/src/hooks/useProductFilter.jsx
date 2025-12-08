@@ -49,11 +49,16 @@ function useProductFilter(products = [], options = {}) {
             });
         }
 
-        // Apply selected filter
-        if (selectedFilter) {
+        // Apply selected filter (only if not empty string)
+        if (selectedFilter && selectedFilter !== '') {
             filtered = filtered.filter((product) => {
                 return filterFields.some((field) => {
                     const value = product[field];
+                    if (value === null || value === undefined) return false;
+                    // Case-insensitive comparison for category field
+                    if (field === 'category') {
+                        return String(value).toLowerCase() === String(selectedFilter).toLowerCase();
+                    }
                     return value === selectedFilter || String(value) === String(selectedFilter);
                 });
             });
