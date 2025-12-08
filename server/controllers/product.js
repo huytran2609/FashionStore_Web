@@ -25,52 +25,8 @@ const getProduct = asyncHandler(async (req, res) => {
     });
 });
 
-const getProductsWomen = asyncHandler(async (req, res) => {
-    // const { category } = req.params;
-    const product = await Product.find({ category: 'Women' }).sort({ title: 1 }).limit(25);
-    return res.status(200).json({
-        success: product ? true : false,
-        productData: product ? product : 'Fail to get product',
-    });
-});
-
-const getProductsMen = asyncHandler(async (req, res) => {
-    // const { category } = req.params;
-    const product = await Product.find({ category: 'Men' }).sort({ title: 1 }).limit(25);
-    return res.status(200).json({
-        success: product ? true : false,
-        productData: product ? product : 'Fail to get product',
-    });
-});
-
-const getProductsBeauty = asyncHandler(async (req, res) => {
-    // const { category } = req.params;
-    const product = await Product.find({ category: 'Beauty' }).sort({ title: 1 }).limit(25);
-    return res.status(200).json({
-        success: product ? true : false,
-        productData: product ? product : 'Fail to get product',
-    });
-});
-
-const getProductsKids = asyncHandler(async (req, res) => {
-    // const { category } = req.params;
-    const product = await Product.find({ category: 'Kids' }).sort({ title: 1 }).limit(25);
-    return res.status(200).json({
-        success: product ? true : false,
-        productData: product ? product : 'Fail to get product',
-    });
-});
-
-const getProductsLifestyle = asyncHandler(async (req, res) => {
-    // const { category } = req.params;
-    const product = await Product.find({ category: 'Lifestyle' }).sort({ title: 1 }).limit(25);
-    return res.status(200).json({
-        success: product ? true : false,
-        productData: product ? product : 'Fail to get product',
-    });
-});
-
 //Filtering, sorting & pagination
+// Supports category filtering via query params: ?category=Women
 const getProducts = asyncHandler(async (req, res) => {
     const queries = { ...req.query };
     //Tách các trường đặc biệt ra khỏi query
@@ -223,9 +179,4 @@ module.exports = {
     deleteProduct,
     ratings,
     uploadImagesProduct,
-    getProductsWomen,
-    getProductsMen,
-    getProductsBeauty,
-    getProductsKids,
-    getProductsLifestyle,
 };
