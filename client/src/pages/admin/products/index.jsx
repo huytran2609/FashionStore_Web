@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useMemo } from 'react';
 import { Pagination } from '~/components/pagination';
 import { useDebounce } from '~/hooks';
 import InputSearch from '~/layouts/admin/components/inputSearch';
@@ -10,10 +10,11 @@ import InputForm from '~/components/inputForm';
 import Modal from '~/components/modal';
 import categoryApi from '~/apis/categoryAPI/categoryApi';
 import Select from '~/components/select';
-import { getAllProducts } from '~/apis/products';
 import TextArea from '~/components/textArea';
 import { formatCreatedAt, getBase64 } from '~/utils/helpers';
 import { apiCreateProduct, apiDeleteProduct } from '~/apis/admin/product';
+import { useProducts } from '~/hooks';
+import { getEmailValidation, getPhoneValidation } from '~/utils/validators';
 
 function Product() {
     const [isOpen, setIsOpen] = useState(false);
@@ -45,27 +46,31 @@ function Product() {
     const [editProduct, setEditProduct] = useState(null);
     const [updated, setUpdated] = useState(false);
 
-    const [products, setProducts] = useState([]);
     const [query, setQuery] = useState({ q: '' });
-
     const [params] = useSearchParams();
-
     const debounced = useDebounce(query.q, 600);
 
-    const fetchApiProducts = async (params) => {
-        const response = await getAllProducts({ ...params, limit: 8 });
-        if (response.success) {
-            setProducts(response);
-        }
-    };
-
-    useEffect(() => {
-        const queries = Object.fromEntries([...params]);
+    const queries = useMemo(() => {
+        const queryParams = Object.fromEntries([...params]);
         if (debounced) {
-            queries.q = debounced;
+            queryParams.q = debounced;
         }
-        fetchApiProducts(queries);
-    }, [debounced, params, updated]);
+        return queryParams;
+    }, [debounced, params]);
+
+    const { products: productsResponse, refetch } = useProducts({
+        defaultParams: queries,
+        limit: 8,
+        autoFetch: true,
+        dependencies: [JSON.stringify(queries), updated],
+    });
+
+    const products = useMemo(() => {
+        if (!productsResponse || !productsResponse.products) {
+            return { products: [], counts: 0 };
+        }
+        return productsResponse;
+    }, [productsResponse]);
 
     // useEffect(() => {
     //     // Khi editProduct thay đổi, cập nhật giá trị mặc định của các trường
@@ -80,7 +85,8 @@ function Product() {
 
     const render = useCallback(() => {
         setUpdated(!updated);
-    }, [updated]);
+        refetch(queries);
+    }, [updated, refetch, queries]);
 
     // const handleUpdate = async (data) => {
     //     const response = await apiUpdateproduct(data, editProduct._id);
@@ -213,7 +219,7 @@ function Product() {
                             </tr>
                         </thead>
                         <tbody>
-                            {products?.products?.map((product, index) => (
+                            {products.products?.map((product, index) => (
                                 <tr
                                     key={`${product._id} - ${index} - ${product.color}`}
                                     className="border-b dark:border-neutral-500"
@@ -247,13 +253,7 @@ function Product() {
                                                 errors={errors}
                                                 defaultValue={watch(editProduct?.email)}
                                                 id={'email'}
-                                                validate={{
-                                                    required: 'Required',
-                                                    pattern: {
-                                                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                                                        message: 'Invalid email address',
-                                                    },
-                                                }}
+                                                validate={getEmailValidation()}
                                             />
                                         ) : (
                                             <span>{product?.brand}</span>
@@ -266,13 +266,7 @@ function Product() {
                                                 errors={errors}
                                                 defaultValue={editProduct?.phone}
                                                 id={'phone'}
-                                                validate={{
-                                                    required: 'Required',
-                                                    pattern: {
-                                                        value: /^[0-9]{10}$/,
-                                                        message: 'Invalid phone number',
-                                                    },
-                                                }}
+                                                validate={getPhoneValidation()}
                                             />
                                         ) : (
                                             <span>{product?.category}</span>

@@ -13,8 +13,8 @@ import setSport2 from '../assets/model/model2_nobg.png'
 import 'aos/dist/aos.css';
 import Star from '~/components/star'
 import Product from '~/layouts/public/products'
-import { getAllProducts } from '~/apis/products'
 import { useEffect, useState, memo } from 'react'
+import { useProducts } from '~/hooks'
 import Card from '~/components/card'
 import config from '~/config'
 import bestPro from '~/assets/bestPro.jpg'
@@ -22,19 +22,11 @@ function Home() {
     const randomRate = Math.ceil(Math.random() * 5);
     const randomSale = Math.ceil(Math.random() * 80);
     const randomSale2 = Math.ceil(Math.random() * 80);
-    const [productData, setProductData] = useState([])
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const productsData = await getAllProducts();
-                setProductData(productsData.products)
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-        fetchData();
-    }, []);
+    
+    const { products: productData } = useProducts({
+        limit: 100,
+        autoFetch: true,
+    });
 
     const MemoizedCard = memo(({ id, img, title, newPrice, color }) => (
         <Card

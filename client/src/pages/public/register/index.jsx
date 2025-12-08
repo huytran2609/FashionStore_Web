@@ -10,10 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Swal from 'sweetalert2';
 import Modal from '~/components/modal';
 import { useNavigate } from 'react-router-dom';
-
-const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9\s-_]{5,23}$/;
-const EMAIL_REGEX = /^\S+@\S+\.\S+$/;
-const PWD_REGEX = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+import { USER_REGEX, EMAIL_REGEX, PWD_REGEX, validateEmail, validatePassword, validateUsername } from '~/utils/validators';
 
 export default function Register() {
     const [isOpen, setIsOpen] = useState(false);

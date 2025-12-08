@@ -10,6 +10,7 @@ import { apiCreateOrder } from '~/apis/order';
 import { toast } from 'react-toastify';
 import { useRef } from 'react';
 import emailjs from '@emailjs/browser';
+import { validateEmail, validatePhone } from '~/utils/validators';
 
 export default function Cart() {
     const { current, currentCart, totalPrice } = useSelector((state) => state.user);
@@ -48,15 +49,6 @@ export default function Cart() {
     };
 
     // console.log(addressDefault);
-    const validateEmail = (email) => {
-        const regex = /^\S+@\S+\.\S+$/;
-        return regex.test(email);
-    };
-
-    const validatePhone = (phone) => {
-        const regex = /^[0-9]{10}$/;
-        return regex.test(phone);
-    };
     const form = useRef();
 
     const handleCheckOut = async (e) => {

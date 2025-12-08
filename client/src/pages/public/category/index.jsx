@@ -1,6 +1,5 @@
 import styles from './Category.module.scss'
 import Product from '~/layouts/public/products'
-import { getAllProducts } from '~/apis/products'
 import { useState, useEffect, memo, useMemo } from 'react';
 import Recommended from '~/layouts/public/recommended';
 import Sidebar from '~/layouts/public/sidebar';
@@ -9,6 +8,7 @@ import { Row, Col } from 'antd';
 import categoryApi from '~/apis/categoryAPI/categoryApi';
 import { Pagination } from '~/components/pagination';
 import { useSearchParams, useLocation } from 'react-router-dom';
+import { useProducts, useProductFilter } from '~/hooks';
 
 export default function Category() {
     const [categories, setCategories] = useState([]);
@@ -22,8 +22,6 @@ export default function Category() {
         fetchApiCategories();
     }, []);
 
-    const [productData, setProductData] = useState([])
-    const [count , setCount] = useState(0)
     const [params] = useSearchParams();
 
     const pathCategory = location.pathname.replace('/', '').toLowerCase();
@@ -36,23 +34,20 @@ export default function Category() {
         return category ? category.title : null;
     }, [categoryFromPath, categories]);
 
-    useEffect(() => {
-        const fetchData = async (params) => {
-            try {
-                const queryParams = { ...params };
-                if (categoryName && !queryParams.category) {
-                    queryParams.category = categoryName;
-                }
-                const productsData = await getAllProducts({ ...queryParams, limit: 30 });
-                setProductData(productsData.products)
-                setCount(productsData.counts)
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-        const queries = Object.fromEntries([...params]);
-        fetchData(queries);
+    const queries = useMemo(() => {
+        const queryParams = Object.fromEntries([...params]);
+        if (categoryName && !queryParams.category) {
+            queryParams.category = categoryName;
+        }
+        return queryParams;
     }, [params, categoryName]);
+
+    const { products: productData, count } = useProducts({
+        defaultParams: queries,
+        limit: 30,
+        autoFetch: true,
+        dependencies: [queries],
+    });
 
     const MemoizedCard = memo(({ id, img, title, newPrice, color }) => (
         <Card
@@ -66,52 +61,33 @@ export default function Category() {
         />
     ));
 
-    const [selectedCategory, setSelectedCategory] = useState(null);
-    const [query, setQuery] = useState('');
-
-    //---------- Input Filter ------------
-
-    const handleInputChange = (event) => {
-        setQuery(event.target.value);
-    };
-
-    const filteredItems = productData.filter(
-        (product) => product.title.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) !== -1,
-    );
+    const {
+        filteredProducts,
+        query,
+        setQuery,
+        selectedFilter,
+        setSelectedFilter,
+        handleInputChange,
+        handleFilterChange,
+    } = useProductFilter(productData, {
+        searchFields: ['title'],
+        filterFields: ['category', 'color', 'company', 'newPrice', 'title'],
+    });
 
     //---------- Radio Filter ------------
     const handleChange = (event) => {
-        setSelectedCategory(event.target.value);
+        handleFilterChange(event.target.value);
     };
 
     //---------- Buttons Filter ------------
     const handleClick = (event) => {
-        setSelectedCategory(event.target.value);
+        handleFilterChange(event.target.value);
     };
 
-    function filteredData(productData, selected, query) {
-        let filteredProducts = productData;
-
-        // Filtering Input Items
-        if (query) {
-            filteredProducts = filteredItems;
-        }
-
-        // Applying selected filter
-        if (selected) {
-            filteredProducts = filteredProducts.filter(
-                ({ category, color, company, newPrice, title }) =>
-                    category === selected ||
-                    color === selected ||
-                    company === selected ||
-                    newPrice === selected ||
-                    title === selected,
-            );
-        }
-
+    const result = useMemo(() => {
         return filteredProducts.map(({ _id, thumbnail, title, price, color }) => (
             <MemoizedCard
-                key={Math.random()}
+                key={_id}
                 img={thumbnail}
                 title={title}
                 prevPrice={Number(price * 3)}
@@ -120,9 +96,7 @@ export default function Category() {
                 color={color}
             />
         ));
-    }
-
-    const result = filteredData(productData, selectedCategory, query);
+    }, [filteredProducts]);
 
     return (
         <>

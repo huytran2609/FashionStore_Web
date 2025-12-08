@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import InputForm from '~/components/inputForm';
+import { getEmailValidation, getPhoneValidation } from '~/utils/validators';
 
 function User() {
     const {
@@ -130,13 +131,7 @@ function User() {
                                                 errors={errors}
                                                 defaultValue={watch(editUser?.email)}
                                                 id={'email'}
-                                                validate={{
-                                                    required: 'Required',
-                                                    pattern: {
-                                                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                                                        message: 'Invalid email address',
-                                                    },
-                                                }}
+                                                validate={getEmailValidation()}
                                             />
                                         ) : (
                                             <span>{user?.email}</span>
@@ -149,13 +144,7 @@ function User() {
                                                 errors={errors}
                                                 defaultValue={editUser?.phone}
                                                 id={'phone'}
-                                                validate={{
-                                                    required: 'Required',
-                                                    pattern: {
-                                                        value: /^[0-9]{10}$/,
-                                                        message: 'Invalid phone number',
-                                                    },
-                                                }}
+                                                validate={getPhoneValidation()}
                                             />
                                         ) : (
                                             <span>{user?.phone}</span>
