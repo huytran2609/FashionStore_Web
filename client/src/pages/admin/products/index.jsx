@@ -53,7 +53,7 @@ function Product() {
     const { products: productsResponse, refetch } = useProducts({
         defaultParams: queries,
         limit: 8,
-        dependencies: [JSON.stringify(queries), updated],
+        dependencies: [updated],
     });
 
     const products = useMemo(() => {
@@ -62,39 +62,41 @@ function Product() {
         }
         return productsResponse;
     }, [productsResponse]);
-
+    
     const render = useCallback(() => {
         setUpdated(!updated);
         refetch(queries);
-    }, [updated, refetch, queries]);
+    }, [updated, refetch, queriesString]);
 
-    const handlePreviewThumb = async (file) => {
+    const handlePreviewThumb = useCallback(async (file) => {
         const base64Thumb = await getBase64(file);
         setPreview((prev) => ({ ...prev, thumbnail: base64Thumb }));
-    };
+    }, []);
 
+    const thumbnailFile = watch('thumbnail')?.[0];
+    
     useEffect(() => {
-        const thumbnailFile = watch('thumbnail')[0];
         if (thumbnailFile) {
             handlePreviewThumb(thumbnailFile);
         }
-    }, [watch('thumbnail')]);
+    }, [thumbnailFile, handlePreviewThumb]);
 
-    const handlePreviewImages = async (files) => {
+    const handlePreviewImages = useCallback(async (files) => {
         const imagesPreview = [];
         for (let file of files) {
             const base64Images = await getBase64(file);
             imagesPreview.push(base64Images);
         }
         setPreview((prev) => ({ ...prev, images: imagesPreview }));
-    };
+    }, []);
 
+    const thumbnailImages = watch('images');
+    
     useEffect(() => {
-        const thumbnailImages = watch('images');
         if (thumbnailImages) {
             handlePreviewImages(thumbnailImages);
         }
-    }, [watch('images')]);
+    }, [thumbnailImages, handlePreviewImages]);
 
     const handleCreateProduct = (data) => {
         if (data.category) data.category = categories.find((item) => item._id === data.category)?.title;

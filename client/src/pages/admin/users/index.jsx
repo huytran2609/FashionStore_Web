@@ -36,8 +36,11 @@ function User() {
         return queryParams;
     }, [debounced, params]);
 
+    // Stringify queries to avoid object reference issues
+    const queriesString = useMemo(() => JSON.stringify(queries), [queries]);
+
     const { data: users = {} } = useFetch(() => apiGetUsers(queries), {
-        dependencies: [JSON.stringify(queries), updated],
+        dependencies: [queriesString, updated],
     });
 
     useEffect(() => {

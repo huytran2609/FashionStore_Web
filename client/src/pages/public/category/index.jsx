@@ -37,7 +37,6 @@ export default function Category() {
     const { products: productData, count } = useProducts({
         defaultParams: queries,
         limit: 30,
-        dependencies: [queries],
     });
 
     const MemoizedCard = memo(({ id, img, title, newPrice, color }) => (

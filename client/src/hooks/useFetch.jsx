@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 /**
  * Generic custom hook for fetching data
@@ -21,24 +21,35 @@ function useFetch(fetchFunction, options = {}) {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    
+    // Use refs to store functions to avoid dependency issues
+    const fetchFunctionRef = useRef(fetchFunction);
+    const onSuccessRef = useRef(onSuccess);
+    const onErrorRef = useRef(onError);
+    
+    useEffect(() => {
+        fetchFunctionRef.current = fetchFunction;
+        onSuccessRef.current = onSuccess;
+        onErrorRef.current = onError;
+    }, [fetchFunction, onSuccess, onError]);
 
     const fetchData = useCallback(async (...args) => {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetchFunction(...args);
+            const response = await fetchFunctionRef.current(...args);
             
             if (response.success !== false) {
                 setData(response);
-                if (onSuccess) {
-                    onSuccess(response);
+                if (onSuccessRef.current) {
+                    onSuccessRef.current(response);
                 }
             } else {
                 const errorMsg = response.mes || 'Failed to fetch data';
                 setError(errorMsg);
                 setData(null);
-                if (onError) {
-                    onError(errorMsg);
+                if (onErrorRef.current) {
+                    onErrorRef.current(errorMsg);
                 }
             }
         } catch (err) {
@@ -46,18 +57,27 @@ function useFetch(fetchFunction, options = {}) {
             const errorMsg = err.message || 'An error occurred while fetching data';
             setError(errorMsg);
             setData(null);
-            if (onError) {
-                onError(errorMsg);
+            if (onErrorRef.current) {
+                onErrorRef.current(errorMsg);
             }
         } finally {
             setLoading(false);
         }
-    }, [fetchFunction, onSuccess, onError]);
+    }, []);
 
+    // Fetch on mount
     useEffect(() => {
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [fetchData, ...dependencies]);
+    }, []);
+    
+    // Fetch when dependencies change
+    useEffect(() => {
+        if (dependencies.length > 0) {
+            fetchData();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, dependencies);
 
     const refetch = useCallback((...args) => {
         return fetchData(...args);

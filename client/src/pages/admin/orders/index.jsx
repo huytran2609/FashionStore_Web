@@ -33,8 +33,11 @@ function Order() {
         return { ...queryParams, limit: 5, sort: '-createdAt' };
     }, [debounced, params]);
 
+    // Stringify queries to avoid object reference issues
+    const queriesString = useMemo(() => JSON.stringify(queries), [queries]);
+
     const { data: orders = {} } = useFetch(() => apiGetOrders(queries), {
-        dependencies: [JSON.stringify(queries), updated],
+        dependencies: [queriesString, updated],
     });
 
     const render = useCallback(() => {

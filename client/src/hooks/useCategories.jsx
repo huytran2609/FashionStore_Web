@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import categoryApi from '~/apis/categoryAPI/categoryApi';
 
 /**
@@ -17,6 +17,12 @@ function useCategories(options = {}) {
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    
+    // Use ref to store categories_emoji to avoid dependency issues
+    const categoriesEmojiRef = useRef(categories_emoji);
+    useEffect(() => {
+        categoriesEmojiRef.current = categories_emoji;
+    }, [categories_emoji]);
 
     const fetchCategories = async () => {
         setLoading(true);
@@ -27,10 +33,10 @@ function useCategories(options = {}) {
                 let merged = response.dataCategories;
                 
                 // Merge with emoji if provided
-                if (categories_emoji.length > 0) {
+                if (categoriesEmojiRef.current.length > 0) {
                     merged = response.dataCategories.map((category, index) => ({
                         ...category,
-                        ...categories_emoji[index % categories_emoji.length],
+                        ...categoriesEmojiRef.current[index % categoriesEmojiRef.current.length],
                     }));
                 }
                 
@@ -48,10 +54,11 @@ function useCategories(options = {}) {
         }
     };
 
+    // Fetch on mount only
     useEffect(() => {
         fetchCategories();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [categories_emoji]);
+    }, []);
 
     const refetch = () => {
         return fetchCategories();
