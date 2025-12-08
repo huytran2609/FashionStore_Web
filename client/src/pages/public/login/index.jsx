@@ -3,6 +3,7 @@ import styles from './Login.module.scss';
 import { FaUser, FaLock } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import config from '~/config';
+import { appConfig } from '~/config/env';
 import { apiForgotPassword, apiLogin } from '~/apis/user';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -41,7 +42,7 @@ export default function Login() {
             if (response.success) {
                 dispatch(login({ isLoggedIn: true, userData: response.userData, token: response.accessToken }));
 
-                await new Promise((resolve) => setTimeout(resolve, 100));
+                await new Promise((resolve) => setTimeout(resolve, appConfig.toastDelay));
                 if (+response.userData.role === 1) {
                     navigate(config.admin);
                 } else if (location?.state) {

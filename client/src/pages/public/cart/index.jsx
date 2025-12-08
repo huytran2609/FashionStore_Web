@@ -12,6 +12,7 @@ import { useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import { validateEmail, validatePhone } from '~/utils/validators';
 import { formattedCount } from '~/utils/helpers';
+import { emailjsConfig, defaultValues } from '~/config/env';
 
 export default function Cart() {
     const { current, currentCart, totalPrice } = useSelector((state) => state.user);
@@ -29,7 +30,7 @@ export default function Cart() {
         setEmailValue(event.target.value);
     };
 
-    const [phoneValue, setPhoneValue] = useState('0308217772');
+    const [phoneValue, setPhoneValue] = useState(defaultValues.phone);
     const handlePhoneChange = (event) => {
         setPhoneValue(event.target.value);
     };
@@ -64,7 +65,12 @@ export default function Cart() {
         });
 
         if (response.success) {
-            emailjs.sendForm('service_0hirvyh', 'template_ypt2vbd', form.current, 'Zuy7iE_yJXzm4f2rZ')
+            emailjs.sendForm(
+                emailjsConfig.serviceId,
+                emailjsConfig.templateId,
+                form.current,
+                emailjsConfig.publicKey
+            )
                 .then(() => {
                     window.location.reload();
                 }, (error) => {

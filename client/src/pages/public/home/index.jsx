@@ -17,6 +17,7 @@ import { useEffect, useState, memo } from 'react'
 import { useProducts } from '~/hooks'
 import Card from '~/components/card'
 import config from '~/config'
+import { appConfig } from '~/config/env'
 import bestPro from '~/assets/bestPro.jpg'
 function Home() {
     const randomRate = Math.ceil(Math.random() * 5);
@@ -24,7 +25,7 @@ function Home() {
     const randomSale2 = Math.ceil(Math.random() * 80);
     
     const { products: productData } = useProducts({
-        limit: 100,
+        limit: appConfig.homeProductsLimit,
     });
 
     const MemoizedCard = memo(({ id, img, title, newPrice, color }) => (
@@ -38,7 +39,7 @@ function Home() {
             color={color}
         />
     ));
-    const result = productData.slice(0, 10).map(({ _id, thumbnail, title, price, color }) => (
+    const result = productData.slice(0, appConfig.homeDisplayLimit).map(({ _id, thumbnail, title, price, color }) => (
         <MemoizedCard
             key={_id}
             img={thumbnail}

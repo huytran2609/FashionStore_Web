@@ -15,6 +15,7 @@ import { formatCreatedAt, getBase64 } from '~/utils/helpers';
 import { apiCreateProduct, apiDeleteProduct } from '~/apis/admin/product';
 import { useProducts, useCategories } from '~/hooks';
 import { getEmailValidation, getPhoneValidation } from '~/utils/validators';
+import { appConfig } from '~/config/env';
 
 function Product() {
     const [isOpen, setIsOpen] = useState(false);
@@ -40,7 +41,7 @@ function Product() {
 
     const [query, setQuery] = useState({ q: '' });
     const [params] = useSearchParams();
-    const debounced = useDebounce(query.q, 600);
+    const debounced = useDebounce(query.q, appConfig.debounceDelay);
 
     const queries = useMemo(() => {
         const queryParams = Object.fromEntries([...params]);
@@ -52,7 +53,7 @@ function Product() {
 
     const { products: productsResponse, refetch } = useProducts({
         defaultParams: queries,
-        limit: 8,
+        limit: appConfig.adminProductsLimit,
         dependencies: [updated],
     });
 
