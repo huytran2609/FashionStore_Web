@@ -9,10 +9,23 @@
 @keyframes animation-1295qio {
     0% {
         top: 0;
+        box-shadow: 0 0.0625rem 0.3125rem rgba(0, 0, 0, 0.25);
     }
 
     100% {
         top: -0.625rem;
+        box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(0.5rem);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
@@ -20,86 +33,264 @@
     position: relative;
     width: 100%;
     border-radius: 1.25rem;
-    -webkit-border-radius: 1.25rem;
-    -moz-border-radius: 1.25rem;
-    -ms-border-radius: 1.25rem;
-    -o-border-radius: 1.25rem;
-    // box-shadow: 0.0625rem 0.125rem 0.125rem rgba(0, 0, 0, 0.25);
+    background: #fff;
     box-shadow: 0 0.0625rem 0.3125rem rgba(0, 0, 0, 0.25);
+    // Remove delay - instant hover effect
+    transition: box-shadow 0.2s ease;
+    overflow: hidden;
+
     &:hover {
         cursor: pointer;
-        top: -0.625rem;
-        animation: 400ms ease 0s 1 normal none running animation-1295qio;
+        // Reduced shadow intensity - softer effect
+        box-shadow: 0 0.375rem 1rem rgba(0, 0, 0, 0.12);
     }
-    .imgProduct
-    {
+
+    .imgProduct {
+        position: relative;
         height: 15.3125rem;
         overflow: hidden;
         display: flex;
         justify-content: center;
-        img {
-            width: 100%;
-            object-fit: cover;
-            border-top-right-radius: 1.25rem;
-            border-top-left-radius: 1.25rem;
-        }
-    }
-
-    .imgProduct:hover {
-        cursor: pointer;
+        background: linear-gradient(to bottom, #f9fafb, #f3f4f6);
         border-top-right-radius: 1.25rem;
         border-top-left-radius: 1.25rem;
-    }
 
-    .imgProduct:hover img {
-        transform: scale(1.1);
-        transition: transform 0.3s ease;
+        .imageWrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                // Remove delay - instant hover effect
+                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                border-top-right-radius: 1.25rem;
+                border-top-left-radius: 1.25rem;
+            }
+        }
+
+        &:hover .imageWrapper img {
+            transform: scale(1.1);
+        }
+
+        // Discount Badge
+        .discountBadge {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: linear-gradient(135deg, #ef4444 0%, #f97316 100%);
+            color: #fff;
+            padding: 0.375rem 0.625rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            z-index: 10;
+            box-shadow: 0 0.25rem 0.5rem rgba(239, 68, 68, 0.3);
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        // Category Badge
+        .categoryBadge {
+            position: absolute;
+            bottom: 0.75rem;
+            left: 0.75rem;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(0.5rem);
+            color: #374151;
+            padding: 0.375rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            z-index: 10;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+        }
+
+        // Hover Actions
+        .hoverActions {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(0.25rem);
+            opacity: 0;
+            // Remove delay - instant hover effect
+            transition: opacity 0.15s ease;
+            z-index: 5;
+            pointer-events: none;
+
+            &.show {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .actionBtn {
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(0.5rem);
+                border: none;
+                border-radius: 50%;
+                width: 2.5rem;
+                height: 2.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+
+                &:hover {
+                    transform: scale(1.1);
+                    background: #fff;
+                    box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.2);
+                }
+
+                .icon {
+                    width: 1.25rem;
+                    height: 1.25rem;
+                    transition: all 0.2s ease;
+                }
+                
+                // When heart is NOT favorited, show black stroke
+                .iconNotFavorited {
+                    color: #374151;
+                    stroke: #374151;
+                    stroke-width: 2;
+                    fill: none;
+                }
+                
+                // When heart is favorited, remove stroke and set color to red
+                .iconFavorited {
+                    stroke: none !important;
+                    color: #ef4444 !important;
+                    fill: #ef4444 !important;
+                }
+            }
+        }
+
+        // Glow Effect - using pastel blue gradient to match card button
+        .glowEffect {
+            position: absolute;
+            inset: 0;
+            border-radius: 1.25rem;
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.15) 0%, rgba(56, 189, 248, 0.15) 50%, rgba(125, 211, 252, 0.15) 100%);
+            opacity: 0;
+            // Remove delay - instant hover effect
+            transition: opacity 0.15s ease;
+            pointer-events: none;
+            z-index: 1;
+
+            &.active {
+                opacity: 1;
+            }
+        }
     }
     
     .productBelow {
-        padding: 0.3125rem 0.9375rem;
+        padding: 1rem;
         font-size: 0.875rem;
         color: #000;
+        background: #fff;
+
+        .brand {
+            font-size: 0.75rem;
+            color: #6b7280;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
         .productName {
             height: 2.4375rem;
             @include limitText2;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+            text-decoration: none;
+            display: block;
+
+            &:hover {
+                color: #8b5cf6;
+            }
         }
 
-        .productInfo {
+        .ratingSection {
             display: flex;
-            justify-content: space-between;
-            .productNewPrice {
-                font-weight: bold;
-                color: #E280AD;
-                text-shadow: 0.0625rem 0.0625rem 0.0625rem rgb(103 0 76 / 13%);
-
-            }
-
-            .productPrevPrice {
-                color: #999;
-                text-decoration: line-through;
-                margin-right: 0.3125rem;
-                font-size: 0.75rem;
-                @include limitText2;
-            }
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
 
             .productRate {
                 display: flex;
                 align-items: center;
             }
+
+            .soldCount {
+                font-size: 0.75rem;
+                color: #6b7280;
+            }
+        }
+
+        .productInfo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+
+            .priceContainer {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .productNewPrice {
+                font-weight: 800;
+                font-size: 1.25rem;
+                // Use primary brand color for price
+                background: linear-gradient(135deg, #be226b 0%, #ee1f6b 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+            .productPrevPrice {
+                color: #9ca3af;
+                text-decoration: line-through;
+                font-size: 0.875rem;
+                font-weight: 400;
+            }
         }
 
         .btnProduct {
-            margin: 0.625rem 0;
+            margin: 0;
             width: 100%;
-            background-color: #be226b;
-            color: #fff;
-            font-size: 0.8125rem;
+            // Remove duplicate styles - Button component handles styling via variant prop
+            // Only keep layout styles here
+            
+            // Override button default styles for card
+            button {
+                width: 100%;
+                padding: 0.5rem 0.75rem !important;
+                min-height: 2.5rem;
+                height: auto;
+                font-size: 0.8125rem !important;
+                font-weight: 600;
+            }
         }
+    }
+}
 
-        .btnProduct:hover {
-            background-color: #ee1f6b;
-            opacity: 95%;
-        }
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
     }
 }

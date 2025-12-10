@@ -1,6 +1,7 @@
 import styles from './Button.module.scss';
 import { Link } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
+import { getButtonTheme, getButtonHoverTheme, getButtonActiveTheme } from '~/config/theme';
 
 /**
  * Unified Button component that handles both navigation and action buttons
@@ -13,6 +14,8 @@ import { FaShoppingCart } from 'react-icons/fa';
  * @param {boolean} disabled - Disable button
  * @param {string} value - Value for form buttons (used with onClick)
  * @param {string} type - Button type: 'link' (navigation), 'button' (action), or 'submit'
+ * @param {string} variant - Button variant: 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'outline', 'ghost', 'default', 'card'
+ * @param {boolean} useGradient - Whether to use gradient or solid color (default: true)
  */
 export default function Button({ 
     onClick, 
@@ -23,7 +26,9 @@ export default function Button({
     cart, 
     disabled,
     value,
-    type = 'link' // 'link', 'button', or 'submit'
+    type = 'link', // 'link', 'button', or 'submit'
+    variant = 'primary', // 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'outline', 'ghost', 'default', 'card'
+    useGradient = true
 }) {
     const handleClick = (event) => {
         if (disabled || !onClick) return;
@@ -49,10 +54,44 @@ export default function Button({
 
     const handleNoneClick = () => {};
 
+    // Get theme styles based on variant
+    const themeStyles = getButtonTheme(variant, useGradient);
+    const hoverStyles = getButtonHoverTheme(variant, useGradient);
+    const activeStyles = getButtonActiveTheme(variant, useGradient);
+
+    // Create inline styles for dynamic theming
+    const buttonStyle = {
+        background: themeStyles.background,
+        color: themeStyles.color,
+        border: themeStyles.border || 'none',
+        boxShadow: themeStyles.boxShadow,
+    };
+
+    const buttonHoverStyle = {
+        background: hoverStyles.background,
+        color: hoverStyles.color || themeStyles.color,
+        border: hoverStyles.border || themeStyles.border || 'none',
+        boxShadow: hoverStyles.boxShadow || themeStyles.boxShadow,
+    };
+
+    const buttonActiveStyle = {
+        background: activeStyles.background,
+    };
+
     const buttonContent = (
         <>
-            {cart && <FaShoppingCart className={styles.cartIcon} />}
-            {content}
+            {cart && (
+                <>
+                    {/* Original cart icon and text - visible by default */}
+                    <span className={styles.buttonText}>
+                        <FaShoppingCart className={styles.cartIcon} />
+                        {content}
+                    </span>
+                    {/* Animated cart icon - appears on hover */}
+                    <FaShoppingCart className={styles.cartIconAnimated} />
+                </>
+            )}
+            {!cart && content}
         </>
     );
 
@@ -60,7 +99,23 @@ export default function Button({
     if (link && !disabled) {
         return (
             <div className={`${styles.btn} ${classParent || ''}`}>
-                <Link className={`${styles.btnLink} ${classChild || ''}`} to={link}>
+                <Link 
+                    className={`${styles.btnLink} ${classChild || ''} ${styles[variant] || ''}`}
+                    to={link}
+                    style={buttonStyle}
+                    onMouseEnter={(e) => {
+                        Object.assign(e.currentTarget.style, buttonHoverStyle);
+                    }}
+                    onMouseLeave={(e) => {
+                        Object.assign(e.currentTarget.style, buttonStyle);
+                    }}
+                    onMouseDown={(e) => {
+                        Object.assign(e.currentTarget.style, buttonActiveStyle);
+                    }}
+                    onMouseUp={(e) => {
+                        Object.assign(e.currentTarget.style, buttonHoverStyle);
+                    }}
+                >
                     {buttonContent}
                 </Link>
             </div>
@@ -68,25 +123,39 @@ export default function Button({
     }
 
     // Otherwise, render as action button (with or without onClick)
-    return (
-        <div 
-            onClick={disabled ? handleNoneClick : (onClick ? handleClick : undefined)} 
-            className={`${disabled ? styles.classDisable : ''} ${styles.btn} ${classParent || ''}`}
-        >
-            {disabled ? (
+    // Fix: Remove nested div wrapper to prevent double buttons
+    if (disabled) {
+        return (
+            <div className={`${styles.classDisable} ${styles.btn} ${classParent || ''}`}>
                 <div className={`${styles.btnLink} ${classChild || ''} ${styles.disabled}`}>
                     {buttonContent}
                 </div>
-            ) : (
-                <button 
-                    type={type === 'submit' ? 'submit' : 'button'}
-                    className={`${styles.btnLink} ${classChild || ''}`}
-                    value={value}
-                    onClick={onClick ? handleClick : undefined}
-                >
-                    {buttonContent}
-                </button>
-            )}
-        </div>
+            </div>
+        );
+    }
+
+    // Render button directly without wrapper div to prevent nesting
+    return (
+        <button 
+            type={type === 'submit' ? 'submit' : 'button'}
+            className={`${styles.btnLink} ${classChild || ''} ${styles[variant] || ''} ${classParent || ''}`}
+            style={buttonStyle}
+            value={value}
+            onClick={onClick ? handleClick : undefined}
+            onMouseEnter={(e) => {
+                Object.assign(e.currentTarget.style, buttonHoverStyle);
+            }}
+            onMouseLeave={(e) => {
+                Object.assign(e.currentTarget.style, buttonStyle);
+            }}
+            onMouseDown={(e) => {
+                Object.assign(e.currentTarget.style, buttonActiveStyle);
+            }}
+            onMouseUp={(e) => {
+                Object.assign(e.currentTarget.style, buttonHoverStyle);
+            }}
+        >
+            {buttonContent}
+        </button>
     );
 }

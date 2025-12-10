@@ -1,6 +1,6 @@
 /**
  * Environment configuration
- * 
+ *
  * For production, create a .env file in the client root directory with:
  * VITE_EMAILJS_SERVICE_ID=your_service_id
  * VITE_EMAILJS_TEMPLATE_ID=your_template_id
@@ -30,4 +30,7 @@ export const appConfig = {
     homeDisplayLimit: Number(import.meta.env.VITE_HOME_DISPLAY_LIMIT) || 10,
     adminProductsLimit: Number(import.meta.env.VITE_ADMIN_PRODUCTS_LIMIT) || 8,
 };
+
+// Re-export theme for convenience
+export { theme, getButtonTheme, getButtonHoverTheme, getButtonActiveTheme } from './theme';
 

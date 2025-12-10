@@ -1,13 +1,15 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
 import { apiGetOrders, apiUpdateStatusOrder } from '~/apis/admin/order';
 import { Pagination } from '~/components/pagination';
 import Select from '~/components/select';
-import { useDebounce } from '~/hooks';
+import { useDebounce, useFetch } from '~/hooks';
 import InputSearch from '~/layouts/admin/components/inputSearch';
 import { formatCreatedAt } from '~/utils/helpers';
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
+import PageHeader from '~/components/pageHeader';
+import ActionButtons from '~/components/actionButtons';
 
 function Order() {
     const {
@@ -57,10 +59,9 @@ function Order() {
 
     return (
         <div>
-            <div className="flex items-center justify-between bg-white outline-none w-full h-12 pl-4 pr-4 rounded-md">
-                <h3 className="font-semibold text-xl">Order Management</h3>
+            <PageHeader title="Order Management">
                 <InputSearch type="text" placeholder="Search..." value={query.q} setValue={setQuery} />
-            </div>
+            </PageHeader>
             <div style={{display: 'flex', justifyContent: 'center'}}>
             <div className="max-w-screen-xl w-[93.75rem] mt-3 rounded-lg">
                 <form onSubmit={handleSubmit(handleUpdateStatus)}>
@@ -128,29 +129,12 @@ function Order() {
                                         {formatCreatedAt(order?.createdAt)}
                                     </td>
                                     <td className="whitespace-nowrap px-4 py-2 w-[3.125rem] overflow-hidden overflow-ellipsis text-center">
-                                        {editOrder?._id === order._id ? (
-                                            <>
-                                                <button
-                                                    type="submit"
-                                                    className="rounded-md border border-blue-600 text-blue-600 text-[0.75rem] w-13 p-1 mr-1 hover:bg-blue-500 hover:text-white cursor-pointer"
-                                                >
-                                                    Update
-                                                </button>
-                                                <span
-                                                    onClick={() => setEditOrder(null)}
-                                                    className="rounded-md border bg-blue-100 border-blue-600 text-blue-600 text-[0.75rem] w-12 p-1 mr-1 hover:bg-blue-500 hover:text-white cursor-pointer"
-                                                >
-                                                    Back
-                                                </span>
-                                            </>
-                                        ) : (
-                                            <span
-                                                onClick={() => setEditOrder(order)}
-                                                className="rounded-md border border-blue-600 text-blue-600 text-[0.75rem] w-12 p-1 mr-1 hover:bg-blue-500 hover:text-white cursor-pointer"
-                                            >
-                                                Edit
-                                            </span>
-                                        )}
+                                        <ActionButtons
+                                            isEditMode={editOrder?._id === order._id}
+                                            onEdit={() => setEditOrder(order)}
+                                            onCancel={() => setEditOrder(null)}
+                                            showDelete={false}
+                                        />
                                     </td>
                                 </tr>
                             ))}

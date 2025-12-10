@@ -52,7 +52,7 @@ export default function Category() {
         return productData;
     }, [productData]);
 
-    const MemoizedCard = memo(({ id, img, title, newPrice, color }) => (
+    const MemoizedCard = memo(({ id, img, title, newPrice, color, totalRatings, sold, category, brand }) => (
         <Card
             key={id}
             img={img}
@@ -61,6 +61,10 @@ export default function Category() {
             newPrice={newPrice}
             id={id}
             color={color}
+            totalRatings={totalRatings}
+            sold={sold}
+            category={category}
+            brand={brand}
         />
     ));
 
@@ -121,7 +125,7 @@ export default function Category() {
     };
 
     const result = useMemo(() => {
-        return filteredProducts.map(({ _id, thumbnail, title, price, color }) => (
+        return filteredProducts.map(({ _id, thumbnail, title, price, color, totalRatings, sold, category, brand }) => (
             <MemoizedCard
                 key={_id}
                 img={thumbnail}
@@ -130,6 +134,10 @@ export default function Category() {
                 newPrice={price}
                 id={_id}
                 color={color}
+                totalRatings={totalRatings}
+                sold={sold}
+                category={category}
+                brand={brand}
             />
         ));
     }, [filteredProducts]);

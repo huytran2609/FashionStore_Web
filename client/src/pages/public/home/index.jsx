@@ -28,7 +28,7 @@ function Home() {
         limit: appConfig.homeProductsLimit,
     });
 
-    const MemoizedCard = memo(({ id, img, title, newPrice, color }) => (
+    const MemoizedCard = memo(({ id, img, title, newPrice, color, totalRatings, sold, category, brand }) => (
         <Card
             key={id}
             img={img}
@@ -37,9 +37,13 @@ function Home() {
             newPrice={newPrice}
             id={id}
             color={color}
+            totalRatings={totalRatings}
+            sold={sold}
+            category={category}
+            brand={brand}
         />
     ));
-    const result = productData.slice(0, appConfig.homeDisplayLimit).map(({ _id, thumbnail, title, price, color }) => (
+    const result = productData.slice(0, appConfig.homeDisplayLimit).map(({ _id, thumbnail, title, price, color, totalRatings, sold, category, brand }) => (
         <MemoizedCard
             key={_id}
             img={thumbnail}
@@ -48,6 +52,10 @@ function Home() {
             newPrice={price}
             id={_id}
             color={color}
+            totalRatings={totalRatings}
+            sold={sold}
+            category={category}
+            brand={brand}
         />
     ))
     return (

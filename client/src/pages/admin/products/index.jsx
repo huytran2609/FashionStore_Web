@@ -1,21 +1,23 @@
-import { useCallback, useEffect, useState, useMemo } from 'react';
+import { useCallback, useState, useMemo } from 'react';
 import { Pagination } from '~/components/pagination';
-import { useDebounce } from '~/hooks';
+import { useDebounce, useConfirmDelete } from '~/hooks';
 import InputSearch from '~/layouts/admin/components/inputSearch';
 import { useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import Swal from 'sweetalert2';
 import InputForm from '~/components/inputForm';
 import Modal from '~/components/modal';
 import categoryApi from '~/apis/categoryAPI/categoryApi';
 import Select from '~/components/select';
 import TextArea from '~/components/textArea';
-import { formatCreatedAt, getBase64 } from '~/utils/helpers';
+import { formatCreatedAt } from '~/utils/helpers';
 import { apiCreateProduct, apiDeleteProduct } from '~/apis/admin/product';
 import { useProducts, useCategories } from '~/hooks';
 import { getEmailValidation, getPhoneValidation } from '~/utils/validators';
 import { appConfig } from '~/config/env';
+import PageHeader from '~/components/pageHeader';
+import ActionButtons from '~/components/actionButtons';
+import FileUpload from '~/components/fileUpload';
 
 function Product() {
     const [isOpen, setIsOpen] = useState(false);
@@ -67,37 +69,8 @@ function Product() {
     const render = useCallback(() => {
         setUpdated(!updated);
         refetch(queries);
-    }, [updated, refetch, queriesString]);
+    }, [updated, refetch, queries]);
 
-    const handlePreviewThumb = useCallback(async (file) => {
-        const base64Thumb = await getBase64(file);
-        setPreview((prev) => ({ ...prev, thumbnail: base64Thumb }));
-    }, []);
-
-    const thumbnailFile = watch('thumbnail')?.[0];
-    
-    useEffect(() => {
-        if (thumbnailFile) {
-            handlePreviewThumb(thumbnailFile);
-        }
-    }, [thumbnailFile, handlePreviewThumb]);
-
-    const handlePreviewImages = useCallback(async (files) => {
-        const imagesPreview = [];
-        for (let file of files) {
-            const base64Images = await getBase64(file);
-            imagesPreview.push(base64Images);
-        }
-        setPreview((prev) => ({ ...prev, images: imagesPreview }));
-    }, []);
-
-    const thumbnailImages = watch('images');
-    
-    useEffect(() => {
-        if (thumbnailImages) {
-            handlePreviewImages(thumbnailImages);
-        }
-    }, [thumbnailImages, handlePreviewImages]);
 
     const handleCreateProduct = (data) => {
         if (data.category) data.category = categories.find((item) => item._id === data.category)?.title;
@@ -109,44 +82,33 @@ function Product() {
         if (response.success) {
             toast.success('Create new product successfully!');
             reset();
-            setPreview({ thumnail: '', images: [] });
+            setPreview({ thumbnail: null, images: [] });
         } else {
             toast.success('Create new product successfully!');
         }
     };
 
-    const handleDelete = async (pid) => {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            showCancelButton: true,
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                const response = await apiDeleteProduct(pid);
-                if (response.success) {
-                    render()
-                    toast.success(response.mes);
-                } else {
-                    toast.error(response.mes);
-                }
-            }
-        });
-    }
+    const handleDelete = useConfirmDelete(apiDeleteProduct, {
+        onSuccess: () => {
+            render();
+        },
+    });
 
     return (
         <div>
-            <div className="flex items-center justify-between bg-white outline-none w-full h-12 pl-4 pr-4 rounded-md">
-                <h3 className="font-semibold text-xl">Product Management</h3>
-                <InputSearch type="text" placeholder="Search..." value={query.q} setValue={setQuery} />
-                <button
-                    onClick={() => {
-                        setIsOpen(true);
-                    }}
-                    className="bg-blue-600 rounded-md border border-blue-600 text-white text-[0.875rem] w-25 p-2 hover:bg-blue-700 hover:text-white"
-                >
-                    Add new product
-                </button>
-            </div>
+            <PageHeader title="Product Management">
+                <div className="flex items-center gap-2">
+                    <InputSearch type="text" placeholder="Search..." value={query.q} setValue={setQuery} />
+                    <button
+                        onClick={() => {
+                            setIsOpen(true);
+                        }}
+                        className="bg-blue-600 rounded-md border border-blue-600 text-white text-[0.875rem] w-25 p-2 hover:bg-blue-700 hover:text-white"
+                    >
+                        Add new product
+                    </button>
+                </div>
+            </PageHeader>
             <div className="max-w-screen-xl mt-3 rounded-lg">
                 <form>
                     <table className="w-full table-auto mb-6 text-left bg-white">
@@ -241,36 +203,12 @@ function Product() {
                                         {formatCreatedAt(product?.updatedAt)}
                                     </td>
                                     <td className="whitespace-nowrap  px-4 py-2">
-                                        {editProduct?._id === product._id ? (
-                                            <>
-                                                <button
-                                                    type="submit"
-                                                    className="rounded-md border border-blue-600 text-blue-600 text-[0.75rem] w-13 p-1 mr-1 hover:bg-blue-500 hover:text-white"
-                                                >
-                                                    Update
-                                                </button>
-                                                <span
-                                                    className="rounded-md border bg-blue-100 border-blue-600 text-blue-600 text-[0.75rem] w-12 p-1 mr-1 hover:bg-blue-500 hover:text-white cursor-pointer"
-                                                >
-                                                    Back
-                                                </span>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <span
-                                                    onClick={() => setEditProduct(product)}
-                                                    className="rounded-md border border-blue-600 text-blue-600 text-[0.75rem] w-12 p-1 mr-1 hover:bg-blue-500 hover:text-white cursor-pointer"
-                                                >
-                                                    Edit
-                                                </span>
-                                                <span
-                                                    onClick={() => handleDelete(product._id)}
-                                                    className="bg-red-600 rounded-md border border-red-600 text-white text-[0.75rem] w-12 p-1 hover:bg-red-700 hover:text-white cursor-pointer"
-                                                >
-                                                    Delete
-                                                </span>
-                                            </>
-                                        )}
+                                        <ActionButtons
+                                            isEditMode={editProduct?._id === product._id}
+                                            onEdit={() => setEditProduct(product)}
+                                            onDelete={() => handleDelete(product._id)}
+                                            onCancel={() => setEditProduct(null)}
+                                        />
                                     </td>
                                 </tr>
                             ))}
@@ -284,6 +222,8 @@ function Product() {
                 isOpen={isOpen}
                 handleClose={() => {
                     setIsOpen(false);
+                    reset();
+                    setPreview({ thumbnail: null, images: [] });
                 }}
                 title="Create new product"
                 size="2xl"
@@ -367,115 +307,27 @@ function Product() {
                             />
                         </div>
                         <div className="flex flex-1 flex-col gap-3">
-                            <label
-                                htmlFor="thumbnail"
-                                className="relative flex flex-col mt-6 items-center justify-center w-full h-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 "
-                            >
-                                <div>
-                                    {preview?.thumbnail ? (
-                                        <img
-                                            src={preview.thumbnail || 'https://www.freeiconspng.com/img/23494'}
-                                            width={10}
-                                            height={100}
-                                            alt="Thumbail"
-                                            className="w-full h-full object-cover"
-                                        />
-                                    ) : (
-                                        <div className="flex flex-col p-4 items-center justify-center">
-                                            <svg
-                                                aria-hidden="true"
-                                                className="w-10 h-10 mb-3 text-gray-400"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                viewBox="0 0 24 24"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth={2}
-                                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                                                />
-                                            </svg>
-                                            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                                <span className="font-semibold">Thumbnail</span>
-                                            </p>
-                                            <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
-                                                SVG, PNG, JPG or GIF (MAX. 800x400px)
-                                            </p>
-                                        </div>
-                                    )}
-                                </div>
-                                <input
-                                    id="thumbnail"
-                                    type="file"
-                                    className="hidden"
-                                    {...register('thumbnail', { required: 'Required' })}
-                                />
-                                {errors['thumbnail'] && (
-                                    <small className="text-red-400 text-[0.625rem] absolute bottom-0 translate-y-[-3] pl-1 pt-1">
-                                        {errors['thumbnail']?.message}
-                                    </small>
-                                )}
-                            </label>
-                            {/* multiple images */}
-                            <label
-                                htmlFor="images"
-                                className="relative flex flex-col mt-6 items-center justify-center w-full h-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 "
-                            >
-                                <div>
-                                    {preview.images.length > 0 ? (
-                                        <div className="flex gap-1 w-fit flex-wrap">
-                                            {preview.images.map((image, index) => (
-                                                <img
-                                                    key={index}
-                                                    src={image || 'https://www.freeiconspng.com/img/23494'}
-                                                    width={10}
-                                                    height={100}
-                                                    alt="Images"
-                                                    className="w-[10.625rem] object-contain rounded-md"
-                                                />
-                                            ))}
-                                        </div>
-                                    ) : (
-                                        <div className="flex flex-col p-4 items-center justify-center">
-                                            <svg
-                                                aria-hidden="true"
-                                                className="w-10 h-10 mb-3 text-gray-400"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                viewBox="0 0 24 24"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth={2}
-                                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                                                />
-                                            </svg>
-                                            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                                <span className="font-semibold">Images</span>
-                                            </p>
-                                            <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
-                                                SVG, PNG, JPG or GIF (MAX. 800x400px)
-                                            </p>
-                                        </div>
-                                    )}
-                                </div>
-                                <input
-                                    id="images"
-                                    type="file"
-                                    className="hidden relative"
-                                    multiple
-                                    {...register('images')}
-                                />
-                                {errors['images'] && (
-                                    <small className="text-red-400 text-[0.625rem] absolute bottom-0 translate-y-[-3] pl-1 pt-1">
-                                        {errors['images']?.message}
-                                    </small>
-                                )}
-                            </label>
+                            <FileUpload
+                                id="thumbnail"
+                                register={register}
+                                errors={errors}
+                                watch={watch}
+                                setPreview={setPreview}
+                                preview={preview}
+                                multiple={false}
+                                label="Thumbnail"
+                                validate={{ required: 'Required' }}
+                            />
+                            <FileUpload
+                                id="images"
+                                register={register}
+                                errors={errors}
+                                watch={watch}
+                                setPreview={setPreview}
+                                preview={preview}
+                                multiple={true}
+                                label="Images"
+                            />
                         </div>
                     </div>
                     <button

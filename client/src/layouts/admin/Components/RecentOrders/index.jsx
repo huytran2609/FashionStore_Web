@@ -19,23 +19,33 @@ function RecentOrders({ fullOrders }) {
                         </tr>
                     </thead>
                     <tbody >
-                        {fullOrders?.map((order) => (
-                            <tr key={order._id} className=' text-left'>
-                                <td>
-                                    <Link to={`/order/${order._id}`}>#{order._id}</Link>
+                        {fullOrders && Array.isArray(fullOrders) && fullOrders.length > 0 ? (
+                            fullOrders.map((order) => (
+                                <tr key={order._id} className=' text-left'>
+                                    <td>
+                                        <Link to={`/order/${order._id}`}>#{order._id}</Link>
+                                    </td>
+                                    {/* <td>
+                                        <Link to={`/product/${order.product_id}`}>#{order.product_id}</Link>
+                                    </td> */}
+                                    <td>
+                                        <Link to={`/customer/${order.orderBy?.userId || ''}`}>
+                                            {order.orderBy?.name || 'N/A'}
+                                        </Link>
+                                    </td>
+                                    <td>{order.createdAt ? format(new Date(order.createdAt), 'dd MMM yyyy') : 'N/A'}</td>
+                                    <td>{order.totalPrice || 'N/A'}</td>
+                                    <td>{order.orderBy?.address || 'N/A'}</td>
+                                    <td>{getOrderStatus(order.status)}</td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="6" className="text-center py-4 text-gray-500">
+                                    No orders found
                                 </td>
-                                {/* <td>
-                                    <Link to={`/product/${order.product_id}`}>#{order.product_id}</Link>
-                                </td> */}
-                                <td>
-                                    <Link to={`/customer/${order.orderBy.userId}`}>{order.orderBy.name}</Link>
-                                </td>
-                                <td>{format(new Date(order.createdAt), 'dd MMM yyyy')}</td>
-                                <td>{order.totalPrice}</td>
-                                <td>{order.orderBy.address}</td>
-                                <td>{getOrderStatus(order.status)}</td>
                             </tr>
-                        ))}
+                        )}
                     </tbody>
                 </table>
             </div>

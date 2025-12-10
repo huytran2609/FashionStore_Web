@@ -2,15 +2,15 @@ import moment from 'moment';
 import { useCallback, useEffect, useState, useMemo } from 'react';
 import { apiDeleteUser, apiGetUsers, apiUpdateUser } from '~/apis/admin/user';
 import { Pagination } from '~/components/pagination';
-import { useDebounce, useFetch } from '~/hooks';
+import { useDebounce, useFetch, useConfirmDelete } from '~/hooks';
 import InputSearch from '~/layouts/admin/components/inputSearch';
 import { useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import Swal from 'sweetalert2';
 import InputForm from '~/components/inputForm';
 import { getEmailValidation, getPhoneValidation } from '~/utils/validators';
-import { confirmAndExecute } from '~/utils/confirmDialog';
+import PageHeader from '~/components/pageHeader';
+import ActionButtons from '~/components/actionButtons';
 
 function User() {
     const {
@@ -61,31 +61,24 @@ function User() {
         const response = await apiUpdateUser(data, editUser._id);
         if (response.success) {
             setEditUser(null);
-            render()
+            render();
             toast.success(response.mes);
         } else {
             toast.error(response.mes);
         }
     };
 
-    const handleDelete = async (uid) => {
-        await confirmAndExecute(async () => {
-            const response = await apiDeleteUser(uid);
-            if (response.success) {
-                render();
-                toast.success(response.mes);
-            } else {
-                toast.error(response.mes);
-            }
-        });
-    };
+    const handleDelete = useConfirmDelete(apiDeleteUser, {
+        onSuccess: () => {
+            render();
+        },
+    });
 
     return (
         <div>
-            <div className="flex items-center justify-between bg-white outline-none w-full h-12 pl-4 pr-4 rounded-md">
-                <h3 className="font-semibold text-xl">Customer Management</h3>
+            <PageHeader title="Customer Management">
                 <InputSearch type="text" placeholder="Search..." value={query.q} setValue={setQuery} />
-            </div>
+            </PageHeader>
             <div className="w-full mt-3 rounded-md overflow-hidden">
                 <form onSubmit={handleSubmit(handleUpdate)}>
                     <table className="w-full table-auto mb-6 text-left bg-white">
@@ -160,37 +153,12 @@ function User() {
                                         {moment(user?.createdAt).format('MM/DD/YYYY')}
                                     </td>
                                     <td className="whitespace-nowrap  px-4 py-2">
-                                        {editUser?._id === user._id ? (
-                                            <>
-                                                <button
-                                                    type="submit"
-                                                    className="rounded-md border border-blue-600 text-blue-600 text-[0.75rem] w-13 p-1 mr-1 hover:bg-blue-500 hover:text-white"
-                                                >
-                                                    Update
-                                                </button>
-                                                <span
-                                                    onClick={() => setEditUser(null)}
-                                                    className="rounded-md border bg-blue-100 border-blue-600 text-blue-600 text-[0.75rem] w-12 p-1 mr-1 hover:bg-blue-500 hover:text-white cursor-pointer"
-                                                >
-                                                    Back
-                                                </span>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <span
-                                                    onClick={() => setEditUser(user)}
-                                                    className="rounded-md border border-blue-600 text-blue-600 text-[0.75rem] w-12 p-1 mr-1 hover:bg-blue-500 hover:text-white cursor-pointer"
-                                                >
-                                                    Edit
-                                                </span>
-                                                <span
-                                                    onClick={() => handleDelete(user._id)}
-                                                    className="bg-red-600 rounded-md border border-red-600 text-white text-[0.75rem] w-12 p-1 hover:bg-red-700 hover:text-white cursor-pointer"
-                                                >
-                                                    Delete
-                                                </span>
-                                            </>
-                                        )}
+                                        <ActionButtons
+                                            isEditMode={editUser?._id === user._id}
+                                            onEdit={() => setEditUser(user)}
+                                            onDelete={() => handleDelete(user._id)}
+                                            onCancel={() => setEditUser(null)}
+                                        />
                                     </td>
                                 </tr>
                             ))}
