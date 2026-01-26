@@ -94,31 +94,32 @@ export default function Button({
             {!cart && content}
         </>
     );
+    
+    // Determine if button has cart animation
+    const hasCartAnimation = cart === true;
 
-    // If link is provided, render as navigation button
+    // If link is provided, render as navigation button (without wrapper div to avoid double layers)
     if (link && !disabled) {
         return (
-            <div className={`${styles.btn} ${classParent || ''}`}>
-                <Link 
-                    className={`${styles.btnLink} ${classChild || ''} ${styles[variant] || ''}`}
-                    to={link}
-                    style={buttonStyle}
-                    onMouseEnter={(e) => {
-                        Object.assign(e.currentTarget.style, buttonHoverStyle);
-                    }}
-                    onMouseLeave={(e) => {
-                        Object.assign(e.currentTarget.style, buttonStyle);
-                    }}
-                    onMouseDown={(e) => {
-                        Object.assign(e.currentTarget.style, buttonActiveStyle);
-                    }}
-                    onMouseUp={(e) => {
-                        Object.assign(e.currentTarget.style, buttonHoverStyle);
-                    }}
-                >
-                    {buttonContent}
-                </Link>
-            </div>
+            <Link 
+                className={`${styles.btnLink} ${hasCartAnimation ? styles.btnLinkWithCart : ''} ${classChild || ''} ${styles[variant] || ''} ${classParent || ''}`}
+                to={link}
+                style={buttonStyle}
+                onMouseEnter={(e) => {
+                    Object.assign(e.currentTarget.style, buttonHoverStyle);
+                }}
+                onMouseLeave={(e) => {
+                    Object.assign(e.currentTarget.style, buttonStyle);
+                }}
+                onMouseDown={(e) => {
+                    Object.assign(e.currentTarget.style, buttonActiveStyle);
+                }}
+                onMouseUp={(e) => {
+                    Object.assign(e.currentTarget.style, buttonHoverStyle);
+                }}
+            >
+                {buttonContent}
+            </Link>
         );
     }
 
@@ -138,7 +139,7 @@ export default function Button({
     return (
         <button 
             type={type === 'submit' ? 'submit' : 'button'}
-            className={`${styles.btnLink} ${classChild || ''} ${styles[variant] || ''} ${classParent || ''}`}
+            className={`${styles.btnLink} ${hasCartAnimation ? styles.btnLinkWithCart : ''} ${classChild || ''} ${styles[variant] || ''} ${classParent || ''}`}
             style={buttonStyle}
             value={value}
             onClick={onClick ? handleClick : undefined}
