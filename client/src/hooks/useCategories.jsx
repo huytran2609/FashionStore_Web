@@ -57,7 +57,6 @@ function useCategories(options = {}) {
     // Fetch on mount only
     useEffect(() => {
         fetchCategories();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const refetch = () => {

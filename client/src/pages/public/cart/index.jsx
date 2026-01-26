@@ -114,7 +114,6 @@ export default function Cart() {
                                                 size={item?.product?.size}
                                                 price={item?.product?.price}
                                                 thumbnail={item?.product?.thumbnail}
-                                                dispatch={dispatch}
                                             />
                                         ))}
                                     </>

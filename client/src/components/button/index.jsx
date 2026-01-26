@@ -52,7 +52,6 @@ export default function Button({
         }
     };
 
-    const handleNoneClick = () => {};
 
     // Get theme styles based on variant
     const themeStyles = getButtonTheme(variant, useGradient);

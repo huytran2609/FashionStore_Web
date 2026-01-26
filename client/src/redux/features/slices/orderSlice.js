@@ -1,33 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getCurrent } from './asyncActions';
 
 const initialState = {
-    products: [
-        {
-            product: { type: mongoose.Types.ObjectId, ref: 'Product' },
-            count: Number,
-            color: String,
-        },
-    ],
-    status: {
-        type: String,
-        default: 'Processing',
-        enum: ['Cancelled', 'Processing', 'Succeed'],
-    },
-    orderBy: {
-        type: mongoose.Types.ObjectId,
-        ref: 'User',
-    },
-    coupon: {
-        type: mongoose.Types.ObjectId,
-        ref: 'Coupon',
-    },
-    totalPrice: Number,
+    products: [],
+    status: 'Processing',
+    orderBy: null,
+    coupon: null,
+    totalPrice: 0,
 };
 
-export const orderSlice = createSlice({});
+export const orderSlice = createSlice({
+    name: 'order',
+    initialState,
+    reducers: {},
+});
 
 // Action creators are generated for each case reducer function
+// eslint-disable-next-line no-empty-pattern
 export const {} = orderSlice.actions;
 
 export default orderSlice.reducer;

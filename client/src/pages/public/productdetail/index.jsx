@@ -1,4 +1,3 @@
-import React from 'react'
 import styles from './ProductDetail.module.scss'
 import { Row, Col } from 'antd';
 import Star from '~/components/star';

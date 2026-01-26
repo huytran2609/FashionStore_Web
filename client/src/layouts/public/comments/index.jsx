@@ -9,7 +9,7 @@ import {
   deleteComment as deleteCommentApi,
 } from "~/apis/comments/api.js";
 
-const Comments = ({ commentsUrl, currentUserId }) => {
+const Comments = ({ currentUserId }) => {
   const [backendComments, setBackendComments] = useState([]);
   const [activeComment, setActiveComment] = useState(null);
   const rootComments = backendComments.filter(

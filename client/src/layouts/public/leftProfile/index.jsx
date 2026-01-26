@@ -17,10 +17,14 @@ export default function LeftProfile() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleChange = (evt) => {
-        const [file] = imgInp.files;
-        if (file) {
-            imgAva.src = URL.createObjectURL(file);
+    const handleChange = () => {
+        const imgInp = document.getElementById('imgInp');
+        const imgAva = document.getElementById('imgAva');
+        if (imgInp && imgAva) {
+            const [file] = imgInp.files;
+            if (file) {
+                imgAva.src = URL.createObjectURL(file);
+            }
         }
     };
 
@@ -49,7 +53,7 @@ export default function LeftProfile() {
                 <div className={styles.imgAva}>
                     <img id="imgAva" src={avatar} alt="IMG AVATAR" />
                 </div>
-                <form runat="server">
+                <form>
                     <input onChange={handleChange} accept="image/*" type="file" id="imgInp" />
                 </form>
             </div>

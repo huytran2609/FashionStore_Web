@@ -120,7 +120,7 @@ export default function Login() {
                 <button onClick={handleSubmit}>Login</button>
                 <div className={styles.registerLink}>
                     <p>
-                        Don't have an account?<Link to={config.register}>Register</Link>
+                        Don&apos;t have an account?<Link to={config.register}>Register</Link>
                     </p>
                 </div>
             </div>

@@ -1,25 +1,23 @@
 import axiosDefault from 'axios'
 
-export const apiGetPublicProvinces = () => new Promise(async (resolve, reject) => {
-    try {
-        const response = await axiosDefault({
+export const apiGetPublicProvinces = () => {
+    return new Promise((resolve, reject) => {
+        axiosDefault({
             method: 'get',
             url: 'https://vapi.vnappmob.com/api/province/'
         })
-        resolve(response)
-    } catch (error) {
-        reject(error)
-    }
-})
+        .then(resolve)
+        .catch(reject)
+    })
+}
 
-export const apiGetPublicDistrict = (provinceId) => new Promise(async (resolve, reject) => {
-    try {
-        const response = await axiosDefault({
+export const apiGetPublicDistrict = (provinceId) => {
+    return new Promise((resolve, reject) => {
+        axiosDefault({
             method: 'get',
             url: `https://vapi.vnappmob.com/api/province/district/${provinceId}`
         })
-        resolve(response)
-    } catch (error) {
-        reject(error)
-    }
-})
+        .then(resolve)
+        .catch(reject)
+    })
+}

@@ -4,12 +4,13 @@ import { FaRegTrashCan } from 'react-icons/fa6';
 import { apiRemoveCart } from '~/apis/user';
 import { getCurrent } from '~/redux/features/slices/asyncActions';
 import { toast } from 'react-toastify';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { updateCart } from '~/redux/features/slices/userSlice';
 import { formattedCount } from '~/utils/helpers';
 
-export default function CartProduct({ pid, title, color, quantity, size, price, thumbnail, dispatch }) {
-
+export default function CartProduct({ pid, title, color, quantity, size, price, thumbnail }) {
+    const dispatch = useDispatch();
     const [count, setCount] = useState(quantity);
 
     const handleChangeQuantity = (quantity) => {
@@ -37,12 +38,9 @@ export default function CartProduct({ pid, title, color, quantity, size, price, 
                 <h3>Size: {size[0] || 'No size'}</h3>
             </div>
             <Counter
-                pid={pid}
                 quantity={quantity}
-                color={color}
                 classParent={styles.counter}
                 handleChangeQuantity={handleChangeQuantity}
-                dispatch = {dispatch}
             />
             <div className={styles.proPrice}>
                 <h3>$&nbsp;{formattedCount(price)}</h3>

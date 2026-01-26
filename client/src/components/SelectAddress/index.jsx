@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import { memo } from 'react'
 
 const SelectAddress = ({ label, options, value, setValue, type, reset, name }) => {
 

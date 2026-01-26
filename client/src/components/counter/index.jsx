@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './Counter.module.scss';
 
-export default function Counter({ pid, quantity = 1, color, classParent, handleChangeQuantity }) {
+export default function Counter({ quantity = 1, classParent, handleChangeQuantity }) {
     const [count, setCount] = useState(quantity);
 
     const increaseCount = () => setCount((prevCount) => Number(prevCount) + 1);
@@ -14,7 +14,7 @@ export default function Counter({ pid, quantity = 1, color, classParent, handleC
 
     useEffect(() => {
         handleChangeQuantity && handleChangeQuantity(count);
-    }, [count])
+    }, [count, handleChangeQuantity])
 
     const handleInputChange = (e) => {
         setCount(Number(e.target.value));

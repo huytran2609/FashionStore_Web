@@ -21,14 +21,14 @@ export const userSlice = createSlice({
             state.current = action.payload.userData;
             state.isToastVisible = true;
         },
-        logout: (state, action) => {
+        logout: (state) => {
             state.isLoggedIn = false;
             state.token = null;
             state.current = null,
             state.currentCart = null,
             state.isToastVisible = true;
         },
-        setToastVisibility: (state, action) => {
+        setToastVisibility: (state) => {
             state.isToastVisible = false;
         },
         updateCart: (state, action) => {
@@ -47,7 +47,7 @@ export const userSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(getCurrent.pending, (state, action) => {
+            .addCase(getCurrent.pending, (state) => {
                 state.loading = true;
             })
             .addCase(getCurrent.fulfilled, (state, action) => {
@@ -56,7 +56,7 @@ export const userSlice = createSlice({
                 state.currentCart = action.payload.cart;
                 state.totalPrice = action.payload.cart.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
             })
-            .addCase(getCurrent.rejected, (state, action) => {
+            .addCase(getCurrent.rejected, (state) => {
                 state.loading = false;
                 state.current = null;
             });

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import styles from './Card.module.scss'
 import Star from '~/components/star'
 import Button from '~/components/button'
@@ -23,7 +23,7 @@ function Card({
   category = '',
   brand = ''
 }) {
-  const { isLoggedIn, current } = useSelector((state) => state.user);
+  const { isLoggedIn } = useSelector((state) => state.user);
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -1,12 +1,12 @@
 import styles from './Header.module.scss';
 import { Row, Col } from 'antd';
 import Logo from '~/assets/logo/Logo_grey.svg';
-import { FaSearch, FaShoppingCart, FaSignOutAlt } from 'react-icons/fa';
+import { FaShoppingCart, FaSignOutAlt } from 'react-icons/fa';
 import { BiSolidCategoryAlt } from 'react-icons/bi';
 import { ImProfile } from 'react-icons/im';
 import Button from '~/components/button';
 import config from '~/config';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useCategories } from '~/hooks';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -18,7 +18,7 @@ import ChatBot from '../chatBot';
 import { HiClipboardDocumentList } from "react-icons/hi2";
 import { Heart, Baby, Sparkles, User, Coffee } from "lucide-react"
 
-export default function Header({ handleInputChange, query }) {
+export default function Header() {
 
     const dispatch = useDispatch();
 

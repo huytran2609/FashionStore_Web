@@ -18,7 +18,7 @@ function usePagination(totalCount, pageSize, currentPage, siblingCount = 1) {
             const rightRange = generateRange(rightStart, totalPagination);
             return [
                 1,
-                <BiDotsHorizontalRounded className='pt-2 text-[1.25rem]'/>,
+                <BiDotsHorizontalRounded key="dots-left" className='pt-2 text-[1.25rem]'/>,
                 ...rightRange
             ];
         }
@@ -26,7 +26,7 @@ function usePagination(totalCount, pageSize, currentPage, siblingCount = 1) {
             const leftRange = generateRange(1, Math.min(5, totalPagination));
             return [
                 ...leftRange,
-                <BiDotsHorizontalRounded className='pt-2 text-[1.25rem]'/>,
+                <BiDotsHorizontalRounded key="dots-right" className='pt-2 text-[1.25rem]'/>,
                 totalPagination
             ];
         }
@@ -36,9 +36,9 @@ function usePagination(totalCount, pageSize, currentPage, siblingCount = 1) {
             const middleRange = generateRange(siblingLeft, siblingRight);
             return [
                 1,
-                <BiDotsHorizontalRounded className='pt-2 text-[1.25rem]' />,
+                <BiDotsHorizontalRounded key="dots-left" className='pt-2 text-[1.25rem]' />,
                 ...middleRange,
-                <BiDotsHorizontalRounded className='pt-2 text-[1.25rem]' />,
+                <BiDotsHorizontalRounded key="dots-right" className='pt-2 text-[1.25rem]' />,
                 totalPagination
             ];
         }

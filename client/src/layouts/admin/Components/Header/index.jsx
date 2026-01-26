@@ -1,11 +1,10 @@
 import config from '~/config';
-import { HiOutlineBell, HiOutlineChatAlt } from 'react-icons/hi';
-import { Menu, Popover, Transition } from '@headlessui/react';
+import { HiOutlineBell } from 'react-icons/hi';
+import { Menu, Transition } from '@headlessui/react';
 import classNames from 'classnames';
-import { Fragment, useEffect } from 'react';
+import { Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { getCurrent } from '~/redux/features/slices/asyncActions';
 import { logout } from '~/redux/features/slices/userSlice';
 
 function HeaderAdmin() {

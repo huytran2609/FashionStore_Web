@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './Category.module.scss';
 import Input from '~/components/input';
 
